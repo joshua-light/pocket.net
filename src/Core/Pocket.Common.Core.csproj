@@ -4,6 +4,7 @@
     <RootNamespace>Pocket.Common</RootNamespace>
     <LangVersion>7.1</LangVersion>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />

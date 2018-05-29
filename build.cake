@@ -1,4 +1,4 @@
-#tool "nuget:?package=OpenCover"
+#tool nuget:?package=OpenCover
 #tool nuget:?package=Codecov
 #addin nuget:?package=Cake.Codecov
 
@@ -30,6 +30,7 @@ Task("Build")
         DotNetCoreBuild(solutionPath, new DotNetCoreBuildSettings
         {
             Configuration = configuration,
+            ArgumentCustomization = arg => arg.AppendSwitch("/p:DebugType", "=", "Full")
         });
     });
 
@@ -38,8 +39,7 @@ Task("Run-Tests")
     {
         var dotNetTestSettings = new DotNetCoreTestSettings
         {
-            Configuration = "Debug",
-            NoBuild = false,
+            Configuration = configuration,
         };
         var coverageOutput = File("./artifacts/tests-coverage.xml");
         var openCoverSettings = new OpenCoverSettings
@@ -47,7 +47,7 @@ Task("Run-Tests")
             OldStyle = true,
             Register = "user",
         }
-        .WithFilter("+[*]* -[*.Tests*]*");
+        .WithFilter("+[*]* -[*Tests]*");
 
         OpenCover(context => context.DotNetCoreTest(testsPath, dotNetTestSettings), coverageOutput, openCoverSettings);
     });
