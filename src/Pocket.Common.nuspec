@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Pocket.Common</id>
+    <authors>Joshua Light</authors>
+    <owners>Joshua Light</owners>
+    <licenseUrl>https://github.com/JoshuaLight/Pocket.Common/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/JoshuaLight/Pocket.Common/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides a set of common classes and approaches, which can be used in any project as helpful pocket library.</description>
+    <copyright>Copyright © 2018 JoshuaLight</copyright>
+    <tags>Common Util Extensions</tags>
+  </metadata>
+</package>
