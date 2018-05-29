@@ -1,5 +1,4 @@
 ﻿using System;
-using NullGuard;
 
 namespace Pocket.Common
 {
@@ -16,8 +15,11 @@ namespace Pocket.Common
         /// <typeparam name="TInput">Type of object to be represented.</typeparam>
         /// <typeparam name="TResult">Type of result object that will represent <paramref name="self"/>.</typeparam>
         /// <returns>Representation of <paramref name="self"/> in <typeparamref name="TResult"/> type.</returns>
-        public static TResult As<TInput, TResult>(this TInput self, Func<TInput, TResult> map) =>
-            map(self);
+        public static TResult As<TInput, TResult>(this TInput self, Func<TInput, TResult> map)
+        {
+            map.EnsureNotNull();
+            return map(self);
+        }
 
         /// <summary>
         ///     Performs specified <see cref="Action"/> function on object and returns this object.
@@ -26,7 +28,7 @@ namespace Pocket.Common
         /// <param name="apply">Function that will be applied on <paramref name="self"/> object.</param>
         /// <typeparam name="T">Type of <paramref name="self"/> object.</typeparam>
         /// <returns><code>this</code> object.</returns>
-        public static T Do<T>(this T self, [AllowNull] Action<T> apply)
+        public static T Do<T>(this T self, Action<T> apply)
         {
             apply?.Invoke(self);
             return self;

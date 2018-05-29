@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NullGuard;
 
 namespace Pocket.Common
 {
@@ -29,7 +28,7 @@ namespace Pocket.Common
         /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
         /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
         /// <returns>Element with specified key or default value for type <typeparamref name="TValue"/>.</returns>
-        [return: AllowNull] public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
             self.TryGetValue(key, out var result) ? result : default;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NullGuard;
 
 namespace Pocket.Common
 {
@@ -16,7 +15,7 @@ namespace Pocket.Common
         /// <param name="self"><code>this</code> object.</param>
         /// <typeparam name="T">Type of elements in <see cref="IEnumerable{T}"/>.</typeparam>
         /// <returns><see cref="Enumerable.Empty{T}"/> if <code>this</code> is <code>null</code>, otherwise returns <code>this</code>.</returns>
-        public static IEnumerable<T> OrEmpty<T>([AllowNull] this IEnumerable<T> self) => self ?? Enumerable.Empty<T>();
+        public static IEnumerable<T> OrEmpty<T>(this IEnumerable<T> self) => self ?? Enumerable.Empty<T>();
 
         /// <summary>
         ///     Takes first object from <see cref="IEnumerable{T}"/> that has minimum value, provided by <paramref name="selector"/>.
@@ -29,6 +28,9 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static T TakeMin<T, TMin>(this IEnumerable<T> self, Func<T, TMin> selector) where TMin : IComparable<TMin>
         {
+            self.EnsureNotNull();
+            selector.EnsureNotNull();
+            
             var min = default(T);
             var first = true;
 
@@ -59,6 +61,9 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static T TakeMax<T, TMax>(this IEnumerable<T> self, Func<T, TMax> selector) where TMax : IComparable<TMax>
         {
+            self.EnsureNotNull();
+            selector.EnsureNotNull();
+            
             var max = default(T);
             var first = true;
 

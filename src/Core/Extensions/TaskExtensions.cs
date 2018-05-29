@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using NullGuard;
 
 namespace Pocket.Common
 {
     public static class TaskExtensions
     {
-        [return: AllowNull] public static async Task<T> WithTimeout<T>(this Task<T> self, int timeoutMs)
+        public static async Task<T> WithTimeout<T>(this Task<T> self, int timeoutMs)
         {
             var timeout = Task.Delay(timeoutMs);
             await Task.WhenAny(self, timeout);
