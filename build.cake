@@ -1,3 +1,5 @@
+#tool "nuget:?package=OpenCover"
+
 const string ProjectName = "Pocket.Common";
 
 var target = Argument("target", "Default");
@@ -28,6 +30,7 @@ Task("Build")
         DotNetCoreBuild(solutionPath, new DotNetCoreBuildSettings
         {
             Configuration = configuration,
+            ArgumentCustomization = arg => arg.AppendSwitch("/p:DebugType", "=", "Full"),
         });
     });
 
@@ -35,11 +38,20 @@ Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        DotNetCoreTool(
-            testsPath,
-            "xunit",
-            $""
-        );
+        var dotNetTestSettings = new DotNetCoreTestSettings
+        {
+            Configuration = "Debug",
+            NoBuild = false,
+        };
+        var coverageOutput = File("./artifacts/OpenCover.xml");
+        var openCoverSettings = new OpenCoverSettings
+        { 
+            OldStyle = true,
+            Register = "user",
+        }
+        .WithFilter("+[*]* -[Pocket.Common.Tests*]*");
+
+        OpenCover(context => context.DotNetCoreTest(testsPath, dotNetTestSettings), coverageOutput, openCoverSettings);
     });
 
 Task("Default")
