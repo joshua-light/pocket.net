@@ -62,6 +62,12 @@ Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Build")
+    .IsDependentOn("Run-Tests");
+
+Task("Default-CI")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Build")
     .IsDependentOn("Run-Tests")
     .IsDependentOn("Upload-Coverage");
 
