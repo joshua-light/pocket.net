@@ -7,6 +7,24 @@ namespace Pocket.Common.Tests.Numbers.Extensions
     public class BoundedDoubleExtensionsTest
     {
         [Fact]
+        public void BoundedByInt_ShouldCreateBoundedDouble()
+        {
+            var number = 50.BoundedBy(100);
+
+            Assert.Equal(50, number.Value);
+            Assert.Equal(100, number.Max);
+        }
+        
+        [Fact]
+        public void BoundedBy_ShouldCreateBoundedDouble()
+        {
+            var number = 50.1.BoundedBy(100.1);
+
+            Assert.Equal(50.1, number.Value);
+            Assert.Equal(100.1, number.Max);
+        }
+        
+        [Fact]
         public void Percent_ShouldCorrectlyCalculateValueAndMaxProportion()
         {
             var boundedDouble = new BoundedDouble(50, 100);
