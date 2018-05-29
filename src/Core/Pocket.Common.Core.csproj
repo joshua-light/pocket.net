@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Pocket.Common</AssemblyName>
+    <RootNamespace>Pocket.Common</RootNamespace>
+    <LangVersion>7.1</LangVersion>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Pocket.Common.Core.csproj.DotSettings" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NullGuard.Fody" Version="1.8.0" />
+  </ItemGroup>
+</Project>
