@@ -1,8 +1,13 @@
-version: 1.0.{build}
-
+#---------------------------------#
+#  Image                          #
+#---------------------------------#
 image: Visual Studio 2017
 
+#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
 build_script:
-- cmd: PowerShell -Version 2.0 .\build.ps1
+  - ps: .\build.ps1 -Target Default-CI -Verbosity Diagnostic --settings_skipverification=true
 
+# Tests
 test: off
