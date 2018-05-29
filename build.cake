@@ -1,4 +1,6 @@
 #tool "nuget:?package=OpenCover"
+#tool nuget:?package=Codecov
+#addin nuget:?package=Cake.Codecov
 
 const string ProjectName = "Pocket.Common";
 
@@ -17,25 +19,21 @@ Task("Clean")
     });
 
 Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
     .Does(() =>
     {
         DotNetCoreRestore(solutionPath);
     });
 
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
     {
         DotNetCoreBuild(solutionPath, new DotNetCoreBuildSettings
         {
             Configuration = configuration,
-            ArgumentCustomization = arg => arg.AppendSwitch("/p:DebugType", "=", "Full"),
         });
     });
 
 Task("Run-Tests")
-    .IsDependentOn("Build")
     .Does(() =>
     {
         var dotNetTestSettings = new DotNetCoreTestSettings
@@ -43,18 +41,28 @@ Task("Run-Tests")
             Configuration = "Debug",
             NoBuild = false,
         };
-        var coverageOutput = File("./artifacts/OpenCover.xml");
+        var coverageOutput = File("./artifacts/tests-coverage.xml");
         var openCoverSettings = new OpenCoverSettings
         { 
             OldStyle = true,
             Register = "user",
         }
-        .WithFilter("+[*]* -[Pocket.Common.Tests*]*");
+        .WithFilter("+[*]* -[*.Tests*]*");
 
         OpenCover(context => context.DotNetCoreTest(testsPath, dotNetTestSettings), coverageOutput, openCoverSettings);
     });
 
+Task("Upload-Coverage")
+    .Does(() =>
+    {
+        Codecov("./artifacts/tests-coverage.xml", "0c521d31-a979-4ed8-8c6d-6d8f7205bf3d");
+    });
+
 Task("Default")
-    .IsDependentOn("Run-Tests");
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Build")
+    .IsDependentOn("Run-Tests")
+    .IsDependentOn("Upload-Coverage");
 
 RunTarget(target);
