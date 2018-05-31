@@ -12,7 +12,8 @@
     <tags>Common Util Extensions</tags>
   </metadata>
   <files>
-    <file src="..\artifacts\out\lib\netcoreapp2.0\Pocket.Common.*"
-          target="lib\netcoreapp2.0"/>
+    <file src="..\artifacts\out\lib\net461\*" target="lib\net461"/>
+    <file src="..\artifacts\out\lib\net471\*" target="lib\net471"/>
+    <file src="..\artifacts\out\lib\netcoreapp2.0\*" target="lib\netcoreapp2.0"/>
   </files>
 </package>

@@ -3,7 +3,7 @@
 #addin nuget:?package=Cake.Codecov
 
 // Consts.
-const string Version = "1.0.0-rc2";
+const string Version = "1.0.0";
 const string ProjectName = "Pocket.Common";
 
 // Arguments.
@@ -70,10 +70,10 @@ Task("Upload-Coverage")
 Task("Pack")
     .Does(() => 
     {
-        CreateDirectory("./artifacts/out/lib/netcoreapp2.0");
-        CopyFiles(
-            $"./src/Core/bin/{configuration}/netcoreapp2.0/{ProjectName}*.*",
-            "./artifacts/out/lib/netcoreapp2.0");
+        CreateDirectory("./artifacts/out/lib");
+        CopyDirectory(
+            $"./src/Core/bin/{configuration}",
+            "./artifacts/out/lib");
 
         NuGetPack($"./src/{ProjectName}.nuspec", new NuGetPackSettings
         {
