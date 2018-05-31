@@ -1,0 +1,16 @@
+#---------------------------------#
+#  Image                          #
+#---------------------------------#
+image: Visual Studio 2017
+
+#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
+build_script:
+  - ps: .\build.ps1 -Target Default-CI -Verbosity Diagnostic --settings_skipverification=true
+
+# Deploying only tags.
+skip_non_tags: true
+
+# Tests
+test: off
