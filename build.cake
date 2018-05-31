@@ -7,18 +7,17 @@ const string Version = "1.0.0-rc2";
 const string ProjectName = "Pocket.Common";
 
 // Arguments.
-var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var name = Argument("project", ProjectName);
 
 // Variables.
+var target =  EnvironmentVariable("target") ?? Argument("target", "Default");
 var version = EnvironmentVariable("version") ?? Version;
 var nugetApiKey = EnvironmentVariable("nugetApiKey") ?? Argument("nugetApiKey", "");
 var codecovApiKey = EnvironmentVariable("codecovApiKey") ?? Argument("codecovApiKey", "");
 
 // Configured paths.
 var solutionRootPath = "./src";
-var solutionPath = $"{solutionRootPath}/{name}.sln";
+var solutionPath = $"{solutionRootPath}/{ProjectName}.sln";
 var testsPath = $"{solutionRootPath}/Tests/Pocket.Common.Tests.csproj";
 
 // Tasks.
