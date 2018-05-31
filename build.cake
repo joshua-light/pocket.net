@@ -2,16 +2,26 @@
 #tool nuget:?package=Codecov
 #addin nuget:?package=Cake.Codecov
 
+// Consts.
+const string Version = "1.0.0-rc2";
 const string ProjectName = "Pocket.Common";
 
+// Arguments.
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var name = Argument("project", ProjectName);
 
+// Variables.
+var version = EnvironmentVariable("version") ?? Version;
+var nugetApiKey = EnvironmentVariable("nugetApiKey") ?? Argument("nugetApiKey", "");
+var codecovApiKey = EnvironmentVariable("codecovApiKey") ?? Argument("codecovApiKey", "");
+
+// Configured paths.
 var solutionRootPath = "./src";
 var solutionPath = $"{solutionRootPath}/{name}.sln";
 var testsPath = $"{solutionRootPath}/Tests/Pocket.Common.Tests.csproj";
 
+// Tasks.
 Task("Clean")
     .Does(() =>
     {
@@ -55,14 +65,41 @@ Task("Run-Tests")
 Task("Upload-Coverage")
     .Does(() =>
     {
-        Codecov("./artifacts/tests-coverage.xml", "0c521d31-a979-4ed8-8c6d-6d8f7205bf3d");
+        Codecov("./artifacts/tests-coverage.xml", codecovApiKey);
     });
 
+Task("Pack")
+    .Does(() => 
+    {
+        CreateDirectory("./artifacts/out/lib/netcoreapp2.0");
+        CopyFiles(
+            $"./src/Core/bin/{configuration}/netcoreapp2.0/{ProjectName}*.*",
+            "./artifacts/out/lib/netcoreapp2.0");
+
+        NuGetPack($"./src/{ProjectName}.nuspec", new NuGetPackSettings
+        {
+            Version = version,
+            OutputDirectory = "./artifacts",
+        });
+    });
+
+Task("Publish")
+    .Does(() =>
+    {
+        NuGetPush($"./artifacts/{ProjectName}.{version}.nupkg", new NuGetPushSettings
+        {
+            Source = "https://api.nuget.org/v3/index.json",
+            ApiKey = nugetApiKey,
+        });
+    });
+
+// Executable tasks.
 Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Build")
-    .IsDependentOn("Run-Tests");
+    .IsDependentOn("Run-Tests")
+    .IsDependentOn("Pack");
 
 Task("Default-CI")
     .IsDependentOn("Clean")
@@ -70,5 +107,13 @@ Task("Default-CI")
     .IsDependentOn("Build")
     .IsDependentOn("Run-Tests")
     .IsDependentOn("Upload-Coverage");
+
+Task("Deploy")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Build")
+    .IsDependentOn("Run-Tests")
+    .IsDependentOn("Pack")
+    .IsDependentOn("Publish");
 
 RunTarget(target);

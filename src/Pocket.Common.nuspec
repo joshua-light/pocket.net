@@ -11,4 +11,8 @@
     <copyright>Copyright © 2018 JoshuaLight</copyright>
     <tags>Common Util Extensions</tags>
   </metadata>
+  <files>
+    <file src="..\artifacts\out\lib\netcoreapp2.0\Pocket.Common.*"
+          target="lib\netcoreapp2.0"/>
+  </files>
 </package>
