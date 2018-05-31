@@ -6,6 +6,10 @@ image: Visual Studio 2017
 #---------------------------------#
 #  Build Script                   #
 #---------------------------------#
+
+before_build:
+  - ps: $env:version=$env:APPVEYOR_BUILD_VERSION
+
 build_script:
   - ps: .\build.ps1 -Target Default-CI -Verbosity Diagnostic --settings_skipverification=true
 
