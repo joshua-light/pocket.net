@@ -1,5 +1,4 @@
-﻿using Pocket.Common.Extensions;
-using Xunit;
+﻿using Xunit;
 
 namespace Pocket.Common.Tests.Monads.Extensions
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using NSubstitute;
-using Pocket.Common.Extensions;
 using Pocket.Common.Tests.Core.Extensions;
 using Xunit;
 

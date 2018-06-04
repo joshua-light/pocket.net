@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common.Extensions
+﻿namespace Pocket.Common
 {
     public static class MaybeExtensions
     {

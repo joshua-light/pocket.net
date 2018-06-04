@@ -1,5 +1,4 @@
 ﻿using System;
-using Pocket.Common.Extensions;
 
 namespace Pocket.Common
 {

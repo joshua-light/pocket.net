@@ -1,5 +1,4 @@
 ﻿using System;
-using Pocket.Common.Extensions;
 using Xunit;
 
 namespace Pocket.Common.Tests.Monads

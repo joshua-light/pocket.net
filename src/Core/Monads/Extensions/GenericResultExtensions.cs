@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Extensions
+namespace Pocket.Common
 {
     public static class GenericResultExtensions
     {
