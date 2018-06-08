@@ -6,7 +6,7 @@ namespace Pocket.Common
 {
     public static class Emit
     {
-        public static Func<T> Ctor<T>() where T : new()
+        public static Func<T> Ctor<T>()
         {
             var type = typeof(T);
             var ctor = type.GetTypeInfo().GetConstructor(Array.Empty<Type>());
