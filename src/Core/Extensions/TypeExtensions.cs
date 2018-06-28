@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Pocket.Common
@@ -10,8 +11,24 @@ namespace Pocket.Common
             var typeInfo = self.GetTypeInfo();
             return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+
+        public static bool Implements(this Type self, Type other)
+        {
+            if (!other.IsInterface)
+                throw new InvalidOperationException($"Specified {other.Name} is not an interface.");
+            
+            if (!other.IsGenericTypeDefinition)
+                return other.IsAssignableFrom(self);
+
+            var interfaces = self.IsGenericTypeDefinition
+                ? self.GetTypeInfo().ImplementedInterfaces
+                : self.GetGenericTypeDefinition().GetTypeInfo().ImplementedInterfaces;
+            
+            // There is a strange thing, because type references in `interfaces` collection
+            // can look same as `other`, but actually are not.
+            return interfaces.Any(x => x.GUID == other.GUID);
+        }
         
-        public static bool Implements<T>(this Type self) => typeof(T).IsAssignableFrom(self);
         public static bool Extends<T>(this Type self) => typeof(T).IsAssignableFrom(self);
     }
 }

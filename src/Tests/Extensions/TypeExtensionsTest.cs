@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
@@ -14,15 +15,27 @@ namespace Pocket.Common.Tests.Extensions
         public void IsNullable_ShouldBeTrue_IfTypeIsNullable(Type type) => Assert.True(type.IsNullable());
         
         [Fact]
-        public void Implements_ShouldBeTrue_IfTypeImplementsInterfaceOrExtendsClass()
+        public void Implements_ShouldBeTrue_IfTypeImplementsInterface()
         {
-            Assert.True(typeof(Human).Implements<IAnimal>());
-            Assert.True(typeof(Human).Implements<IOrganism>());
+            Assert.True(typeof(Human).Implements(typeof(IAnimal)));
+            Assert.True(typeof(Human).Implements(typeof(IOrganism)));
             
-            Assert.True(typeof(Woman).Implements<IAnimal>());
-            Assert.True(typeof(Woman).Implements<IOrganism>());
-            Assert.True(typeof(Woman).Implements<Human>());
+            Assert.True(typeof(Woman).Implements(typeof(IAnimal)));
+            Assert.True(typeof(Woman).Implements(typeof(IOrganism)));
         }
+        
+        [Fact]
+        public void Implements_ShouldBeTrue_IfGenericTypeImplementsInterface()
+        {
+            Assert.True(typeof(HashSet<int>).Implements(typeof(IEnumerable<>)));
+            Assert.True(typeof(HashSet<>).Implements(typeof(IEnumerable<>)));
+            Assert.True(typeof(List<>).Implements(typeof(IEnumerable<>)));
+            Assert.True(typeof(Dictionary<,>).Implements(typeof(IEnumerable<>)));
+        }
+
+        [Fact]
+        public void Implements_ShouldThrow_IfSpecifiedTypeIsNotInterface() =>
+            Assert.Throws<InvalidOperationException>(() => typeof(Woman).Implements(typeof(Human)));
         
         [Fact]
         public void Extends_ShouldBeTrue_IfTypeExtendsClassOrImplementsInterface()
