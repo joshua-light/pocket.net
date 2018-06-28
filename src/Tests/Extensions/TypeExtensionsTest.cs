@@ -1,9 +1,18 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
 {
     public class TypeExtensionsTest
     {
+        [Theory]
+        [InlineData(typeof(int?))]
+        [InlineData(typeof(long?))]
+        [InlineData(typeof(short?))]
+        [InlineData(typeof(byte?))]
+        [InlineData(typeof(double?))]
+        public void IsNullable_ShouldBeTrue_IfTypeIsNullable(Type type) => Assert.True(type.IsNullable());
+        
         [Fact]
         public void Implements_ShouldBeTrue_IfTypeImplementsInterfaceOrExtendsClass()
         {
