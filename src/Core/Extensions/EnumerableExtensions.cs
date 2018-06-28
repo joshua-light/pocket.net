@@ -10,7 +10,7 @@ namespace Pocket.Common
     public static class EnumerableExtensions
     {
         /// <summary>
-        ///     Changes <code>this</code> reference to <see cref="Enumerable.Empty{TResult}"/>, if <code>this</code> is <code>null</code>.
+        ///     Returns <see cref="Enumerable.Empty{TResult}"/>, if <code>this</code> is <code>null</code>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <typeparam name="T">Type of elements in <see cref="IEnumerable{T}"/>.</typeparam>
