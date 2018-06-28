@@ -28,7 +28,24 @@ namespace Pocket.Common
             // can look same as `other`, but actually are not.
             return interfaces.Any(x => x.GUID == other.GUID);
         }
-        
-        public static bool Extends<T>(this Type self) => typeof(T).IsAssignableFrom(self);
+
+        public static bool Extends(this Type self, Type other)
+        {
+            if (!other.IsClass)
+                throw new InvalidOperationException($"Specified {other.Name} is not an interface.");
+            
+            if (!other.IsGenericTypeDefinition)
+                return other.IsAssignableFrom(self);
+
+            if (!self.IsGenericType)
+                return false;
+
+            if (self.BaseType.GUID == other.GUID)
+                return true;
+
+            return self.IsGenericTypeDefinition
+                ? self.BaseType.Extends(other)
+                : self.GetGenericTypeDefinition().BaseType.Extends(other);
+        }
     }
 }

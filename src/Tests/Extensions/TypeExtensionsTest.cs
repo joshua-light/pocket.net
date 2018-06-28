@@ -38,15 +38,24 @@ namespace Pocket.Common.Tests.Extensions
             Assert.Throws<InvalidOperationException>(() => typeof(Woman).Implements(typeof(Human)));
         
         [Fact]
-        public void Extends_ShouldBeTrue_IfTypeExtendsClassOrImplementsInterface()
+        public void Extends_ShouldBeTrue_IfTypeExtendsClass()
         {
-            Assert.True(typeof(Human).Extends<IAnimal>());
-            Assert.True(typeof(Human).Extends<IOrganism>());
-            
-            Assert.True(typeof(Man).Extends<IAnimal>());
-            Assert.True(typeof(Man).Extends<IOrganism>());
-            Assert.True(typeof(Man).Extends<Human>());
+            Assert.True(typeof(Man).Extends(typeof(Human)));
+            Assert.True(typeof(Woman).Extends(typeof(Human)));
+            Assert.True(typeof(John).Extends(typeof(Human)));
+            Assert.True(typeof(Jannet).Extends(typeof(Human)));
         }
+        
+        [Fact]
+        public void Extends_ShouldBeTrue_IfGenericTypeExtendsClass()
+        {
+            Assert.True(typeof(GenericChild<int>).Extends(typeof(GenericParent<>)));
+            Assert.True(typeof(GenericChild<>).Extends(typeof(GenericParent<>)));
+        }
+        
+        [Fact]
+        public void Extends_ShouldThrow_IfSpecifiedTypeIsNotClass() =>
+            Assert.Throws<InvalidOperationException>(() => typeof(Woman).Extends(typeof(IAnimal)));
         
         #region Inner Classes
         
@@ -56,6 +65,11 @@ namespace Pocket.Common.Tests.Extensions
         private class Human : IAnimal, IOrganism { }
         private class Man : Human { }
         private class Woman : Human { }
+        private class John : Man { }
+        private class Jannet : Woman { }
+        
+        private class GenericParent<T> { }
+        private class GenericChild<T> : GenericParent<T> { }
 
         #endregion
     }
