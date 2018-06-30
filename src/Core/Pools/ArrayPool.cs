@@ -7,6 +7,10 @@ namespace Pocket.Common
 {
     public class ArrayPool<T>
     {
+        /// <summary>
+        ///     Represents a bounded segment of some <see cref="ArrayPool{T}"/> buffer, 
+        ///     which is behaves like <see cref="Array"/> or <see cref="IEnumerable"/>.
+        /// </summary>
         public struct Segment : IEnumerable<T>, IDisposable, IEquatable<Segment>
         {
             public struct Enumerator : IEnumerator<T>
@@ -55,8 +59,15 @@ namespace Pocket.Common
             internal int Start { get; }
             internal int End { get; }
 
+            /// <summary>
+            ///     Length of segment.
+            /// </summary>
             public int Length => End - Start;
 
+            /// <summary>
+            ///     Gets or sets elements of segment.
+            /// </summary>
+            /// <param name="index">Index of element.</param>
             public T this[int index]
             {
                 // We ensure that `index` is not less than zero,
@@ -64,7 +75,10 @@ namespace Pocket.Common
                 get { index.EnsureGreaterOrEqual(0); return _source[Start + index]; }
                 set { index.EnsureGreaterOrEqual(0); _source[Start + index] = value; }
             }
-
+            
+            /// <summary>
+            ///     Releases segment and frees all its memory.
+            /// </summary>
             public void Dispose() => _pool.Release(this);
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -104,6 +118,10 @@ namespace Pocket.Common
         
         private readonly int _size;
 
+        /// <summary>
+        ///     Initializes instance of <see cref="ArrayPool{T}"/> with internal buffer of specified size.
+        /// </summary>
+        /// <param name="size">Size of array that is used as buffer.</param>
         public ArrayPool(int size)
         {
             _buffer = new T[size];
@@ -112,6 +130,12 @@ namespace Pocket.Common
             _size = size;
         }
 
+        /// <summary>
+        ///     Allocates <see cref="Segment"/> of specified size and returns it.
+        /// </summary>
+        /// <param name="size">Size of <see cref="Segment"/>.</param>
+        /// <returns>Instance of <see cref="Segment"/>.</returns>
+        /// <exception cref="InvalidOperationException">Not enough memory to allocate segment of specified size.</exception>
         public Segment Take(int size)
         {
             var index = StartIndexOfFreeSegment(size);
