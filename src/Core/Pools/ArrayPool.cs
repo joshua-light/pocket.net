@@ -43,7 +43,7 @@ namespace Pocket.Common
             private readonly ArrayPool<T> _pool;
             private readonly T[] _source;
 
-            public Segment(ArrayPool<T> pool, int iStart, int iEnd)
+            internal Segment(ArrayPool<T> pool, int iStart, int iEnd)
             {
                 Start = iStart;
                 End = iEnd;
