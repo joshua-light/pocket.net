@@ -1,11 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Pocket.Common.Tests.Pools
 {
     public class ArrayPoolTest
     {
+        public class SegmentTest
+        {
+            [Theory]
+            [InlineData(0, 10)]
+            [InlineData(50, 60)]
+            [InlineData(80, 100)]
+            [InlineData(0, 100)]
+            public void Length_ShouldReturnCorrectValue(int start, int end)
+            {
+                var segment = Segment(start, end);
+
+                Assert.Equal(end - start, segment.Length);
+            }
+        
+            [Theory]
+            [InlineData(0, 10)]
+            [InlineData(50, 60)]
+            [InlineData(80, 99)]
+            [InlineData(0, 99)]
+            public void Segment_ShouldImplementEnumerable(int start, int end)
+            {
+                var segment = Segment(start, end);
+
+                for (var i = 0; i < end - start; i++)
+                    segment[i] = start + i;
+
+                Assert.Equal(Enumerable.Range(start, end - start), segment);
+            }
+        
+            [Fact]
+            public void Indexer_ShouldThrow_IfIndexIsNegative()
+            {
+                var segment = Segment(10, 20);
+
+                Assert.Throws<ArgumentException>(() => segment[-1]);
+                Assert.Throws<ArgumentException>(() => segment[-1] = 1);
+            }
+
+            #region Helpers
+        
+            private readonly ArrayPool<int> _pool = new ArrayPool<int>(100);
+
+            private ArrayPool<int>.Segment Segment(int start, int end) =>
+                new ArrayPool<int>.Segment(_pool, start, end);
+
+            #endregion
+        }
+        
         [Theory]
         [InlineData(1)]
         [InlineData(50)]

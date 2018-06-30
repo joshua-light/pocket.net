@@ -59,8 +59,10 @@ namespace Pocket.Common
 
             public T this[int index]
             {
-                get => _source[Start + index];
-                set => _source[Start + index] = value;
+                // We ensure that `index` is not less than zero,
+                // because it can be used to access elements of neighbour segments.
+                get { index.EnsureGreaterOrEqual(0); return _source[Start + index]; }
+                set { index.EnsureGreaterOrEqual(0); _source[Start + index] = value; }
             }
 
             public void Dispose() => _pool.Release(this);
