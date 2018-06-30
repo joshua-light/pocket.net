@@ -99,16 +99,8 @@ namespace Pocket.Common
             public override bool Equals(object obj) =>
                 !ReferenceEquals(null, obj) && obj is Segment segment && Equals(segment);
 
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    var hashCode = _source.GetHashCode();
-                    hashCode = (hashCode * 397) ^ Start;
-                    hashCode = (hashCode * 397) ^ End;
-                    return hashCode;
-                }
-            }
+            public override int GetHashCode() =>
+                Hash.Of(_source).With(Start).With(End);
 
             #endregion
         }
