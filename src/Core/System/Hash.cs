@@ -2,7 +2,7 @@
 {
     public struct Hash
     {
-        private const int Prime = 397;
+        internal const int Prime = 16777619;
         
         private readonly int _hash;
 
@@ -16,9 +16,8 @@
         
         public Hash With<T>(T item) => new Hash((_hash * Prime) ^ (item != null ? item.GetHashCode() : 0));
 
-        public int AsHashCode() => _hash;
         public override int GetHashCode() => _hash;
 
-        public static implicit operator int(Hash self) => self.AsHashCode();
+        public static implicit operator int(Hash self) => self.GetHashCode();
     }
 }
