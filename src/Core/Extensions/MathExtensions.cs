@@ -87,7 +87,14 @@ namespace Pocket.Common
             /// </summary>
             /// <returns>Maximum of two items.</returns>
             /// <remarks>Works like <see cref="Math.Max"/>.</remarks>
-            public T IfLess() => _a.CompareTo(_b) < 0 ? _b : _a;
+            public T IfLess() => _a.IsLess(_b) ? _b : _a;
+
+            /// <summary>
+            ///     Checks whether first item is greater than second and if so returns second.
+            /// </summary>
+            /// <returns>Minimum of two items.</returns>
+            /// <remarks>Works like <see cref="Math.Min"/>.</remarks>
+            public T IfGreater() => _a.IsGreater(_b) ? _b : _a;
         }
 
         /// <summary>
