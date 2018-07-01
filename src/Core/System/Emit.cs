@@ -27,10 +27,7 @@ namespace Pocket.Common
         }
 
         public static Func<T, object> GetField<T>(FieldInfo field)
-        {
-            if (field.DeclaringType == null)
-                throw new ArgumentException($"Specified field `{field.Name}` must have declaring type.");
-            
+        {            
             var method = new DynamicMethod(field.DeclaringType.Namespace + "_" + field.Name + "_GetField",
                 typeof(object),
                 new[] { typeof(T) });
@@ -54,9 +51,6 @@ namespace Pocket.Common
 
         public static Action<T, object> SetField<T>(FieldInfo field)
         {
-            if (field.DeclaringType == null)
-                throw new ArgumentException($"Specified field `{field.Name}` must have declaring type.");
-            
             var method = new DynamicMethod(field.DeclaringType.Namespace + "_" + field.Name + "_SetField",
                 typeof(void),
                 new[] { typeof(T), typeof(object) });
