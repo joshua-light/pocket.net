@@ -24,8 +24,8 @@ namespace Pocket.Common
                 ? self.GetTypeInfo().ImplementedInterfaces
                 : self.GetGenericTypeDefinition().GetTypeInfo().ImplementedInterfaces;
             
-            // There is a strange thing, because type references in `interfaces` collection
-            // can look same as `other`, but actually are not.
+            // There is a strange thing:
+            // type references in `interfaces` collection can look same as `other`, but actually are not.
             return interfaces.Any(x => x.GUID == other.GUID);
         }
 
