@@ -93,6 +93,35 @@ namespace Pocket.Common.Tests.Pools
             Assert.NotEqual(123, segment[0]);
         }
 
+        [Fact]
+        public void Take_ShouldCheckFreeSpaceAtStartOfBuffer()
+        {
+            var pool = PoolOf<int>(2);
+
+            var a = pool.Take(1);
+            var b = pool.Take(1);
+            
+            a.Dispose();
+
+            // This should not throw exception.
+            pool.Take(1);
+        }
+        
+        [Fact]
+        public void Take_ShouldCheckFreeSpaceInBetweenOfSegments()
+        {
+            var pool = PoolOf<int>(3);
+
+            var a = pool.Take(1);
+            var b = pool.Take(1);
+            var c = pool.Take(1);
+            
+            b.Dispose();
+
+            // This should not throw exception.
+            pool.Take(1);
+        }
+
         #region Helpers
 
         private static ArrayPool<T> PoolOf<T>(int size = 1000) => new ArrayPool<T>(size);
