@@ -51,6 +51,9 @@ namespace Pocket.Common.Tests.Extensions
         {
             Assert.True(typeof(GenericChild<int>).Extends(typeof(GenericParent<>)));
             Assert.True(typeof(GenericChild<>).Extends(typeof(GenericParent<>)));
+            
+            Assert.True(typeof(GenericGrandChild<int>).Extends(typeof(GenericParent<>)));
+            Assert.True(typeof(GenericGrandChild<>).Extends(typeof(GenericParent<>)));
         }
         
         [Fact]
@@ -70,6 +73,7 @@ namespace Pocket.Common.Tests.Extensions
         
         private class GenericParent<T> { }
         private class GenericChild<T> : GenericParent<T> { }
+        private class GenericGrandChild<T> : GenericChild<T> { }
 
         #endregion
     }
