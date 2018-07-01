@@ -140,11 +140,13 @@ namespace Pocket.Common
 
         private int StartIndexOfFreeSegment(int size)
         {
+            // First we check whether free segment can be obtained at the start of buffer.
             if (_usedSegments.Count == 0)
                 return 0;
             if (size <= _usedSegments[0].Start)
                 return 0;
 
+            // Then we check whether free segment can be obtained in between of currently used ones.
             for (var i = 0; i < _usedSegments.Count - 1; i++)
             {
                 var spaceBetweenSegments = _usedSegments[i + 1].Start - _usedSegments[i].End;
@@ -154,6 +156,7 @@ namespace Pocket.Common
                 return _usedSegments[i].End;
             }
 
+            // The last one case is when free segment can be obtained at the end of buffer.
             if (size <= _size - _usedSegments.Last().End)
                 return _usedSegments.Last().End;
 
