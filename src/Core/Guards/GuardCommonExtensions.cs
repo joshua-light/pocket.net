@@ -8,7 +8,7 @@ namespace Pocket.Common
         public static void EnsureNotNull<T>([NoEnumeration] this T self) where T : class
         {
             if (self == null)
-                throw new ArgumentNullException("self", "Specified value must be not null.");
+                throw new ArgumentNullException(nameof(self), "Specified value must be not null.");
         }
         
         public static void EnsureEqual<T>(this T self, T value) where T : IEquatable<T>

@@ -17,6 +17,108 @@ namespace Pocket.Common.Tests.Extensions
             var enumerable = Enumerable.Range(0, 5);
             Assert.Same(enumerable, enumerable.OrEmpty());
         }
+        
+        #region Each
+
+        [Fact]
+        public void Each_ShouldThrow_IfSelfIsNull()
+        {
+            IEnumerable<int> numbers = null;
+            Assert.Throws<ArgumentNullException>(() => numbers.Each(x => { }));
+        }
+
+        [Fact]
+        public void Each_ShouldInvokeActionOnElements_IfEnumerableIsCollapsed()
+        {
+            var sideNumbers = new List<int>();
+
+            var numbers = Enumerable
+                .Range(0, 10)
+                .Each(x => sideNumbers.Add(x))
+                .ToList();
+
+            Assert.Equal(numbers, sideNumbers);
+        }
+
+        [Fact]
+        public void Each_ShouldInvokeActionOnElements_IfEnumerableIsCollapsedAndFiltered()
+        {
+            var sideNumbers = new List<int>();
+
+            var numbers = Enumerable
+                .Range(0, 10)
+                .Where(x => x > 5)
+                .Each(x => sideNumbers.Add(x))
+                .ToList();
+
+            Assert.Equal(numbers, sideNumbers);
+        }
+
+        [Fact]
+        public void Each_ShouldInvokeActionOnElements_IfEnumerableIsCollapsedButFilteredLater()
+        {
+            var sideNumbers = new List<int>();
+
+            var numbers = Enumerable
+                .Range(0, 10)
+                .Each(x => sideNumbers.Add(x))
+                .Where(x => x > 5)
+                .ToList();
+
+            Assert.NotEqual(numbers, sideNumbers);
+            Assert.Equal(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, sideNumbers);
+        }
+        
+        [Fact]
+        public void Each_ShouldNotInvokeActionOnElements_IfEnumerableIsNotCollapsed()
+        {
+            var sideNumbers = new List<int>();
+
+            Enumerable
+                .Range(0, 10)
+                .Each(x => sideNumbers.Add(x))
+                .Where(x => x > 5);
+
+            Assert.Empty(sideNumbers);
+        }
+
+        #endregion
+
+        #region ForEach
+        
+        [Fact]
+        public void ForEach_ShouldThrow_IfSelfIsNull()
+        {
+            IEnumerable<int> numbers = null;
+            Assert.Throws<ArgumentNullException>(() => numbers.ForEach(x => { }));
+        }
+
+        [Fact]
+        public void ForEach_ShouldInvokeActionOnElements()
+        {
+            var sideNumbers = new List<int>();
+            
+            Enumerable
+                .Range(0, 10)
+                .ForEach(x => sideNumbers.Add(x));
+
+            Assert.Equal(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, sideNumbers);
+        }
+
+        [Fact]
+        public void ForEach_ShouldInvokeActionOnElements_IfEnumerableIsFiltered()
+        {
+            var sideNumbers = new List<int>();
+
+            Enumerable
+                .Range(0, 10)
+                .Where(x => x > 5)
+                .ForEach(x => sideNumbers.Add(x));
+
+            Assert.Equal(new[] { 6, 7, 8, 9 }, sideNumbers);
+        }
+
+        #endregion
 
         public class TakeMin
         {

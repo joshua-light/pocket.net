@@ -18,6 +18,45 @@ namespace Pocket.Common
         public static IEnumerable<T> OrEmpty<T>(this IEnumerable<T> self) => self ?? Enumerable.Empty<T>();
 
         /// <summary>
+        ///     Performs some action on each element of <see cref="IEnumerable{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of element in <see cref="IEnumerable{T}"/>.</typeparam>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="onEach">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
+        /// <returns>Source <see cref="IEnumerable{T}"/>.</returns>
+        /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        public static IEnumerable<T> Each<T>(this IEnumerable<T> self, Action<T> onEach)
+        {
+            self.EnsureNotNull();
+
+            return EachIterator(self, onEach);
+        }
+
+        private static IEnumerable<T> EachIterator<T>(IEnumerable<T> source, Action<T> onEach)
+        {
+            foreach (var item in source)
+            {
+                onEach(item);
+                yield return item;
+            }
+        }
+
+        /// <summary>
+        ///     Performs some action on each element of <see cref="IEnumerable{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of element in <see cref="IEnumerable{T}"/>.</typeparam>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="onEach">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
+        /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        public static void ForEach<T>(this IEnumerable<T> self, Action<T> onEach)
+        {
+            self.EnsureNotNull();
+
+            foreach (var item in self)
+                onEach(item);
+        }
+
+        /// <summary>
         ///     Takes first object from <see cref="IEnumerable{T}"/> that has minimum value, provided by <paramref name="selector"/>.
         /// </summary>
         /// <typeparam name="T">Type of elements in <see cref="IEnumerable{T}"/></typeparam>
