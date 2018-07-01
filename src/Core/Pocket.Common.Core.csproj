@@ -9,4 +9,7 @@
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+  </ItemGroup>
 </Project>

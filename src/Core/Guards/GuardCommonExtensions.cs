@@ -1,10 +1,11 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Pocket.Common
 {
     public static class GuardCommonExtensions
     {
-        public static void EnsureNotNull<T>(this T self) where T : class
+        public static void EnsureNotNull<T>([NoEnumeration] this T self) where T : class
         {
             if (self == null)
                 throw new ArgumentNullException("self", "Specified value must be not null.");
