@@ -8,7 +8,7 @@ namespace Pocket.Common
     public static class ComparableExtensions
     {
         /// <summary>
-        ///     Checks whether <code>self</code> is less than specified value.
+        ///     Checks whether <paramref name="self"/> is less than specified value.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Value to compare.</param>
@@ -18,7 +18,7 @@ namespace Pocket.Common
             self.CompareTo(other) == -1;
         
         /// <summary>
-        ///     Checks whether <code>self</code> is less than or equal to specified value.
+        ///     Checks whether <paramref name="self"/> is less than or equal to specified value.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Value to compare.</param>
@@ -28,7 +28,7 @@ namespace Pocket.Common
             self.CompareTo(other) <= 0;
         
         /// <summary>
-        ///     Checks whether <code>self</code> is greater than specified value.
+        ///     Checks whether <paramref name="self"/> is greater than specified value.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Value to compare.</param>
@@ -38,7 +38,7 @@ namespace Pocket.Common
             self.CompareTo(other) == 1;
         
         /// <summary>
-        ///     Checks whether <code>self</code> is greater than or equal to specified value.
+        ///     Checks whether <paramref name="self"/> is greater than or equal to specified value.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Value to compare.</param>

@@ -10,7 +10,7 @@ namespace Pocket.Common
         #region Abs
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -18,7 +18,7 @@ namespace Pocket.Common
         public static short Abs(this short self) => Math.Abs(self);
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -26,7 +26,7 @@ namespace Pocket.Common
         public static int Abs(this int self) => Math.Abs(self);
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -34,7 +34,7 @@ namespace Pocket.Common
         public static long Abs(this long self) => Math.Abs(self);
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -42,7 +42,7 @@ namespace Pocket.Common
         public static float Abs(this float self) => Math.Abs(self);
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -50,7 +50,7 @@ namespace Pocket.Common
         public static double Abs(this double self) => Math.Abs(self);
         
         /// <summary>
-        ///     Returns the absolute value of <code>self</code>.
+        ///     Returns the absolute value of <paramref name="self"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <exception cref="OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
@@ -98,7 +98,7 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Allows to compare <code>self</code> with <code>other</code> and choose one of them
+        ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
         ///     depending on method call on <see cref="OrCouple{T}"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>

@@ -8,7 +8,7 @@ namespace Pocket.Common
     public static class TaskExtensions
     {
         /// <summary>
-        ///     Waits until <code>self</code> task is completed or for specified amount of time.
+        ///     Waits until <paramref name="self"/> task is completed or for specified amount of time.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="timeoutMs">Amount of time to wait.</param>
@@ -26,7 +26,7 @@ namespace Pocket.Common
         }
         
         /// <summary>
-        ///     Waits until <code>self</code> task with <see cref="Result"/> is completed or for specified amount of time.
+        ///     Waits until <paramref name="self"/> task with <see cref="Result"/> is completed or for specified amount of time.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="timeoutMs">Amount of time to wait.</param>
@@ -43,7 +43,7 @@ namespace Pocket.Common
         }
         
         /// <summary>
-        ///     Waits until <code>self</code> task with <see cref="Result{T}"/> is completed or for specified amount of time.
+        ///     Waits until <paramref name="self"/> task with <see cref="Result{T}"/> is completed or for specified amount of time.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="timeoutMs">Amount of time to wait.</param>
