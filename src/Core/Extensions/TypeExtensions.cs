@@ -20,7 +20,7 @@ namespace Pocket.Common
             if (!other.IsGenericTypeDefinition)
                 return other.IsAssignableFrom(self);
 
-            var interfaces = self.IsGenericTypeDefinition
+            var interfaces = !self.IsGenericType || self.IsGenericTypeDefinition
                 ? self.GetTypeInfo().ImplementedInterfaces
                 : self.GetGenericTypeDefinition().GetTypeInfo().ImplementedInterfaces;
             

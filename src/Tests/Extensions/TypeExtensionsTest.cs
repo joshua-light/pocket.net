@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
@@ -25,6 +26,15 @@ namespace Pocket.Common.Tests.Extensions
         }
         
         [Fact]
+        public void Implements_ShouldBeFalse_IfTypeDoesntImplementsInterface()
+        {
+            Assert.False(typeof(Human).Implements(typeof(IEnumerable<>)));
+            Assert.False(typeof(Woman).Implements(typeof(ICollection)));
+            Assert.False(typeof(Woman).Implements(typeof(ICollection<>)));
+            Assert.False(typeof(Woman).Implements(typeof(IEnumerable<int>)));
+        }
+        
+        [Fact]
         public void Implements_ShouldBeTrue_IfGenericTypeImplementsInterface()
         {
             Assert.True(typeof(HashSet<int>).Implements(typeof(IEnumerable<>)));
@@ -44,6 +54,16 @@ namespace Pocket.Common.Tests.Extensions
             Assert.True(typeof(Woman).Extends(typeof(Human)));
             Assert.True(typeof(John).Extends(typeof(Human)));
             Assert.True(typeof(Jannet).Extends(typeof(Human)));
+        }
+        
+        [Fact]
+        public void Extends_ShouldBeFalse_IfTypeDoesntExtendsClass()
+        {
+            Assert.False(typeof(Man).Extends(typeof(Woman)));
+            Assert.False(typeof(Woman).Extends(typeof(Man)));
+            Assert.False(typeof(John).Extends(typeof(List<>)));
+            Assert.False(typeof(Jannet).Extends(typeof(List<int>)));
+            Assert.False(typeof(Jannet).Extends(typeof(HashSet<>)));
         }
         
         [Fact]
