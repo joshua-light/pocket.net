@@ -14,6 +14,29 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData(typeof(byte?))]
         [InlineData(typeof(double?))]
         public void IsNullable_ShouldBeTrue_IfTypeIsNullable(Type type) => Assert.True(type.IsNullable());
+
+        [Theory]
+        [InlineData(typeof(int), typeof(int))]
+        [InlineData(typeof(IEnumerable<>), typeof(IEnumerable<>))]
+        [InlineData(typeof(IEnumerable<int>), typeof(IEnumerable<int>))]
+        public void Is_ShouldBeTrue_IfTypesAreEqual(Type a, Type b) => Assert.True(a.Is(b));
+        
+        [Theory]
+        [InlineData(typeof(int), typeof(double))]
+        [InlineData(typeof(HashSet<>), typeof(List<>))]
+        [InlineData(typeof(HashSet<int>), typeof(List<int>))]
+        public void Is_ShouldBeFalse_IfTypesAreNotEqual(Type a, Type b) => Assert.False(a.Is(b));
+        
+        [Theory]
+        [InlineData(typeof(List<int>), typeof(List<>))]
+        [InlineData(typeof(Dictionary<int, string>), typeof(Dictionary<,>))]
+        public void Is_ShouldBeTrue_IfSecondIsGenericDefinitionOfFirst(Type a, Type b) => Assert.True(a.Is(b));
+        
+        [Theory]
+        [InlineData(typeof(int), typeof(List<>))]
+        [InlineData(typeof(HashSet<int>), typeof(List<>))]
+        [InlineData(typeof(IEnumerable<int>), typeof(List<>))]
+        public void Is_ShouldBeFalse_IfSecondIsNotGenericDefinitionOfFirst(Type a, Type b) => Assert.False(a.Is(b));
         
         [Fact]
         public void Implements_ShouldBeTrue_IfTypeImplementsInterface()

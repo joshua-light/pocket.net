@@ -12,6 +12,14 @@ namespace Pocket.Common
             return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
+        public static bool Is(this Type self, Type other)
+        {
+            if (other.IsGenericTypeDefinition)
+                return self.IsGenericType && self.GetGenericTypeDefinition() == other;
+
+            return self == other;
+        }
+
         public static bool Implements(this Type self, Type other)
         {
             if (!other.IsInterface)
