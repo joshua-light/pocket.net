@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Pocket.Common
@@ -8,6 +9,19 @@ namespace Pocket.Common
     /// </summary>
     public static class GuardCommonExtensions
     {
+        public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate) =>
+            self.Ensure(predicate, "Specified predicate didn't match.");
+        public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate, string message)
+        {
+            if (self == null)
+                throw new ArgumentNullException(nameof(self));
+            
+            predicate.EnsureNotNull();
+            
+            if (!predicate(self))
+                throw new ArgumentException(message);
+        }
+        
         /// <summary>
         ///     Throws if <paramref name="self"/> is <code>null</code>.
         /// </summary>

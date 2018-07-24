@@ -1,10 +1,48 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace Pocket.Common.Tests.Guards
 {
     public class GuardCommonExtensionsTest
     {
+        #region Ensure
+
+        [Theory]
+        [InlineData(123)]
+        [InlineData("123")]
+        [InlineData(123.0)]
+        public void Ensure_ShouldPass_IfPredicateReturnsTrue(object data) => data.Ensure(data.Equals);
+        
+        [Fact]
+        public void Ensure_ShouldThrowArgumentNullException_IfSelfIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => ((string)null).Ensure(x => x == ""));
+        
+        [Fact]
+        public void Ensure_ShouldThrowArgumentNullException_IfPredicateIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => 5.Ensure(null));
+
+        [Fact]
+        public void Ensure_ShouldThrowArgumentExceptionWithDefaultMessage_IfPredicateReturnsFalse()
+        {
+            var exception = Assert.Throws<ArgumentException>(() => 5.Ensure(x => x == 6));
+            
+            Assert.Equal("Specified predicate didn't match.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("Message.")]
+        [InlineData("Another message.")]
+        public void Ensure_ShouldThrowArgumentExceptionWithSpecifiedMessage_IfPredicateReturnsFalse(string message)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => 5.Ensure(x => x == 6, message));
+            
+            Assert.Equal(message, exception.Message);
+        }
+        
+        #endregion
+        
         #region EnsureNotNull
 
         [Fact]
