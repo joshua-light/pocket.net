@@ -9,8 +9,26 @@ namespace Pocket.Common
     /// </summary>
     public static class GuardCommonExtensions
     {
+        /// <summary>
+        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is true. Otherwise throws.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="predicate">Predicate about object.</param>
+        /// <typeparam name="T">Type of <code>this</code> object.</typeparam>
+        /// <exception cref="ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns false.</exception>
         public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate) =>
             self.Ensure(predicate, "Specified predicate didn't match.");
+        
+        /// <summary>
+        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is true. Otherwise throws.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="predicate">Predicate about object.</param>
+        /// <param name="message">Error message that will be used in case, when <paramref name="predicate"/> is false.</param>
+        /// <typeparam name="T">Type of <code>this</code> object.</typeparam>
+        /// <exception cref="ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns false.</exception>
         public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate, string message)
         {
             if (self == null)
