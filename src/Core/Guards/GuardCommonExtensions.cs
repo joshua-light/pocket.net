@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using JetBrains.Annotations;
 
 namespace Pocket.Common
@@ -10,25 +9,27 @@ namespace Pocket.Common
     public static class GuardCommonExtensions
     {
         /// <summary>
-        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is true. Otherwise throws.
+        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is <code>true</code>.
+        ///     Otherwise throws.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="predicate">Predicate about object.</param>
         /// <typeparam name="T">Type of <code>this</code> object.</typeparam>
         /// <exception cref="ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns false.</exception>
+        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns <code>false</code>.</exception>
         public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate) =>
             self.Ensure(predicate, "Specified predicate didn't match.");
         
         /// <summary>
-        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is true. Otherwise throws.
+        ///     Ensures that some fact (represented by <paramref name="predicate"/>) about object is <code>true</code>.
+        ///     Otherwise throws.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="predicate">Predicate about object.</param>
-        /// <param name="message">Error message that will be used in case, when <paramref name="predicate"/> is false.</param>
+        /// <param name="message">Error message that will be used in case, when <paramref name="predicate"/> is <code>false</code>.</param>
         /// <typeparam name="T">Type of <code>this</code> object.</typeparam>
         /// <exception cref="ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns false.</exception>
+        /// <exception cref="ArgumentException"><paramref name="predicate"/> returns <code>false</code>.</exception>
         public static void Ensure<T>([NoEnumeration] this T self, Func<T, bool> predicate, string message)
         {
             if (self == null)
