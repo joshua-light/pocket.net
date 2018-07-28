@@ -55,6 +55,7 @@ Task("Run-Tests")
         { 
             OldStyle = true,
             Register = "user",
+            ReturnTargetCodeOffset = 0
         }
         .WithFilter("+[*]* -[*Tests]*");
 
