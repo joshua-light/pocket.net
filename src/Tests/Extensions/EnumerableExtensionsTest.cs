@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute.Core;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
@@ -9,13 +11,13 @@ namespace Pocket.Common.Tests.Extensions
     {
         [Fact]
         public void OrEmpty_ShouldReturnEmptyEnumerable_IfSelfIsNull() =>
-            Assert.Same(Enumerable.Empty<string>(), ((IEnumerable<string>) null).OrEmpty());
+            ((IEnumerable<string>) null).OrEmpty().ShouldBeEmpty();
 
         [Fact]
         public void OrEmpty_ShouldReturnSelf_IfSelfIsNotNull()
         {
             var enumerable = Enumerable.Range(0, 5);
-            Assert.Same(enumerable, enumerable.OrEmpty());
+            enumerable.ShouldBeSameAs(enumerable.OrEmpty());
         }
         
         #region Each
@@ -24,7 +26,7 @@ namespace Pocket.Common.Tests.Extensions
         public void Each_ShouldThrow_IfSelfIsNull()
         {
             IEnumerable<int> numbers = null;
-            Assert.Throws<ArgumentNullException>(() => numbers.Each(x => { }));
+            Should.Throw<ArgumentNullException>(() => numbers.Each(x => { }));
         }
 
         [Fact]

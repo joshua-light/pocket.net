@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
@@ -13,7 +14,7 @@ namespace Pocket.Common.Tests.Extensions
             var list = dictionary.GetOrNew(1, () => new List<int>());
             var otherList = dictionary.GetOrNew(1, () => new List<int>());
 
-            Assert.Same(list, otherList);
+            list.ShouldBe(otherList);
         }
 
         [Fact]
@@ -25,7 +26,7 @@ namespace Pocket.Common.Tests.Extensions
 
             var otherList = dictionary.GetOrDefault(1);
 
-            Assert.Same(list, otherList);
+            list.ShouldBe(otherList);
         }
 
         [Fact]
@@ -33,9 +34,9 @@ namespace Pocket.Common.Tests.Extensions
         {
             var dictionary = new Dictionary<int, List<int>>();
             
-            Assert.Null(dictionary.GetOrDefault(1));
-            Assert.Null(dictionary.GetOrDefault(2));
-            Assert.Null(dictionary.GetOrDefault(3));
+            dictionary.GetOrDefault(1).ShouldBeNull();
+            dictionary.GetOrDefault(2).ShouldBeNull();
+            dictionary.GetOrDefault(3).ShouldBeNull();
         }
     }
 }
