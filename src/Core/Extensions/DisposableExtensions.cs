@@ -24,5 +24,21 @@ namespace Pocket.Common
                 .As(map)
                 .Do(_ => self.Dispose());
         }
+
+        /// <summary>
+        ///     Uses <see cref="IDisposable"/> object to perform <paramref name="action"/> on it.
+        ///     Then disposes.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="action">Action that will be called on <paramref name="self"/>.</param>
+        /// <typeparam name="T">Type of <see cref="IDisposable"/> object.</typeparam>
+        public static void Using<T>(this T self, Action<T> action) where T : IDisposable
+        {
+            action.EnsureNotNull();
+
+            self
+                .Do(action)
+                .Do(x => x.Dispose());
+        }
     }
 }
