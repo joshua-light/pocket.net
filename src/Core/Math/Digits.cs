@@ -1,14 +1,26 @@
 ﻿namespace Pocket.Common
 {
+    /// <summary>
+    ///     Represents static class that contains methods related to notion of digits.
+    /// </summary>
     public static class Digits
     {
+        /// <summary>
+        ///     Counts number of digits of specified positive <see cref="long"/> <paramref name="value"/>.
+        /// </summary>
+        /// <remarks>
+        ///     Do not validates input, so for negative numbers result will be `1`.
+        /// </remarks>
+        /// <param name="value">Positive number.</param>
+        /// <returns>Digits count of <paramref name="value"/>.</returns>
         public static int Count(long value)
         {
             // Digits count are hardcoded,
             // because this is more efficient way than taking Log10.
             var digits = 19;
 
-            if (value < 10) digits = 1;
+            if (value < 10)
+                digits = 1;
             else if (value < 100)
                 digits = 2;
             else if (value < 1000)
@@ -47,11 +59,20 @@
             return digits;
         }
 
+        /// <summary>
+        ///     Counts number of digits of specified positive <see cref="float"/> <paramref name="value"/>.
+        /// </summary>
+        /// <remarks>
+        ///     Do not validates input, so for negative numbers result will be `1`.
+        /// </remarks>
+        /// <param name="value">Positive number.</param>
+        /// <returns>Digits count of <paramref name="value"/>.</returns>
         public static int Count(float value)
         {
             var digits = 39;
 
-            if (value < 10f) digits = 1;
+            if (value < 10f)
+                digits = 1;
             else if (value < 100f)
                 digits = 2;
             else if (value < 1000f)
