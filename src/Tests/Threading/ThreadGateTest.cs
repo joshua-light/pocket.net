@@ -4,20 +4,20 @@ using Xunit;
 
 namespace Pocket.Common.Tests.Threading
 {
-    public class ManualResetEventGateTest
+    public class ThreadGateTest
     {
         [Fact]
         public void IsOpened_ShouldBeTrue_IfConstructedAsOpened() =>
-            new ManualResetEventGate(opened: true).IsOpened.ShouldBeTrue();
+            new ThreadGate(opened: true).IsOpened.ShouldBeTrue();
         
         [Fact]
         public void IsOpened_ShouldBeFalse_IfConstructedAsClosed() =>
-            new ManualResetEventGate(opened: false).IsOpened.ShouldBeFalse();
+            new ThreadGate(opened: false).IsOpened.ShouldBeFalse();
 
         [Fact]
         public void IsOpened_ShouldBeTrue_IfGateWasOpened()
         {
-            var gate = new ManualResetEventGate(opened: false);
+            var gate = new ThreadGate(opened: false);
             
             gate.Open();
             
@@ -27,7 +27,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void IsOpened_ShouldBeFalse_IfGateWasClosed()
         {
-            var gate = new ManualResetEventGate(opened: true);
+            var gate = new ThreadGate(opened: true);
             
             gate.Close();
             
@@ -39,8 +39,8 @@ namespace Pocket.Common.Tests.Threading
         {
             var waits = false;
             
-            var outerGate = new ManualResetEventGate(opened: false);
-            var innerGate = new ManualResetEventGate(opened: false);
+            var outerGate = new ThreadGate(opened: false);
+            var innerGate = new ThreadGate(opened: false);
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
@@ -59,7 +59,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void WaitForOpen_ShouldReturnFalse_IfGateWasNotOpenedWithinTimeout()
         {
-            var gate = new ManualResetEventGate(opened: false);
+            var gate = new ThreadGate(opened: false);
             
             gate.WaitForOpen(5).ShouldBeFalse();
         }
@@ -67,7 +67,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void WaitForOpen_ShouldReturnTrue_IfGateIsOpened()
         {
-            var gate = new ManualResetEventGate(opened: true);
+            var gate = new ThreadGate(opened: true);
             
             gate.WaitForOpen(5).ShouldBeTrue();
         }

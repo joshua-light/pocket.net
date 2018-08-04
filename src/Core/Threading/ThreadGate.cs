@@ -2,11 +2,11 @@
 
 namespace Pocket.Common
 {
-    public struct ManualResetEventGate
+    public struct ThreadGate
     {
         private readonly ManualResetEvent _event;
         
-        public ManualResetEventGate(bool opened = true)
+        public ThreadGate(bool opened = true)
         {
             _event = new ManualResetEvent(opened);
         }
