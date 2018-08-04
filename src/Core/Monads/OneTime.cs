@@ -38,4 +38,17 @@ namespace Pocket.Common
             }
         }
     }
+
+    /// <summary>
+    ///     Represents static methods for creating various predefined instances of <see cref="OneTime{T}"/>.
+    /// </summary>
+    public static class OneTime
+    {
+        /// <summary>
+        ///     Creates instance of <see cref="OneTime{T}"/>
+        ///     where initial value will be <code>false</code> and default — <code>true</code>.
+        /// </summary>
+        /// <returns>New instance of <see cref="OneTime{T}"/>.</returns>
+        public static OneTime<bool> False() => new OneTime<bool>(initial: false, @default: true);
+    }
 }

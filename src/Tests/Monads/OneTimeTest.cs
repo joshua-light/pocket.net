@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Shouldly;
+using Xunit;
 
 namespace Pocket.Common.Tests.Monads
 {
@@ -9,11 +10,19 @@ namespace Pocket.Common.Tests.Monads
         {
             var oneTime = new OneTime<string>("Initial", "Default");
 
-            Assert.Equal("Initial", oneTime.Value);
-            Assert.Equal("Default", oneTime.Value);
-            Assert.Equal("Default", oneTime.Value);
-            Assert.Equal("Default", oneTime.Value);
-            Assert.Equal("Default", oneTime.Value);
+            oneTime.Value.ShouldBe("Initial");
+            oneTime.Value.ShouldBe("Default");
+            oneTime.Value.ShouldBe("Default");
+        }
+        
+        [Fact]
+        public void False_ShouldCreateInstanceThatIsFalseAndThenTrue()
+        {
+            var oneTime = OneTime.False();
+
+            oneTime.Value.ShouldBeFalse();
+            oneTime.Value.ShouldBeTrue();
+            oneTime.Value.ShouldBeTrue();
         }
     }
 }
