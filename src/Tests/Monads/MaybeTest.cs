@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Monads
@@ -66,5 +67,13 @@ namespace Pocket.Common.Tests.Monads
             public void Just_ShouldCreateNotNothing() =>
                 Assert.False(5.Just().IsNothing);
         }
+
+        [Fact]
+        public void GetHashCode_ShouldThrowInvalidOperationException_IfNothing() =>
+            Assert.Throws<InvalidOperationException>(() => Maybe<int>.Nothing.GetHashCode());
+
+        [Fact]
+        public void GetHashCode_ShouldReturnHashCode_IfSomething() =>
+            "Hello".Maybe().GetHashCode().ShouldBe("Hello".GetHashCode());
     }
 }
