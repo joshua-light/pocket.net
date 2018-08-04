@@ -19,7 +19,7 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Determines whether gate is in opened state or not.
+        ///     Determines whether gate is is opened.
         /// </summary>
         public bool IsOpened => _event.WaitOne(0);
         
