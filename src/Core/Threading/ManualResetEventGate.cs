@@ -15,6 +15,7 @@ namespace Pocket.Common
         
         public void Open() => _event.Set();
         public void Close() => _event.Reset();
-        public void WaitForOpen() => _event.WaitOne();
+        
+        public bool WaitForOpen(int ms = -1) => _event.WaitOne(ms);
     }
 }
