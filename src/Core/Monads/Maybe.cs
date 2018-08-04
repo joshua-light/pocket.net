@@ -3,7 +3,7 @@
 namespace Pocket.Common
 {
     /// <summary>
-    ///     Represents value that can be either nothing or something.
+    ///     Represents value that is either something or nothing.
     /// </summary>
     /// <typeparam name="T">Type of value.</typeparam>
     public struct Maybe<T> : IEquatable<Maybe<T>>
