@@ -5,7 +5,7 @@ namespace Pocket.Common
     /// <summary>
     ///     Represents gate that can be used for threads synchronization in same way as <see cref="ManualResetEvent"/>.
     /// </summary>
-    public struct ThreadGate
+    public class ThreadGate
     {
         private readonly ManualResetEvent _event;
         
