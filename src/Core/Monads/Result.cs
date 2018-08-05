@@ -2,15 +2,55 @@
 
 namespace Pocket.Common
 {
+    /// <summary>
+    ///     Represents value that was either succeeded or failed (then it will have error explanation) to retrieve.
+    /// </summary>
     public struct Result
     {
-        public static Result When(bool condition, string error = "") => !condition ? Failed(error) : Succeded();
+        /// <summary>
+        ///     Creates either succeeded result (if <paramref name="condition"/> is <code>true</code>) or failed (using provided <paramref name="error"/> as error description.
+        /// </summary>
+        /// <param name="condition">Condition that will produce <see cref="Result"/> instance.</param>
+        /// <param name="error">Error description for case, when <paramref name="condition"/> is false.</param>
+        /// <returns>Instance of <see cref="Result"/>.</returns>
+        public static Result When(bool condition, string error = "") =>
+            !condition ? Failed(error) : Succeded();
+        
+        /// <summary>
+        ///     Uses function to produce a value that will be converted to succeeded result (if not <code>null</code>) or failed (otherwise).
+        /// </summary>
+        /// <param name="value">Function that will produce a value.</param>
+        /// <typeparam name="T">Type of produced value.</typeparam>
+        /// <returns>Instance of <see cref="Result{T}"/>.</returns>
         public static Result<T> Of<T>(Func<T> value) where T : class => value().AsResult();
         
+        /// <summary>
+        ///     Creates succeded result.
+        /// </summary>
+        /// <returns>Instance of <see cref="Result"/>.</returns>
         public static Result Succeded() => new Result(true);
+        
+        /// <summary>
+        ///     Creates failed result using provided error description.
+        /// </summary>
+        /// <param name="error">Description of <see cref="Result"/>'s fail.</param>
+        /// <returns>Instance of <see cref="Result{T}"/>.</returns>
         public static Result Failed(string error = "") => new Result(false, error);
 
-        public static Result<T> Succeded<T>(T data) => new Result<T>(data);
+        /// <summary>
+        ///     Creates succeded result using specified value.
+        /// </summary>
+        /// <param name="value">Value that succeded result will contain.</param>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <returns>Instance of <see cref="Result"/>.</returns>
+        public static Result<T> Succeded<T>(T value) => new Result<T>(value);
+        
+        /// <summary>
+        ///     Creates failed result of specified type using provided error description.
+        /// </summary>
+        /// <param name="error">Description of <see cref="Result"/>'s fail.</param>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <returns>Instance of <see cref="Result"/>.</returns>
         public static Result<T> Failed<T>(string error = "") => new Result<T>(error);
 
         private Result(bool success, string error = "")
@@ -19,12 +59,25 @@ namespace Pocket.Common
             Error = error;
         }
 
+        /// <summary>
+        ///     Determines whether <see cref="Result"/> is succeded.
+        /// </summary>
         public bool Success { get; }
+        
+        /// <summary>
+        ///     Determines whether <see cref="Result"/> is failed and has an error description.
+        /// </summary>
         public bool Fail => !Success;
         
+        /// <summary>
+        ///     Description of error by which <see cref="Result"/> is treated as failed.
+        /// </summary>
         public string Error { get; }
     }
-
+    
+    /// <summary>
+    ///     Represents value that was either succeeded or failed (then it will have error explanation) to retrieve.
+    /// </summary>
     public struct Result<T>
     {
         private readonly T _value;
@@ -45,31 +98,55 @@ namespace Pocket.Common
             Error = error;
         }
 
+        /// <summary>
+        ///     Internal value of <see cref="Result{T}"/> instance (which is missing if <see cref="Result{T}"/> is failed).
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Instance of <see cref="Result{T}"/> is in failed state.</exception>
         public T Value
         {
             get
             {
-                if (Success) return _value;
+                if (!Success)
+                    throw new InvalidOperationException($"Result is failed. Message: \"{Error}\".");
                 
-                throw new InvalidOperationException("Result is failed. Message: \"" + Error + "\".");
+                return _value;
             }
         }
         
+        /// <summary>
+        ///     Determines whether <see cref="Result{T}"/> is succeded and contains a value.
+        /// </summary>
         public bool Success { get; }
+        
+        /// <summary>
+        ///     Determines whether <see cref="Result{T}"/> is failed and has an error description.
+        /// </summary>
         public bool Fail => !Success;
         
+        /// <summary>
+        ///     Description of error by which <see cref="Result{T}"/> is treated as failed.
+        /// </summary>
         public string Error { get; }
         
         #region Overloading
 
-        public static implicit operator T(Result<T> result) => result.Value;
+        /// <summary>
+        ///     Implicitly casts instance of <see cref="Result{T}"/> to <typeparamref name="T"/> by using <see cref="Value"/> property.
+        /// </summary>
+        /// <param name="result">Instance of <see cref="Result{T}"/>.</param>
+        /// <returns>Inner value.</returns>
+        public static implicit operator T(Result<T> result) =>
+            result.Value;
 
-        public static implicit operator Result<object>(Result<T> result)
-        {
-            return result.Success
+        /// <summary>
+        ///     Implicitly casts instance of <see cref="Result{T}"/> to <code>Result{object}</code>.
+        /// </summary>
+        /// <param name="result">Instance of <see cref="Result{T}"/>.</param>
+        /// <returns>Instance of <code>Result{object}</code>.</returns>
+        public static implicit operator Result<object>(Result<T> result) =>
+            result.Success
                 ? Result.Succeded((object) result.Value)
                 : Result.Failed<object>(result.Error);
-        }
         
         #endregion
     }
