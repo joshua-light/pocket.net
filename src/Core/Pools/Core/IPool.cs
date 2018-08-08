@@ -3,7 +3,7 @@
     /// <summary>
     ///     Represents pool of reusable objects, which can be obtained and released.
     /// </summary>
-    /// <typeparam name="T">Type of objects.</typeparam>
+    /// <typeparam name="T">Type of pooled items.</typeparam>
     public interface IPool<T> where T : class
     {
         /// <summary>
