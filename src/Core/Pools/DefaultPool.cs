@@ -18,7 +18,7 @@ namespace Pocket.Common
             _items = new Stack<T>();
         }
 
-        public T Take() => _items.Count != 0 ? _items.Pop() : _create();
+        public T Item() => _items.Count != 0 ? _items.Pop() : _create();
 
         public void Release(T item)
         {

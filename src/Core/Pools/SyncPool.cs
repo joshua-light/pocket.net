@@ -10,7 +10,7 @@
             _pool = pool;
         }
 
-        public T Take() { lock (_dog) return _pool.Take(); }
+        public T Item() { lock (_dog) return _pool.Item(); }
         public void Release(T item) { lock (_dog) _pool.Release(item); }
     }
 }

@@ -10,10 +10,10 @@
         ///     Retrieves item from pool.
         /// </summary>
         /// <returns>Instance of item.</returns>
-        T Take();
+        T Item();
         
         /// <summary>
-        ///     Releases item to pool so it can be reused by someone else through <see cref="Take"/>.
+        ///     Releases item to pool so it can be reused by someone else through <see cref="Item"/>.
         /// </summary>
         /// <param name="item">Instance of item.</param>
         void Release(T item);

@@ -29,7 +29,7 @@ namespace Pocket.Common
                     .As(x => new SyncPool<PooledList<T>>(x));
             }
 
-            public static PooledList<T> Take() => Pool.Take();
+            public static PooledList<T> Take() => Pool.Item();
         }
 
         public static PooledList<T> Of<T>() => ListPoolOf<T>.Take();

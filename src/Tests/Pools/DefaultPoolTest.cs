@@ -17,7 +17,7 @@ namespace Pocket.Common.Tests.Pools
             var pool = new DefaultPool<object>(create, Substitute.For<Action<object>>());
 
             for (var i = 0; i < times; i++)
-                pool.Take();
+                pool.Item();
 
             create.Received(times).Invoke();
         }
@@ -30,7 +30,7 @@ namespace Pocket.Common.Tests.Pools
             create.Invoke().Returns(item);
             var pool = new DefaultPool<object>(create, Substitute.For<Action<object>>());
 
-            var takenItem = pool.Take();
+            var takenItem = pool.Item();
 
             Assert.Same(item, takenItem);
         }
@@ -41,7 +41,7 @@ namespace Pocket.Common.Tests.Pools
             var release = Substitute.For<Action<object>>();
             var pool = new DefaultPool<object>(() => new object(), release);
 
-            var item = pool.Take();
+            var item = pool.Item();
             pool.Release(item);
 
             release.Received(1).Invoke(item);
@@ -59,7 +59,7 @@ namespace Pocket.Common.Tests.Pools
 
             for (var i = 0; i < times; i++)
             {
-                var item = pool.Take();
+                var item = pool.Item();
                 pool.Release(item);
             }
             
