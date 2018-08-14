@@ -6,13 +6,17 @@ namespace Pocket.Common
     {
         public static Result<T> OnSuccess<T>(this Result<T> self, Action<T> action)
         {
-            if (self.Success) action(self.Value);
+            if (self.Success)
+                action(self.Value);
+            
             return self;
         }
         
         public static Result<T> OnFail<T>(this Result<T> self, Action action)
         {
-            if (self.Fail) action();
+            if (self.Fail)
+                action();
+            
             return self;
         }
 

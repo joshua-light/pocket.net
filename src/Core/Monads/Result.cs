@@ -127,6 +127,20 @@ namespace Pocket.Common
         ///     Description of error by which <see cref="Result{T}"/> is treated as failed.
         /// </summary>
         public string Error { get; }
+
+        /// <summary>
+        ///     Represents current instance of <see cref="Result{T}"/> as result of other type.
+        /// </summary>
+        /// <remarks>
+        ///    If type of current <see cref="Result{T}"/> is value type and <see cref="Success"/> is <code>true</code>
+        ///    then <see cref="Value"/> will be boxed.
+        /// </remarks>
+        /// <typeparam name="TOut">Type of value in new <see cref="Result{T}"/>.</typeparam>
+        /// <returns>Instance of new <see cref="Result{T}"/>.</returns>
+        public Result<TOut> As<TOut>() =>
+            Success
+                ? Result.Succeded((TOut) (object) Value)
+                : Result.Failed<TOut>(Error);
         
         #region Overloading
 
