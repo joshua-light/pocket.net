@@ -11,5 +11,11 @@
         /// <param name="self"><code>this</code> object.</param>
         /// <returns><code>true</code> if <paramref name="self"/> is digit, otherwise — <code>false</code>.</returns>
         public static bool IsDigit(this char self) => char.IsDigit(self);
+
+        public static bool IsLetter(this char self) => char.IsLetter(self);
+
+        public static bool IsLetterOrDigit(this char self) => char.IsLetterOrDigit(self);
+
+        public static bool IsWhiteSpace(this char self) => char.IsWhiteSpace(self);
     }
 }
