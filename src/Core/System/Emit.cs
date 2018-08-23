@@ -26,6 +26,25 @@ namespace Pocket.Common
             return (Func<T>) method.CreateDelegate(typeof(Func<T>));
         }
 
+        public static Func<object> Ctor(Type type)
+        {
+            var ctor = type.GetTypeInfo().GetConstructor(Array.Empty<Type>());
+            var method = new DynamicMethod(type.Namespace + "_CtorObject",
+                type,
+                Array.Empty<Type>());
+
+            var il = method.GetILGenerator();
+
+            il.DeclareLocal(type);
+
+            il.Emit(OpCodes.Newobj, ctor);
+            il.Emit(OpCodes.Stloc_0);
+            il.Emit(OpCodes.Ldloc_0);
+            il.Emit(OpCodes.Ret);
+
+            return (Func<object>) method.CreateDelegate(typeof(Func<object>));
+        }
+
         public static Func<T, object> GetField<T>(FieldInfo field)
         {            
             var method = new DynamicMethod(field.DeclaringType.Namespace + "_" + field.Name + "_GetField",
