@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Guards
@@ -46,8 +46,16 @@ namespace Pocket.Common.Tests.Guards
         #region EnsureNotNull
 
         [Fact]
-        public void EnsureNotNull_ShouldThrowGuardException_IfValueIsNull() =>
+        public void EnsureNotNull_ShouldThrowArgumentNullException_IfValueIsNull() =>
             Assert.Throws<ArgumentNullException>(() => ((object) null).EnsureNotNull());
+
+        [Fact]
+        public void EnsureNotNull_ShouldThrowArgumentNullExceptionWithSpecifiedMessage_IfValueIsNull()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() => ((object) null).EnsureNotNull("Message."));
+
+            e.Message.ShouldStartWith("Message.");
+        }
 
         [Theory]
         [InlineData("1")]
