@@ -62,31 +62,13 @@ namespace Pocket.Common
             if (self == null)
                 throw new ArgumentNullException(nameof(self), message);
         }
-        
-        /// <summary>
-        ///     Throws if <paramref name="self"/> is not equal to <paramref name="value"/>.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="value">Object to compare with.</param>
-        /// <typeparam name="T">Type of objects.</typeparam>
-        /// <exception cref="ArgumentException"><paramref name="self"/> is not equal to <paramref name="value"/>.</exception>
-        public static void EnsureEqual<T>(this T self, T value) where T : IEquatable<T>
-        {
-            if (!self.Equals(value))
-                throw new ArgumentException($"Specified value {self} must be equal to {value}.");
-        }
 
-        /// <summary>
-        ///     Throws if <paramref name="self"/> is equal to <paramref name="value"/>.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="value">Object to compare with.</param>
-        /// <typeparam name="T">Type of objects.</typeparam>
-        /// <exception cref="ArgumentException"><paramref name="self"/> is equal to <paramref name="value"/>.</exception>
-        public static void EnsureNotEqual<T>(this T self, T value) where T : IEquatable<T>
+        public static void EnsureIs<T>([NoEnumeration] this object self)
         {
-            if (self.Equals(value))
-                throw new ArgumentException($"Specified value {self} must be not equal to {value}.");
+            self.EnsureNotNull();
+            
+            if (self.GetType() != typeof(T))
+                throw new ArgumentException($"Specified object is not {typeof(T).Name}.");
         }
     }
 }
