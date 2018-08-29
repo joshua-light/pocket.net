@@ -63,6 +63,12 @@ namespace Pocket.Common
                 throw new ArgumentNullException(nameof(self), message);
         }
 
+        /// <summary>
+        ///     Throws if <paramref name="self"/> is not of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type that object must be of.</typeparam>
+        /// <exception cref="ArgumentException"><paramref name="self"/> is not of type <typeparamref name="T"/>.</exception>
         public static void EnsureIs<T>([NoEnumeration] this object self)
         {
             self.EnsureNotNull();
