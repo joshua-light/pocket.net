@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSubstitute.Core;
 using Shouldly;
 using Xunit;
 
@@ -9,6 +8,8 @@ namespace Pocket.Common.Tests.Extensions
 {
     public class EnumerableExtensionsTest
     {
+        #region OrEmpty
+
         [Fact]
         public void OrEmpty_ShouldReturnEmptyEnumerable_IfSelfIsNull() =>
             ((IEnumerable<string>) null).OrEmpty().ShouldBeEmpty();
@@ -19,6 +20,8 @@ namespace Pocket.Common.Tests.Extensions
             var enumerable = Enumerable.Range(0, 5);
             enumerable.ShouldBeSameAs(enumerable.OrEmpty());
         }
+
+        #endregion
         
         #region Each
 
@@ -122,99 +125,129 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
-        public class TakeMin
-        {
-            [Fact]
-            public void TakeMin_ShouldThrowException() =>
-                Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMin(x => x.Number));
+        #region TakeMin
+
+        [Fact]
+        public void TakeMin_ShouldThrowException() =>
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMin(x => x.Number));
             
-            [Fact]
-            public void TakeMin_ShouldThrowException_IfFuncIsNull() =>
-                Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMin<int, Item>(null));
+        [Fact]
+        public void TakeMin_ShouldThrowException_IfFuncIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMin<int, Item>(null));
 
-            [Fact]
-            public void TakeMin_ShouldReturnMinObject()
-            {
-                var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
+        [Fact]
+        public void TakeMin_ShouldReturnMinObject()
+        {
+            var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
-                var minValue = items.Min(x => x.Number);
-                var min = items.TakeMin(x => x.Number);
+            var minValue = items.Min(x => x.Number);
+            var min = items.TakeMin(x => x.Number);
 
-                Assert.Equal(minValue, min.Number);
-            }
-
-            [Fact]
-            public void TakeMin_ShouldReturnMinObject_IfIComparable()
-            {
-                var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
-
-                var a = items.Min(x => x);
-                var b = items.TakeMin(x => x);
-
-                Assert.Same(a, b);
-            }
-
-            [Fact]
-            public void TakeMin_ShouldReturnCorrectReference()
-            {
-                var secondItem = new Item(2);
-                var items = new List<Item>
-                {
-                    new Item(3),
-                    new Item(2),
-                    secondItem
-                };
-
-                Assert.NotSame(secondItem, items.TakeMin(x => x.Number));
-            }
+            Assert.Equal(minValue, min.Number);
         }
 
-        public class TakeMax
+        [Fact]
+        public void TakeMin_ShouldReturnMinObject_IfIComparable()
         {
-            [Fact]
-            public void TakeMax_ShouldThrowException() =>
-                Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMax(x => x.Number));
-            
-            [Fact]
-            public void TakeMax_ShouldThrowException_IfFuncIsNull() =>
-                Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMax<int, Item>(null));
+            var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
-            [Fact]
-            public void TakeMax_ShouldReturnMaxObject()
-            {
-                var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
+            var a = items.Min(x => x);
+            var b = items.TakeMin(x => x);
 
-                var minValue = items.Max(x => x.Number);
-                var min = items.TakeMax(x => x.Number);
-
-                Assert.Equal(minValue, min.Number);
-            }
-
-            [Fact]
-            public void TakeMax_ShouldReturnMaxObject_IfIComparable()
-            {
-                var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
-
-                var a = items.Max(x => x);
-                var b = items.TakeMax(x => x);
-
-                Assert.Same(a, b);
-            }
-
-            [Fact]
-            public void TakeMin_ShouldReturnCorrectReference()
-            {
-                var secondItem = new Item(3);
-                var items = new List<Item>
-                {
-                    new Item(3),
-                    new Item(2),
-                    secondItem
-                };
-
-                Assert.NotSame(secondItem, items.TakeMax(x => x.Number));
-            }
+            Assert.Same(a, b);
         }
+
+        [Fact]
+        public void TakeMin_ShouldReturnCorrectReference()
+        {
+            var secondItem = new Item(2);
+            var items = new List<Item>
+            {
+                new Item(3),
+                new Item(2),
+                secondItem
+            };
+
+            Assert.NotSame(secondItem, items.TakeMin(x => x.Number));
+        }
+
+        #endregion
+
+        #region TakeMax
+
+        [Fact]
+        public void TakeMax_ShouldThrowException() =>
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMax(x => x.Number));
+            
+        [Fact]
+        public void TakeMax_ShouldThrowException_IfFuncIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMax<int, Item>(null));
+
+        [Fact]
+        public void TakeMax_ShouldReturnMaxObject()
+        {
+            var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
+
+            var minValue = items.Max(x => x.Number);
+            var min = items.TakeMax(x => x.Number);
+
+            Assert.Equal(minValue, min.Number);
+        }
+
+        [Fact]
+        public void TakeMax_ShouldReturnMaxObject_IfIComparable()
+        {
+            var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
+
+            var a = items.Max(x => x);
+            var b = items.TakeMax(x => x);
+
+            Assert.Same(a, b);
+        }
+
+        [Fact]
+        public void TakeMax_ShouldReturnCorrectReference()
+        {
+            var secondItem = new Item(3);
+            var items = new List<Item>
+            {
+                new Item(3),
+                new Item(2),
+                secondItem
+            };
+
+            Assert.NotSame(secondItem, items.TakeMax(x => x.Number));
+        }
+
+        #endregion
+
+        #region IsEmpty
+
+        [Fact]
+        public void IsEmpty_ShouldBeTrue_IfEnumerableIsEmpty() =>
+            Enumerable.Empty<int>().IsEmpty().ShouldBeTrue();
+        
+        [Fact]
+        public void IsEmpty_ShouldBeTrue_IfArrayIsEmpty() =>
+            "".IsEmpty().ShouldBeTrue();
+        
+        [Fact]
+        public void IsEmpty_ShouldBeTrue_IfLinkedListIsEmpty() =>
+            new LinkedList<int>().IsEmpty().ShouldBeTrue();
+        
+        [Fact]
+        public void IsEmpty_ShouldBeFalse_IfEnumerableIsNotEmpty() =>
+            Enumerable.Range(0, 1).IsEmpty().ShouldBeFalse();
+        
+        [Fact]
+        public void IsEmpty_ShouldBeFalse_IfArrayIsNotEmpty() =>
+            "1".IsEmpty().ShouldBeFalse();
+        
+        [Fact]
+        public void IsEmpty_ShouldBeFalse_IfLinkedListIsNotEmpty() =>
+            new LinkedList<int>(new []{ 1 }).IsEmpty().ShouldBeFalse();
+
+        #endregion
 
         #region Inner Classes
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Pocket.Common
 {
@@ -120,6 +121,23 @@ namespace Pocket.Common
             }
 
             return max;
+        }
+
+        /// <summary>
+        ///     Checks whether <paramref name="self"/> contains no elements.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns><code>true</code> if <paramref name="self"/> is empty, otherwise — <code>false</code>.</returns>
+        public static bool IsEmpty<T>([NoEnumeration] this IEnumerable<T> self)
+        {
+            if (self is IList<T> list)
+                return list.Count == 0;
+            
+            if (self is ICollection<T> collection)
+                return collection.Count == 0;
+            
+            return !self.Any();
         }
     }
 }
