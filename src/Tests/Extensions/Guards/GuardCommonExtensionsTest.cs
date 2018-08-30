@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Guards
+namespace Pocket.Common.Tests.Extensions.Guards
 {
     public class GuardCommonExtensionsTest
     {
