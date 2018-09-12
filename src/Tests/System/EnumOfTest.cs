@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Shouldly;
+using Xunit;
 
 namespace Pocket.Common.Tests.System
 {
@@ -14,10 +15,15 @@ namespace Pocket.Common.Tests.System
         }
         
         [Fact]
-        public void Values_ShouldReturnAllEnumValues()
-        {
-            var values = EnumOf<Order>.Values;
-            Assert.Equal(new[] { Order.First, Order.Second, Order.Third, Order.Fourth, Order.Fifth }, values);
-        }
+        public void Values_ShouldReturnAllEnumValues() =>
+            EnumOf<Order>.Values
+                .ShouldBe(new[] 
+                { 
+                    Order.First, 
+                    Order.Second, 
+                    Order.Third, 
+                    Order.Fourth, 
+                    Order.Fifth 
+                });
     }
 }
