@@ -139,5 +139,8 @@ namespace Pocket.Common
             
             return !self.Any();
         }
+
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> comparer) =>
+            self.Except(other, new FuncAsEqualityComparer<T>(comparer));
     }
 }

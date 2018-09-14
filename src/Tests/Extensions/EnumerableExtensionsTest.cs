@@ -249,6 +249,19 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
+        #region Except
+
+        [Fact]
+        public void ExceptWithFunc_ShouldExcludeItemsUsingFunc()
+        {
+            var a = Enumerable.Range(0, 10);
+            var b = Enumerable.Range(5, 10);
+
+            a.Except(b, (x, y) => x == y).ShouldBe(Enumerable.Range(0, 5));
+        }
+
+        #endregion
+
         #region Inner Classes
 
         private class Item : IComparable<Item>
