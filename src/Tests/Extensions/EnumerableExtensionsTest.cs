@@ -262,6 +262,18 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
+        #region Distinct
+
+        [Fact]
+        public void DitinctWithFunc_ShouldFilterItemsAsLinq()
+        {
+            var items = new[] { 1, 2, 3, 4 };
+            
+            items.Distinct((x, y) => x == y).ShouldBe(items.Distinct());
+        }
+
+        #endregion
+
         #region Inner Classes
 
         private class Item : IComparable<Item>

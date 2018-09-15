@@ -142,5 +142,8 @@ namespace Pocket.Common
 
         public static IEnumerable<T> Except<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> comparer) =>
             self.Except(other, new FuncAsEqualityComparer<T>(comparer));
+
+        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
+            self.Distinct(new FuncAsEqualityComparer<T>(comparer));
     }
 }
