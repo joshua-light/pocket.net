@@ -5,6 +5,8 @@ namespace Pocket.Common.Tests.Extensions
 {
     public class StringExtensionsTest
     {
+        #region IsNullOrEmpty
+        
         [Theory]
         [InlineData("1")]
         [InlineData("2")]
@@ -19,5 +21,19 @@ namespace Pocket.Common.Tests.Extensions
         [Fact]
         public void IsNullOrEmpty_ShouldBeTrue_IfStringIsEmpty() =>
             "".IsNullOrEmpty().ShouldBeTrue();
+        
+        #endregion
+
+        #region Or
+
+        [Fact]
+        public void Or_ShouldBeSelf_IfStringIsNotNull() =>
+            "Hello".Or("1").ShouldBe("Hello");
+
+        [Fact]
+        public void Or_ShouldBeDefault_IfStringIsNull() =>
+            ((string) null).Or("Hello").ShouldBe("Hello");
+
+        #endregion
     }
 }
