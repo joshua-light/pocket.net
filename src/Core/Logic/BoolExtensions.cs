@@ -28,13 +28,5 @@
         /// <param name="other">Second operand of logical operation.</param>
         /// <returns>If <paramref name="self"/> is <code>true</code>, then <paramref name="other"/>, otherwise <code>true</code>.</returns>
         public static bool Implication(this bool self, bool other) => !self || other;
-        
-        /// <summary>
-        ///     Applies logical equivalence operator for both <paramref name="self"/> and <paramref name="other"/> values.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="other">Second operand of logical operation.</param>
-        /// <returns>If <paramref name="self"/> is <code>true</code>, then <paramref name="other"/>, otherwise inverted <paramref name="other"/>.</returns>
-        public static bool Equivalence(this bool self, bool other) => !self && !other || self && other;
     }
 }

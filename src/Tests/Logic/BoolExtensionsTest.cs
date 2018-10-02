@@ -27,13 +27,5 @@ namespace Pocket.Common.Tests.Logic
         [InlineData(false, false, true)]
         public void Implication_ShouldRepresentCorrectTruthTable(bool a, bool b, bool expected) =>
             Assert.Equal(expected, a.Implication(b));
-        
-        [Theory]
-        [InlineData(true, true, true)]
-        [InlineData(true, false, false)]
-        [InlineData(false, true, false)]
-        [InlineData(false, false, true)]
-        public void Equivalency_ShouldRepresentCorrectTruthTable(bool a, bool b, bool expected) =>
-            Assert.Equal(expected, a.Equivalence(b));
     }
 }
