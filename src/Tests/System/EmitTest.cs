@@ -1,10 +1,15 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Pocket.Common.Tests.System
 {
     public class EmitTest
     {
         #region Ctor
+
+        [Fact]
+        public void Ctor_ShouldThrowArgumentNullException_IfTypeHasNotEmptyCtor() =>
+            Assert.Throws<ArgumentNullException>(() => Emit.Ctor<WithoutEmptyCtor>());
         
         [Fact]
         public void Ctor_ShouldCreateCorrectFunc_IfTypeHasEmptyCtor()
@@ -32,7 +37,12 @@ namespace Pocket.Common.Tests.System
 
             Assert.NotNull(func());
         }
-                
+
+        public class WithoutEmptyCtor
+        {
+            public WithoutEmptyCtor(int a) { }    
+        }
+        
         public class WithEmptyCtor { }
         public class WithManyCtors
         {
