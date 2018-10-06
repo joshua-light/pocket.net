@@ -10,6 +10,9 @@ namespace Pocket.Common
         {
             var type = typeof(T);
             var ctor = type.GetTypeInfo().GetConstructor(Array.Empty<Type>());
+            if (ctor == null)
+                throw new ArgumentNullException($"Couldn't find public parameterless constructor in {type.Name}.");
+            
             var method = new DynamicMethod(type.Namespace + "_Ctor",
                 type,
                 Array.Empty<Type>());
@@ -44,7 +47,7 @@ namespace Pocket.Common
 
             return (Func<object>) method.CreateDelegate(typeof(Func<object>));
         }
-
+        
         public static Func<T, object> GetField<T>(FieldInfo field)
         {            
             var method = new DynamicMethod(field.DeclaringType.Namespace + "_" + field.Name + "_GetField",
