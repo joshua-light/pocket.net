@@ -145,5 +145,14 @@ namespace Pocket.Common
 
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
             self.Distinct(new FuncAsEqualityComparer<T>(comparer));
+
+        public static T Required<T>(this IEnumerable<T> self, Func<T, bool> predicate, string otherwise = null)
+        {
+            var item = self.FirstOrDefault(predicate);
+            if (item == null)
+                throw new InvalidOperationException(otherwise ?? "Couldn't find item that matches specified predicate.");
+            
+            return item;
+        }
     }
 }
