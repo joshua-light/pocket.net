@@ -30,5 +30,10 @@ namespace Pocket.Common
         /// <returns>Element with specified key or default value for type <typeparamref name="TValue"/>.</returns>
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
             self.TryGetValue(key, out var result) ? result : default;
+
+        public static TValue GetOrThrow<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
+            self.TryGetValue(key, out var result)
+                ? result
+                : throw new KeyNotFoundException($"Couldn't find value by [ {key} ] key.");
     }
 }
