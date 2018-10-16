@@ -8,7 +8,7 @@ namespace Pocket.Common.Tests.Monads
     [Fact]
     public void Use_ShouldReturnFirstValue_IfCalledOddTimes()
     {
-      var toggle = new Toggle<bool>(a: true, b: false);
+      var toggle = new Toggle<bool>(a:  true, b: false);
       
       for (var i = 1; i <= 10; i++)
       {
