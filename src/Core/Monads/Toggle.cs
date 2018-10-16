@@ -2,7 +2,7 @@ using System;
 
 namespace Pocket.Common
 {
-  public class Toggle<T> where T : IEquatable<T>
+  public class Toggle<T>  where T : IEquatable<T>
   {
     private readonly T _a;
     private readonly T _b;
