@@ -140,6 +140,17 @@ namespace Pocket.Common
             return !self.Any();
         }
 
+        /// <summary>
+        ///     Produces the set difference of two sequences.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="other">
+        ///     An IEnumerable{T} whose elements that also occur in the first sequence
+        ///     will cause those elements to be removed from the returned sequence.
+        /// </param>
+        /// <param name="comparer">An IEqualityComparer{T} to compare values.</param>
+        /// <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+        /// <returns>A sequence that contains the set difference of the elements of two sequences.</returns>
         public static IEnumerable<T> Except<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> comparer) =>
             self.Except(other, new FuncAsEqualityComparer<T>(comparer));
 
