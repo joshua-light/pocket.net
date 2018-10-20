@@ -141,7 +141,7 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Produces the set difference of two sequences.
+        ///     Produces the set difference of two sequences by using specified comparer function to compare values..
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">
@@ -149,11 +149,18 @@ namespace Pocket.Common
         ///     will cause those elements to be removed from the returned sequence.
         /// </param>
         /// <param name="comparer">An IEqualityComparer{T} to compare values.</param>
-        /// <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
         /// <returns>A sequence that contains the set difference of the elements of two sequences.</returns>
         public static IEnumerable<T> Except<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> comparer) =>
             self.Except(other, new FuncAsEqualityComparer<T>(comparer));
 
+        /// <summary>
+        ///     Returns distinct elements from a sequence by using specified comparer function to compare values.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="comparer">An IEqualityComparer{T} to compare values.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns>An IEnumerable{T} that contains distinct elements from the source sequence.</returns>
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
             self.Distinct(new FuncAsEqualityComparer<T>(comparer));
 
