@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions
+namespace Pocket.Common.Tests.Extensions.Reflection
 {
     public class TypeExtensionsTest
     {
