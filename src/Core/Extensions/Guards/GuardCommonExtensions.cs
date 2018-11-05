@@ -81,7 +81,7 @@ namespace Pocket.Common
         /// <exception cref="ArgumentException"><paramref name="self"/> is not <code>null</code>.</exception>
         public static void EnsureNull<T>([NoEnumeration] this T self, string message) where T : class
         {
-            if (self == null)
+            if (self != null)
                 throw new ArgumentException(nameof(self), message);
         }
 
