@@ -101,11 +101,11 @@ namespace Pocket.Common
             if (!other.IsGenericTypeDefinition)
                 return other.IsAssignableFrom(self);
 
-            if (!self.IsGenericType)
-                return false;
-
-            if (self.BaseType.GUID == other.GUID)
+            if (self.BaseType?.GUID == other.GUID)
                 return true;
+            
+            if (!self.IsGenericType)
+                return self.BaseType?.Extends(other) ?? false;
 
             return self.IsGenericTypeDefinition
                 ? self.BaseType.Extends(other)

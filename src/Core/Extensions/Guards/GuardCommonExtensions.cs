@@ -62,6 +62,28 @@ namespace Pocket.Common
             if (self == null)
                 throw new ArgumentNullException(nameof(self), message);
         }
+        
+        /// <summary>
+        ///     Throws if <paramref name="self"/> is not <code>null</code>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of object.</typeparam>
+        /// <exception cref="ArgumentException"><paramref name="self"/> is not <code>null</code>.</exception>
+        public static void EnsureNull<T>([NoEnumeration] this T self) where T : class =>
+            self.EnsureNull("Specified value must be null.");
+        
+        /// <summary>
+        ///     Throws if <paramref name="self"/> is not <code>null</code>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="message">Message that describes why <paramref name="self"/> should be <code>null</code>.</param>
+        /// <typeparam name="T">Type of object.</typeparam>
+        /// <exception cref="ArgumentException"><paramref name="self"/> is not <code>null</code>.</exception>
+        public static void EnsureNull<T>([NoEnumeration] this T self, string message) where T : class
+        {
+            if (self != null)
+                throw new ArgumentException(nameof(self), message);
+        }
 
         /// <summary>
         ///     Throws if <paramref name="self"/> is not of type <typeparamref name="T"/>.

@@ -50,12 +50,10 @@ namespace Pocket.Common.Tests.Extensions.Guards
             Assert.Throws<ArgumentNullException>(() => ((object) null).EnsureNotNull());
 
         [Fact]
-        public void EnsureNotNull_ShouldThrowArgumentNullExceptionWithSpecifiedMessage_IfValueIsNull()
-        {
-            var e = Assert.Throws<ArgumentNullException>(() => ((object) null).EnsureNotNull("Message."));
-
-            e.Message.ShouldStartWith("Message.");
-        }
+        public void EnsureNotNull_ShouldThrowArgumentNullExceptionWithMessage_IfValueIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => ((object) null).EnsureNotNull("Message."))
+                .Message
+                .ShouldStartWith("Message.");
 
         [Theory]
         [InlineData("1")]
@@ -63,6 +61,24 @@ namespace Pocket.Common.Tests.Extensions.Guards
         [InlineData("123")]
         public void EnsureNotNull_ShouldNotThrow_IfValueIsNotNull(object value) =>
             value.EnsureNotNull();
+
+        #endregion
+        
+        #region EnsureNull
+
+        [Fact]
+        public void EnsureNull_ShouldThrowArgumentException_IfValueIsNotNull() =>
+            Assert.Throws<ArgumentException>(() => "".EnsureNull());
+
+        [Fact]
+        public void EnsureNull_ShouldThrowArgumentExceptionWithMessage_IfValueIsNotNull() =>
+            Assert.Throws<ArgumentException>(() => "".EnsureNull("Message."))
+            .Message
+            .ShouldStartWith("Message.");
+        
+        [Fact]
+        public void EnsureNull_ShouldNotThrow_IfValueIsNull() =>
+            ((object) null).EnsureNull();
 
         #endregion
 

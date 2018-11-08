@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions
+namespace Pocket.Common.Tests.Extensions.Reflection
 {
     public class TypeExtensionsTest
     {
@@ -97,6 +97,7 @@ namespace Pocket.Common.Tests.Extensions
             
             Assert.True(typeof(GenericGrandChild<int>).Extends(typeof(GenericParent<>)));
             Assert.True(typeof(GenericGrandChild<>).Extends(typeof(GenericParent<>)));
+            Assert.True(typeof(ConcreteChild).Extends(typeof(GenericChild<>)));
         }
         
         [Fact]
@@ -117,6 +118,7 @@ namespace Pocket.Common.Tests.Extensions
         private class GenericParent<T> { }
         private class GenericChild<T> : GenericParent<T> { }
         private class GenericGrandChild<T> : GenericChild<T> { }
+        private class ConcreteChild : GenericChild<int> { }
 
         #endregion
     }
