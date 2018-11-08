@@ -5,6 +5,12 @@
     /// </summary>
     public static class CharExtensions
     {
+        /// <summary>
+        ///     Checks whether current instance is equal to some character.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="other">Another character that will be compared to <paramref name="self"/>.</param>
+        /// <returns><code>true</code> if <paramref name="self"/> equals to <paramref name="other"/>.</returns>
         public static bool Is(this char self, char other) => self == other;
         
         /// <summary>
