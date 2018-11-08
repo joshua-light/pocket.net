@@ -39,6 +39,6 @@
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <returns><code>true</code> if <paramref name="self"/> is whitespace, otherwise — <code>false</code>.</returns>
-        public static bool IsWhiteSpace(this char self) => char.IsWhiteSpace(self);
+        public static bool IsWhitespace(this char self) => char.IsWhiteSpace(self);
     }
 }

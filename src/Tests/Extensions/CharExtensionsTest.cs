@@ -78,5 +78,20 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData('\n')]
         public void IsLetter_ShouldBeFalse_IfCharIsNotLetterOrDigit(char ch) =>
             ch.IsLetterOrDigit().ShouldBeFalse();
+        
+        [Theory]
+        [InlineData(' ')]
+        [InlineData('\n')]
+        [InlineData('\r')]
+        public void IsLetter_ShouldBeTrue_IfCharIsWhiteSpace(char ch) =>
+            ch.IsWhitespace().ShouldBeTrue();
+        
+        [Theory]
+        [InlineData('a')]
+        [InlineData('1')]
+        [InlineData('-')]
+        [InlineData('#')]
+        public void IsLetter_ShouldBeFalse_IfCharIsNotWhiteSpace(char ch) =>
+            ch.IsWhitespace().ShouldBeFalse();
     }
 }
