@@ -6,6 +6,22 @@ namespace Pocket.Common.Tests.Extensions
     public class CharExtensionsTest
     {
         [Theory]
+        [InlineData('1', '1')]
+        [InlineData('2', '2')]
+        [InlineData('3', '3')]
+        [InlineData('4', '4')]
+        public void Is_ShouldReturnTrue_IfCharactersAreEqual(char a, char b) =>
+            a.Is(b).ShouldBe(true);
+        
+        [Theory]
+        [InlineData('1', '2')]
+        [InlineData('2', '3')]
+        [InlineData('3', '4')]
+        [InlineData('4', '5')]
+        public void Is_ShouldReturnFalse_IfCharactersAreNotEqual(char a, char b) =>
+            a.Is(b).ShouldBe(false);
+        
+        [Theory]
         [InlineData('0')]
         [InlineData('1')]
         [InlineData('2')]
