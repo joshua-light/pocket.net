@@ -5,6 +5,8 @@
     /// </summary>
     public static class CharExtensions
     {
+        public static bool Is(this char self, char other) => self == other;
+        
         /// <summary>
         ///     Checks whether current instance is digit character.
         /// </summary>
