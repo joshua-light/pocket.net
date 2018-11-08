@@ -11,7 +11,7 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData('3', '3')]
         [InlineData('4', '4')]
         public void Is_ShouldReturnTrue_IfCharactersAreEqual(char a, char b) =>
-            a.Is(b).ShouldBe(true);
+            a.Is(b).ShouldBeTrue();
         
         [Theory]
         [InlineData('1', '2')]
@@ -19,7 +19,7 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData('3', '4')]
         [InlineData('4', '5')]
         public void Is_ShouldReturnFalse_IfCharactersAreNotEqual(char a, char b) =>
-            a.Is(b).ShouldBe(false);
+            a.Is(b).ShouldBeFalse();
         
         [Theory]
         [InlineData('0')]
@@ -38,12 +38,28 @@ namespace Pocket.Common.Tests.Extensions
         [Theory]
         [InlineData('`')]
         [InlineData('a')]
-        [InlineData('b')]
-        [InlineData('c')]
         [InlineData('\n')]
         [InlineData('\r')]
         [InlineData(')')]
         public void IsDigit_ShouldBeFalse_IfCharIsNotDigit(char ch) =>
             ch.IsDigit().ShouldBeFalse();
+
+        [Theory]
+        [InlineData('a')]
+        [InlineData('B')]
+        [InlineData('w')]
+        [InlineData('e')]
+        [InlineData('D')]
+        public void IsLetter_ShouldBeTrue_IfCharIsLetter(char ch) =>
+            ch.IsLetter().ShouldBeTrue();
+        
+        [Theory]
+        [InlineData('1')]
+        [InlineData(',')]
+        [InlineData('-')]
+        [InlineData('#')]
+        [InlineData('\n')]
+        public void IsLetter_ShouldBeFalse_IfCharIsNotLetter(char ch) =>
+            ch.IsLetter().ShouldBeFalse();
     }
 }
