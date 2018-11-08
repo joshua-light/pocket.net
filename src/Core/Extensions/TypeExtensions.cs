@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -9,6 +10,29 @@ namespace Pocket.Common
     /// </summary>
     public static class TypeExtensions
     {
+        public struct BindingSpecification
+        {
+            public readonly BindingFlags Flags;
+
+            public BindingSpecification(BindingFlags flags) =>
+                Flags = flags;
+
+            public BindingSpecification Or => this;
+      
+            public BindingSpecification Public() =>
+                With(BindingFlags.Public);
+            public BindingSpecification NonPublic() =>
+                With(BindingFlags.NonPublic);
+
+            public BindingSpecification Static() =>
+                With(BindingFlags.Static);
+            public BindingSpecification Instance() =>
+                With(BindingFlags.Instance);
+      
+            private BindingSpecification With(BindingFlags flags) =>
+                new BindingSpecification(Flags | flags); 
+        }
+        
         /// <summary>
         ///     Checks whether specified type is <see cref="Nullable{T}"/>.
         /// </summary>
@@ -87,5 +111,18 @@ namespace Pocket.Common
                 ? self.BaseType.Extends(other)
                 : self.GetGenericTypeDefinition().BaseType.Extends(other);
         }
+    
+        public static FieldInfo[] Fields(this Type self) => self.GetFields();
+        public static FieldInfo[] Fields(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
+            self.GetFields(specify(new BindingSpecification()).Flags);
+    
+        public static MethodInfo[] Methods(this Type self) => self.GetMethods();
+        public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
+            self.GetMethods(specify(new BindingSpecification()).Flags);
+
+        public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
+            self
+                .Fields(_ => _.NonPublic().Or.Public().Or.Instance())
+                .Where(x => x.GetCustomAttribute<T>() != null);
     }
 }
