@@ -12,10 +12,10 @@ namespace Pocket.Common
     {
         public struct BindingSpecification
         {
-            public readonly BindingFlags Flags;
+            private readonly BindingFlags _flags;
 
             public BindingSpecification(BindingFlags flags) =>
-                Flags = flags;
+                _flags = flags;
 
             public BindingSpecification Or => this;
       
@@ -30,7 +30,10 @@ namespace Pocket.Common
                 With(BindingFlags.Instance);
       
             private BindingSpecification With(BindingFlags flags) =>
-                new BindingSpecification(Flags | flags); 
+                new BindingSpecification(_flags | flags); 
+            
+            public static implicit operator BindingFlags(BindingSpecification self) =>
+                self._flags;
         }
         
         /// <summary>
@@ -114,11 +117,11 @@ namespace Pocket.Common
     
         public static FieldInfo[] Fields(this Type self) => self.GetFields();
         public static FieldInfo[] Fields(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
-            self.GetFields(specify(new BindingSpecification()).Flags);
+            self.GetFields(specify(new BindingSpecification()));
     
         public static MethodInfo[] Methods(this Type self) => self.GetMethods();
         public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
-            self.GetMethods(specify(new BindingSpecification()).Flags);
+            self.GetMethods(specify(new BindingSpecification()));
 
         public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
             self
