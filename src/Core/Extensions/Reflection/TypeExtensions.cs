@@ -148,7 +148,19 @@ namespace Pocket.Common
                 : self.GetGenericTypeDefinition().BaseType.Extends(other);
         }
     
+        /// <summary>
+        ///     Gets all (static and instance) public fields of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
         public static FieldInfo[] Fields(this Type self) => self.GetFields();
+        
+        /// <summary>
+        ///     Gets fields configured by <see cref="BindingSpecification"/> of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
+        /// <returns>Fields of <paramref name="self"/> type.</returns>
         public static FieldInfo[] Fields(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetFields(specify(new BindingSpecification()));
     
