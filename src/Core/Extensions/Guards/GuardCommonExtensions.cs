@@ -82,7 +82,7 @@ namespace Pocket.Common
         public static void EnsureNull<T>([NoEnumeration] this T self, string message) where T : class
         {
             if (self != null)
-                throw new ArgumentException(nameof(self), message);
+                throw new ArgumentException(message, nameof(self));
         }
 
         /// <summary>
