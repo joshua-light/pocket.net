@@ -1,12 +1,18 @@
 ﻿using System;
 using NSubstitute;
 using Pocket.Common.Tests.Core.Extensions;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Monads.Extensions
 {
     public class ResultExtensionsTest
     {
+        [Fact]
+        void Or_ShouldReturnValue_IfResultIsSuccess() => "".AsResult().Or("1").ShouldBe("");
+        [Fact]
+        void Or_ShouldReturnDefault_IfResultIsFail() => ((string) null).AsResult().Or("").ShouldBe("");
+        
         [Fact]
         void AsResult_ShouldFail_IfValueIsNull() => ((string) null).AsResult().ShouldFail();
         [Fact]

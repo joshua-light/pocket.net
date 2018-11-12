@@ -4,6 +4,9 @@ namespace Pocket.Common
 {
     public static class ResultExtensions
     {
+        public static T Or<T>(this Result<T> self, T @default) =>
+            self.Success ? self.Value : @default;
+    
         public static Result<T> AsResult<T>(this T self) where T : class => self.Maybe().AsResult();
         public static Result<T> AsResult<T>(this Maybe<T> self) =>
             self.IsNothing ? Result.Failed<T>("Value is nothing.") : Result.Succeded(self.Value);
