@@ -164,7 +164,19 @@ namespace Pocket.Common
         public static FieldInfo[] Fields(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetFields(specify(new BindingSpecification()));
     
+        /// <summary>
+        ///     Gets all (static and instance) public methods of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <returns>Public static and public instance methods of <paramref name="self"/> type.</returns>
         public static MethodInfo[] Methods(this Type self) => self.GetMethods();
+        
+        /// <summary>
+        ///     Gets mehtods configured by <see cref="BindingSpecification"/> of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
+        /// <returns>Methods of <paramref name="self"/> type.</returns>
         public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetMethods(specify(new BindingSpecification()));
 
