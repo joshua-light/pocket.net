@@ -164,11 +164,11 @@ namespace Pocket.Common
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
             self.Distinct(new FuncAsEqualityComparer<T>(comparer));
 
-        public static T Required<T>(this IEnumerable<T> self, Func<T, bool> predicate, string otherwise = null)
+        public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate, string orThrow = null)
         {
             var item = self.FirstOrDefault(predicate);
             if (item == null)
-                throw new InvalidOperationException(otherwise ?? "Couldn't find item that matches specified predicate.");
+                throw new InvalidOperationException(orThrow ?? "Couldn't find item that matches specified predicate.");
             
             return item;
         }

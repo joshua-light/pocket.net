@@ -274,32 +274,32 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
-        #region Required
+        #region One
 
         [Fact]
-        public void Required_ShouldReturnItemThatMatchesPredicate_IfIemExists()
+        public void One_ShouldReturnItemThatMatchesPredicate_IfIemExists()
         {
             var items = new[] { 1, 2, 3 };
-            var item = items.Required(x => x == 1);
+            var item = items.One(x => x == 1);
 
             item.ShouldBe(1);
         }
         
         [Fact]
-        public void Required_ShouldThrowInvalidOperationException_IfItemDoesNotExist()
+        public void One_ShouldThrowInvalidOperationException_IfItemDoesNotExist()
         {
             var items = new[] { "1", "2", "3" };
 
-            Assert.Throws<InvalidOperationException>(() => items.Required(x => x == "0"));
+            Assert.Throws<InvalidOperationException>(() => items.One(x => x == "0"));
         }
         
         [Fact]
-        public void Required_ShouldThrowInvalidOperationExceptionWithSpecifiedMessage_IfItemDoesNotExist()
+        public void One_ShouldThrowInvalidOperationExceptionWithSpecifiedMessage_IfItemDoesNotExist()
         {
             const string message = "Message";
             var items = new[] { "1", "2", "3" };
 
-            var e = Assert.Throws<InvalidOperationException>(() => items.Required(x => x == "0", message));
+            var e = Assert.Throws<InvalidOperationException>(() => items.One(x => x == "0", message));
             
             e.Message.ShouldBe(message);
         }
