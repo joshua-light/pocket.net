@@ -180,6 +180,12 @@ namespace Pocket.Common
         public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetMethods(specify(new BindingSpecification()));
 
+        /// <summary>
+        ///     Gets all (public and nonpublic) instance fields of specified type that are marked with <typeparamref name="T"/> attribute.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of attribute that field should be marked with.</typeparam>
+        /// <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
         public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
             self
                 .Fields(_ => _.NonPublic().Or.Public().Or.Instance())
