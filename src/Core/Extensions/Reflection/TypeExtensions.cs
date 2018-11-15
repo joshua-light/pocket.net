@@ -40,6 +40,13 @@ namespace Pocket.Common
             /// <returns>New instance of <see cref="BindingSpecification"/>.</returns>
             public BindingSpecification AllStatic() =>
                 Public().Or.NonPublic().And.Static();
+            
+            /// <summary>
+            ///     Returns instance of <see cref="BindingSpecification"/> that represents all (public or nonpublic) instance fields.
+            /// </summary>
+            /// <returns>New instance of <see cref="BindingSpecification"/>.</returns>
+            public BindingSpecification AllInstance() =>
+                Public().Or.NonPublic().And.Instance();
       
             /// <summary>
             ///     ORs current <see cref="BindingSpecification"/> value with <see cref="BindingFlags.Public"/>.
@@ -200,7 +207,7 @@ namespace Pocket.Common
         /// <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
         public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
             self
-                .Fields(_ => _.NonPublic().Or.Public().And.Instance())
+                .Fields(_ => _.AllInstance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
     }
 }
