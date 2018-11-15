@@ -28,6 +28,18 @@ namespace Pocket.Common
             ///     Represents language construct that allows more fluent expressions.
             /// </summary>
             public BindingSpecification Or => this;
+            
+            /// <summary>
+            ///     Represents language construct that allows more fluent expressions.
+            /// </summary>
+            public BindingSpecification And => this;
+
+            /// <summary>
+            ///     Returns instance of <see cref="BindingSpecification"/> that represents all (public or nonpublic) static fields.
+            /// </summary>
+            /// <returns>New instance of <see cref="BindingSpecification"/>.</returns>
+            public BindingSpecification AllStatic() =>
+                Public().Or.NonPublic().And.Static();
       
             /// <summary>
             ///     ORs current <see cref="BindingSpecification"/> value with <see cref="BindingFlags.Public"/>.
@@ -188,7 +200,7 @@ namespace Pocket.Common
         /// <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
         public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
             self
-                .Fields(_ => _.NonPublic().Or.Public().Or.Instance())
+                .Fields(_ => _.NonPublic().Or.Public().And.Instance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
     }
 }
