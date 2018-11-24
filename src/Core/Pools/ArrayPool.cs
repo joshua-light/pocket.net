@@ -9,7 +9,7 @@ namespace Pocket.Common
     {
         /// <summary>
         ///     Represents a bounded segment of some <see cref="ArrayPool{T}"/> buffer, 
-        ///     which is behaves like <see cref="Array"/> or <see cref="IEnumerable"/>.
+        ///     which behaves like <see cref="Array"/> or <see cref="IEnumerable"/>.
         /// </summary>
         public struct Segment : IEnumerable<T>, IDisposable, IEquatable<Segment>
         {
