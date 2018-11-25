@@ -16,5 +16,13 @@ namespace Pocket.Common.Tests.System.Text.Parts
             
             c.ShouldBe(a + b);
         }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("Oscar", "Wilde")]
+        [InlineData("Vladimir", "Nabokov")]
+        [InlineData("Hermann", "Hesse")]
+        public void ToString_ShouldReturnConcatenatedString(string a, string b) =>
+            new TwoStringParts(a, b).ToString().ShouldBe(a + b);
     }
 }
