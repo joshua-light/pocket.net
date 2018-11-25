@@ -5,22 +5,7 @@ using Xunit;
 namespace Pocket.Common.Tests.Extensions
 {
     public class DictionaryExtensionsTest
-    {
-        #region GetOrNew
-        
-        [Fact]
-        public void GetOrNew_ShouldReturnSameObject_IfCalledTwice()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
-                
-            var list = dictionary.GetOrNew(1, () => new List<int>());
-            var otherList = dictionary.GetOrNew(1, () => new List<int>());
-
-            list.ShouldBeSameAs(otherList);
-        }
-        
-        #endregion
-        
+    {        
         #region One
 
         [Fact]
@@ -43,6 +28,17 @@ namespace Pocket.Common.Tests.Extensions
             dictionary.One(1).ShouldBeNull();
             dictionary.One(2).ShouldBeNull();
             dictionary.One(3).ShouldBeNull();
+        }
+        
+        [Fact]
+        public void OneWithFunc_ShouldReturnSameObject_IfCalledTwice()
+        {
+            var dictionary = new Dictionary<int, List<int>>();
+                
+            var list = dictionary.One(1, or: () => new List<int>());
+            var otherList = dictionary.One(1, or: () => new List<int>());
+
+            list.ShouldBeSameAs(otherList);
         }
         
         #endregion
