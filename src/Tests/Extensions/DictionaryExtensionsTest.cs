@@ -21,28 +21,28 @@ namespace Pocket.Common.Tests.Extensions
         
         #endregion
         
-        #region GetOrDefault
+        #region One
 
         [Fact]
-        public void GetOrDefault_ShouldReturnObject_IfKeyExists()
+        public void One_ShouldReturnObject_IfKeyExists()
         {
             var dictionary = new Dictionary<int, List<int>>();
             var list = new List<int>();
             dictionary[1] = list;
 
-            var otherList = dictionary.GetOrDefault(1);
+            var otherList = dictionary.One(1);
 
             list.ShouldBeSameAs(otherList);
         }
 
         [Fact]
-        public void GetOrDefault_ShouldReturnDefault_IfKeyDoesNotExist()
+        public void One_ShouldReturnDefault_IfKeyDoesNotExist()
         {
             var dictionary = new Dictionary<int, List<int>>();
             
-            dictionary.GetOrDefault(1).ShouldBeNull();
-            dictionary.GetOrDefault(2).ShouldBeNull();
-            dictionary.GetOrDefault(3).ShouldBeNull();
+            dictionary.One(1).ShouldBeNull();
+            dictionary.One(2).ShouldBeNull();
+            dictionary.One(3).ShouldBeNull();
         }
         
         #endregion
