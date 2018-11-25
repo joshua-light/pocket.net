@@ -18,5 +18,8 @@ namespace Pocket.Common
 
         public static implicit operator string(ThreeStringParts self) =>
             self._a + self._b + self._c;
+        
+        public override string ToString() =>
+            this;
     }
 }
