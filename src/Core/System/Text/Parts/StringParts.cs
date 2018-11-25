@@ -4,7 +4,7 @@ namespace Pocket.Common
 {
     public struct StringParts
     {
-        private readonly StringBuilder _string;
+        private StringBuilder _string;
         
         internal StringParts(string a, string b, string c, string d, string e)
         {
@@ -18,12 +18,16 @@ namespace Pocket.Common
 
         public StringParts With(string part)
         {
+            _string = _string ?? new StringBuilder();
             _string.Append(part);
 
             return this;
         }
 
         public static implicit operator string(StringParts self) =>
-            self._string.ToString();
+            self._string?.ToString() ?? "";
+
+        public override string ToString() =>
+            this;
     }
 }
