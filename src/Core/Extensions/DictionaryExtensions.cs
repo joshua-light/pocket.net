@@ -40,7 +40,7 @@ namespace Pocket.Common
         /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
         /// <returns>Element with specified key.</returns>
         /// <exception cref="KeyNotFoundException">Specified <paramref name="key"/> was not found.</exception>
-        public static TValue GetOrThrow<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
+        public static TValue OneOrThrow<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
             self.TryGetValue(key, out var result)
                 ? result
                 : throw new KeyNotFoundException($"Couldn't find value by [ {key} ] key.");

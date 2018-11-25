@@ -43,26 +43,26 @@ namespace Pocket.Common.Tests.Extensions
         
         #endregion
 
-        #region GetOrThrow
+        #region OneOrThrow
 
         [Fact]
-        public void GetOrThrow_ShouldReturnObject_IfKeyExist()
+        public void OneOrThrow_ShouldReturnObject_IfKeyExist()
         {
             var dictionary = new Dictionary<int, List<int>>();
             var list = new List<int>();
             dictionary[1] = list;
 
-            var otherList = dictionary.GetOrThrow(1);
+            var otherList = dictionary.OneOrThrow(1);
 
             list.ShouldBeSameAs(otherList);
         }
 
         [Fact]
-        public void GetOrThrow_ShouldThrowKeyNotFoundExceptionWithCorrectMessage_IfKeyDoesNotExist()
+        public void OneOrThrow_ShouldThrowKeyNotFoundExceptionWithCorrectMessage_IfKeyDoesNotExist()
         {
             var dictionary = new Dictionary<int, List<int>>();
 
-            var e = Assert.Throws<KeyNotFoundException>(() => dictionary.GetOrThrow(0));
+            var e = Assert.Throws<KeyNotFoundException>(() => dictionary.OneOrThrow(0));
             
             e.Message.ShouldBe("Couldn't find value by [ 0 ] key.");
         }
