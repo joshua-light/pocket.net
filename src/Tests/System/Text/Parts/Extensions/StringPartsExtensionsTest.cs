@@ -10,11 +10,7 @@ namespace Pocket.Common.Tests.System.Text.Parts.Extensions
         [InlineData("Oscar", "Wilde")]
         [InlineData("Vladimir", "Nabokov")]
         [InlineData("Hermann", "Hesse")]
-        public void With_ShouldReturnTwoStringParts_ThatRepresentConcatenatedStrings(string a, string b)
-        {
-            string c = a.With(b);
-
-            c.ShouldBe(a + b);
-        }
+        public void With_ShouldReturnTwoStringParts_ThatRepresentConcatenatedStrings(string a, string b) =>
+            a.With(b).ToString().ShouldBe(a + b);
     }
 }
