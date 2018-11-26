@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace Pocket.Common
 {
     public struct FourStringParts
@@ -7,6 +9,7 @@ namespace Pocket.Common
         private readonly string _c;
         private readonly string _d;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public FourStringParts(string a, string b, string c, string d)
         {
             _a = a;
@@ -15,12 +18,15 @@ namespace Pocket.Common
             _d = d;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public StringParts With(string part) =>
             new StringParts(_a, _b, _c, _d, part);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator string(FourStringParts self) =>
             self._a + self._b + self._c + self._d;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() =>
             this;
     }
