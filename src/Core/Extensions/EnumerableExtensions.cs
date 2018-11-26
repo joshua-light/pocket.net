@@ -124,6 +124,15 @@ namespace Pocket.Common
         }
 
         /// <summary>
+        ///     Checks whether <paramref name="self"/> is <code>null</code> or contains no elements.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns><code>true</code> if <paramref name="self"/> is <code>null</code> or empty, otherwise — <code>false</code>.</returns>
+        public static bool IsNullOrEmpty<T>([NoEnumeration] this IEnumerable<T> self) =>
+            self == null || self.IsEmpty();
+
+        /// <summary>
         ///     Checks whether <paramref name="self"/> contains no elements.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
