@@ -150,7 +150,7 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Produces the set difference of two sequences by using specified comparer function to compare values..
+        ///     Produces the set difference of two sequences by using specified comparer function to compare values.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">
