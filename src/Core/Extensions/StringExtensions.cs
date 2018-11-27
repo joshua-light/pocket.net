@@ -13,6 +13,11 @@
         public static bool IsNullOrEmpty(this string self) => 
             string.IsNullOrEmpty(self);
 
+        /// <summary>
+        ///     Returns <paramref name="self"/> if it isn't <code>null</code>, otherwise — <paramref name="@default"/>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="default">Default value that will be used instead of <paramref name="self"/> if one is null.</param>
         public static string Or(this string self, string @default) =>
             self ?? @default;
     }
