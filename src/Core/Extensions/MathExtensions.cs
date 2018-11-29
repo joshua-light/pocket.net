@@ -114,6 +114,15 @@ namespace Pocket.Common
         /// <param name="other">Item to compare.</param>
         /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
         public static OrCouple<long> Or(this long self, long other) => new OrCouple<long>(self, other);
+        
+        /// <summary>
+        ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
+        ///     depending on method call on <see cref="OrCouple{T}"/>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="other">Item to compare.</param>
+        /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
+        public static OrCouple<float> Or(this float self, float other) => new OrCouple<float>(self, other);
 
         #endregion
     }
