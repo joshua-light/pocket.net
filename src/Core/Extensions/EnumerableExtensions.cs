@@ -190,5 +190,8 @@ namespace Pocket.Common
             
             return item;
         }
+
+        public static T Second<T>(this IEnumerable<T> self) =>
+            self.Skip(1).First();
     }
 }
