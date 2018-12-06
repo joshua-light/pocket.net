@@ -191,6 +191,13 @@ namespace Pocket.Common
             return item;
         }
 
+        /// <summary>
+        ///     Returns the second element of the sequence.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns>Second element of the sequence.</returns>
+        /// <exception cref="InvalidOperationException">Sequence is empty or contains one element.</exception>
         public static T Second<T>(this IEnumerable<T> self) =>
             self.Skip(1).First();
     }
