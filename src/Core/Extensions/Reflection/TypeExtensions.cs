@@ -99,6 +99,9 @@ namespace Pocket.Common
                 _field = field;
             }
 
+            public FieldInfo Info =>
+                _field;
+
             public T As<T>() => (T)
                 _field.GetValue(_this);
 
