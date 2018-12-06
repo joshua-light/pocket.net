@@ -93,6 +93,12 @@ namespace Pocket.Common
             public readonly object _this;
             public readonly FieldInfo _field;
 
+            public BoundedFieldInfo(object @this, FieldInfo field)
+            {
+                _this = @this;
+                _field = field;
+            }
+
             public T As<T>() => (T)
                 _field.GetValue(_this);
 
@@ -185,6 +191,15 @@ namespace Pocket.Common
         /// <param name="self"><code>this</code> object.</param>
         /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
         public static FieldInfo[] Fields(this Type self) => self.GetFields();
+
+        /// <summary>
+        ///     Gets all (static and instance) public fields of specified type bounded to specified object.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
+        public static BoundedFieldInfo[] Fields(this Type self, object obj) =>
+            self.Fields().Select(x => new BoundedFieldInfo(obj, x)).ToArray();
         
         /// <summary>
         ///     Gets fields configured by <see cref="BindingSpecification"/> of specified type.
