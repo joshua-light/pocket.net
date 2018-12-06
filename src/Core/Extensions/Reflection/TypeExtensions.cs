@@ -88,6 +88,18 @@ namespace Pocket.Common
                 new BindingSpecification(_flags | flags);
         }
         
+        public struct BoundedFieldInfo
+        {
+            public readonly object _this;
+            public readonly FieldInfo _field;
+
+            public T As<T>() => (T)
+                _field.GetValue(_this);
+
+            public void Set(object value) =>
+                _field.SetValue(_this, value);
+        }
+        
         /// <summary>
         ///     Checks whether specified type is <see cref="Nullable{T}"/>.
         /// </summary>
