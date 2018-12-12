@@ -20,5 +20,15 @@
         /// <param name="default">Default value that will be used instead of <paramref name="self"/> if one is null.</param>
         public static string Or(this string self, string @default) =>
             self ?? @default;
+
+        public static int AsInt(this string self) =>
+            self.As(int.Parse);
+        public static int AsInt(this string self, int or) =>
+            int.TryParse(self, out var result) ? result : or;
+        
+        public static long AsLong(this string self) =>
+            self.As(long.Parse);
+        public static long AsLong(this string self, long or) =>
+            long.TryParse(self, out var result) ? result : or;
     }
 }
