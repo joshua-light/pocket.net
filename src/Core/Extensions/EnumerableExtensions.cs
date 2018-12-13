@@ -200,5 +200,24 @@ namespace Pocket.Common
         /// <exception cref="InvalidOperationException">Sequence is empty or contains one element.</exception>
         public static T Second<T>(this IEnumerable<T> self) =>
             self.Skip(1).First();
+
+        public static T NextTo<T>(this IEnumerable<T> self, T item)
+        {
+            var @return = false;
+
+            foreach (var element in self)
+            {
+                if (EqualityComparer<T>.Default.Equals(element, item))
+                {
+                    @return = true;
+                    continue;
+                }
+
+                if (@return)
+                     return element;
+            }
+
+            return default;
+        }
     }
 }

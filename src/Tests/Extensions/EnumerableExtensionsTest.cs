@@ -338,6 +338,22 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
+        #region NextTo
+
+        [Fact]
+        public void NextTo_ShouldReturnSecondItem_IfFirstIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("1").ShouldBe("2");
+        
+        [Fact]
+        public void NextTo_ShouldReturnThirstItem_IfSecondIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("2").ShouldBe("3");
+        
+        [Fact]
+        public void NextTo_ShouldReturnNull_IfThirdIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("3").ShouldBe(null);
+
+        #endregion
+
         #region Inner Classes
 
         private class Item : IComparable<Item>
