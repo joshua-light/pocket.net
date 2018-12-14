@@ -219,5 +219,20 @@ namespace Pocket.Common
 
             return default;
         }
+        
+        public static T PreviousTo<T>(this IEnumerable<T> self, T item)
+        {
+            var previous = default(T);
+
+            foreach (var element in self)
+            {
+                if (EqualityComparer<T>.Default.Equals(element, item))
+                    return previous;
+
+                previous = element;
+            }
+
+            return previous;
+        }
     }
 }

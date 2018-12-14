@@ -345,13 +345,29 @@ namespace Pocket.Common.Tests.Extensions
             new[] { "1", "2", "3" }.NextTo("1").ShouldBe("2");
         
         [Fact]
-        public void NextTo_ShouldReturnThirstItem_IfSecondIsSpecified() =>
+        public void NextTo_ShouldReturnThirdItem_IfSecondIsSpecified() =>
             new[] { "1", "2", "3" }.NextTo("2").ShouldBe("3");
         
         [Fact]
         public void NextTo_ShouldReturnNull_IfThirdIsSpecified() =>
             new[] { "1", "2", "3" }.NextTo("3").ShouldBe(null);
 
+        #endregion
+        
+        #region PreviousTo
+        
+        [Fact]
+        public void PreviousTo_ShouldReturnNull_IfFirstIsSpecified() =>
+            new[] { "1", "2", "3" }.PreviousTo("1").ShouldBe(null);
+
+        [Fact]
+        public void PreviousTo_ShouldReturnFirstItem_IfSecondIsSpecified() =>
+            new[] { "1", "2", "3" }.PreviousTo("2").ShouldBe("1");
+        
+        [Fact]
+        public void PreviousTo_ShouldReturnSecondItem_IfThirdIsSpecified() =>
+            new[] { "1", "2", "3" }.PreviousTo("3").ShouldBe("2");
+        
         #endregion
 
         #region Inner Classes
