@@ -201,6 +201,13 @@ namespace Pocket.Common
         public static T Second<T>(this IEnumerable<T> self) =>
             self.Skip(1).First();
 
+        /// <summary>
+        ///     Returns the next element to <paramref name="item"/>. 
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="item">Item, the next one to which will be returned.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns>The next to <paramref name="item"/>.</returns>
         public static T NextTo<T>(this IEnumerable<T> self, T item)
         {
             var @return = false;
