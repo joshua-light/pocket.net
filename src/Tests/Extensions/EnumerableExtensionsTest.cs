@@ -337,22 +337,6 @@ namespace Pocket.Common.Tests.Extensions
             new[] { 100, 200, 300 }.Second().ShouldBe(200);
 
         #endregion
-
-        #region NextTo
-
-        [Fact]
-        public void NextTo_ShouldReturnSecondItem_IfFirstIsSpecified() =>
-            new[] { "1", "2", "3" }.NextTo("1").ShouldBe("2");
-        
-        [Fact]
-        public void NextTo_ShouldReturnThirdItem_IfSecondIsSpecified() =>
-            new[] { "1", "2", "3" }.NextTo("2").ShouldBe("3");
-        
-        [Fact]
-        public void NextTo_ShouldReturnNull_IfThirdIsSpecified() =>
-            new[] { "1", "2", "3" }.NextTo("3").ShouldBe(null);
-
-        #endregion
         
         #region PreviousTo
         
@@ -368,6 +352,22 @@ namespace Pocket.Common.Tests.Extensions
         public void PreviousTo_ShouldReturnSecondItem_IfThirdIsSpecified() =>
             new[] { "1", "2", "3" }.PreviousTo("3").ShouldBe("2");
         
+        #endregion
+
+        #region NextTo
+
+        [Fact]
+        public void NextTo_ShouldReturnSecondItem_IfFirstIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("1").ShouldBe("2");
+        
+        [Fact]
+        public void NextTo_ShouldReturnThirdItem_IfSecondIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("2").ShouldBe("3");
+        
+        [Fact]
+        public void NextTo_ShouldReturnNull_IfThirdIsSpecified() =>
+            new[] { "1", "2", "3" }.NextTo("3").ShouldBe(null);
+
         #endregion
 
         #region Inner Classes

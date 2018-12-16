@@ -202,6 +202,28 @@ namespace Pocket.Common
             self.Skip(1).First();
 
         /// <summary>
+        ///     Returns the previous element to <paramref name="item"/>. 
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="item">Item, the previous one to which will be returned.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns>The previous to <paramref name="item"/>.</returns>
+        public static T PreviousTo<T>(this IEnumerable<T> self, T item)
+        {
+            var previous = default(T);
+
+            foreach (var element in self)
+            {
+                if (EqualityComparer<T>.Default.Equals(element, item))
+                    return previous;
+
+                previous = element;
+            }
+
+            return previous;
+        }
+        
+        /// <summary>
         ///     Returns the next element to <paramref name="item"/>. 
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
@@ -225,28 +247,6 @@ namespace Pocket.Common
             }
 
             return default;
-        }
-        
-        /// <summary>
-        ///     Returns the previous element to <paramref name="item"/>. 
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="item">Item, the previous one to which will be returned.</param>
-        /// <typeparam name="T">Type of elements in sequence.</typeparam>
-        /// <returns>The previous to <paramref name="item"/>.</returns>
-        public static T PreviousTo<T>(this IEnumerable<T> self, T item)
-        {
-            var previous = default(T);
-
-            foreach (var element in self)
-            {
-                if (EqualityComparer<T>.Default.Equals(element, item))
-                    return previous;
-
-                previous = element;
-            }
-
-            return previous;
         }
     }
 }
