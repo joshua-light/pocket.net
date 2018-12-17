@@ -1,5 +1,5 @@
 #tool nuget:?package=OpenCover
-#tool nuget:?package=Codecov
+#tool nuget:?package=Codecov&version=1.0.5
 #addin nuget:?package=Cake.Codecov
 
 // Consts.
