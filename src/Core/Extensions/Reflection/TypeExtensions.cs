@@ -238,5 +238,59 @@ namespace Pocket.Common
             self
                 .Fields(_ => _.AllInstance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
+
+        private static int[,,] a;
+        
+        public static string PrettyName(this Type self)
+        {
+            if (self.IsGenericType)
+            {
+                var arguments = self.GetGenericArguments();
+                var argumentsText = new StringParts();
+
+                for (var i = 0; i < arguments.Length; i++)
+                {
+                    var argument = arguments[i];
+
+                    argumentsText.With(self.IsConstructedGenericType ? argument.PrettyName() : "");
+                
+                    if (i != arguments.Length - 1)
+                        argumentsText.With(self.IsConstructedGenericType ? ", " : ",");
+                }
+
+                return $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
+            }
+
+            if (self.IsArray)
+            {
+                var rank = self.GetArrayRank();
+                var commas = new StringParts();
+
+                for (var i = 0; i < rank - 1; i++)
+                    commas.With(",");
+
+                return $"{self.GetElementType().PrettyName()}[{commas}]";
+            }
+            
+            switch (self.FullName)
+            {
+                case "System.Boolean":  return "bool";
+                case "System.Byte":     return "byte";
+                case "System.SByte":    return "sbyte";
+                case "System.Int16":    return "short";
+                case "System.UInt16":   return "ushort";
+                case "System.Int32":    return "int";
+                case "System.UInt32":   return "uint";
+                case "System.Int64":    return "long";
+                case "System.UInt64":   return "ulong";
+                case "System.Single":   return "float";
+                case "System.Double":   return "double";
+                case "System.Decimal":  return "decimal";
+                case "System.String":   return "string";
+                case "System.Object":   return "object";
+                
+                default: return self.Name;
+            }
+        }
     }
 }

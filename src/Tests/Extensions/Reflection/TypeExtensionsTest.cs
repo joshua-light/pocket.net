@@ -125,6 +125,77 @@ namespace Pocket.Common.Tests.Extensions.Reflection
 
         #endregion
         
+        #region PrettyName
+
+        [Fact]
+        public void PrettyName_ShouldReturnTypeName_IfTypeIsNonGeneric() =>
+            typeof(Man).PrettyName().ShouldBe("Man");
+        
+        [Theory]
+        [InlineData(typeof(IEnumerable<bool>),    "IEnumerable<bool>")]
+        [InlineData(typeof(IEnumerable<byte>),    "IEnumerable<byte>")]
+        [InlineData(typeof(IEnumerable<sbyte>),   "IEnumerable<sbyte>")]
+        [InlineData(typeof(IEnumerable<short>),   "IEnumerable<short>")]
+        [InlineData(typeof(IEnumerable<ushort>),  "IEnumerable<ushort>")]
+        [InlineData(typeof(IEnumerable<int>),     "IEnumerable<int>")]
+        [InlineData(typeof(IEnumerable<uint>),    "IEnumerable<uint>")]
+        [InlineData(typeof(IEnumerable<long>),    "IEnumerable<long>")]
+        [InlineData(typeof(IEnumerable<ulong>),   "IEnumerable<ulong>")]
+        [InlineData(typeof(IEnumerable<float>),   "IEnumerable<float>")]
+        [InlineData(typeof(IEnumerable<double>),  "IEnumerable<double>")]
+        [InlineData(typeof(IEnumerable<decimal>), "IEnumerable<decimal>")]
+        [InlineData(typeof(IEnumerable<string>),  "IEnumerable<string>")]
+        [InlineData(typeof(IEnumerable<object>),  "IEnumerable<object>")]
+        public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsConstructedGenericAndOneParameterIsUsed(Type type, string expected) =>
+            type.PrettyName().ShouldBe(expected);
+        
+        [Fact]
+        public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsUnconstructedGenericAndOneParameterIsUsed() =>
+            typeof(IEnumerable<>).PrettyName().ShouldBe("IEnumerable<>");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsConstructedGenericAndTwoParametersAreUsed() =>
+            typeof(IDictionary<int, string>).PrettyName().ShouldBe("IDictionary<int, string>");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsUnconstructedGenericAndTwoParametersAreUsed() =>
+            typeof(IDictionary<,>).PrettyName().ShouldBe("IDictionary<,>");
+
+        private int[,][] a;
+        private int[][,] b;
+        
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArray() =>
+            typeof(int[]).PrettyName().ShouldBe("int[]");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwo() =>
+            typeof(int[,]).PrettyName().ShouldBe("int[,]");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankThree() =>
+            typeof(int[,,]).PrettyName().ShouldBe("int[,,]");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfArrays() =>
+            typeof(int[][]).PrettyName().ShouldBe("int[][]");
+        
+        // TODO: Think this.
+        
+//        [Fact]
+//        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfArraysOfRankTwo() =>
+//            typeof(int[,][]).PrettyName().ShouldBe("int[,][]");
+//        
+//        [Fact]
+//        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwoOfArrays() =>
+//            typeof(int[][,]).PrettyName().ShouldBe("int[][,]");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwoOfArraysOfRankTwo() =>
+            typeof(int[,][,]).PrettyName().ShouldBe("int[,][,]");
+
+        #endregion
+        
         #region Inner Classes
         
         private interface IAnimal { }
