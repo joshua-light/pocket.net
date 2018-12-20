@@ -238,8 +238,6 @@ namespace Pocket.Common
             self
                 .Fields(_ => _.AllInstance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
-
-        private static int[,,] a;
         
         public static string PrettyName(this Type self)
         {

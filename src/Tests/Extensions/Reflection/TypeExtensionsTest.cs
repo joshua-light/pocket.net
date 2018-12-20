@@ -160,9 +160,6 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         [Fact]
         public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsUnconstructedGenericAndTwoParametersAreUsed() =>
             typeof(IDictionary<,>).PrettyName().ShouldBe("IDictionary<,>");
-
-        private int[,][] a;
-        private int[][,] b;
         
         [Fact]
         public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArray() =>
@@ -180,15 +177,13 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfArrays() =>
             typeof(int[][]).PrettyName().ShouldBe("int[][]");
         
-        // TODO: Think this.
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfArraysOfRankTwo() =>
+            typeof(int[,][]).PrettyName().ShouldBe("int[][,]");
         
-//        [Fact]
-//        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfArraysOfRankTwo() =>
-//            typeof(int[,][]).PrettyName().ShouldBe("int[,][]");
-//        
-//        [Fact]
-//        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwoOfArrays() =>
-//            typeof(int[][,]).PrettyName().ShouldBe("int[][,]");
+        [Fact]
+        public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwoOfArrays() =>
+            typeof(int[][,]).PrettyName().ShouldBe("int[,][]");
         
         [Fact]
         public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArrayOfRankTwoOfArraysOfRankTwo() =>
