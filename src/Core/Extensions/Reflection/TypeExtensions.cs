@@ -239,6 +239,11 @@ namespace Pocket.Common
                 .Fields(_ => _.AllInstance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
         
+        /// <summary>
+        ///     Name of the type (same as <code>Name</code> property) but with correct generic arguments.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <returns>Name of the type.</returns>
         public static string PrettyName(this Type self)
         {
             if (self.IsGenericType)
