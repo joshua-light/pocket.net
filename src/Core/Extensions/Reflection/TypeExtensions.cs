@@ -139,12 +139,12 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Checks whether <paramref name="self"/> implements <paramref name="other"/> at type level.
+        ///     Checks whether <paramref name="self"/> implements <typeparamref name="T"/> at type level.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <typeparam name="T">Type of interface that will be checked for implementation by <paramref name="self"/>.</typeparam>
-        /// <returns><code>true</code> if <paramref name="self"/> implements <paramref name="other"/>, otherwise <code>false</code>.</returns>
-        /// <exception cref="InvalidOperationException"><paramref name="other"/> is not an interface type.</exception>
+        /// <returns><code>true</code> if <paramref name="self"/> implements <typeparamref name="T"/>, otherwise <code>false</code>.</returns>
+        /// <exception cref="InvalidOperationException"><typeparamref name="T"/> is not an interface type.</exception>
         public static bool Implements<T>(this Type self) =>
             self.Implements(typeof(T));
 
