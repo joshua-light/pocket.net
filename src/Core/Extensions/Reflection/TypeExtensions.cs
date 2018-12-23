@@ -171,6 +171,16 @@ namespace Pocket.Common
         }
 
         /// <summary>
+        ///     Checks whether <paramref name="self"/> extends <typeparamref name="T"/> at type level.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type that will be checked for inheritance.</typeparam>
+        /// <returns><code>true</code> if <paramref name="self"/> extends <typeparamref name="T"/>, otherwise <code>false</code>.</returns>
+        /// <exception cref="InvalidOperationException"><typeparamref name="T"/> is not a class.</exception>
+        public static bool Extends<T>(this Type self) =>
+            self.Extends(typeof(T));
+
+        /// <summary>
         ///     Checks whether <paramref name="self"/> extends <paramref name="other"/> at type level.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
