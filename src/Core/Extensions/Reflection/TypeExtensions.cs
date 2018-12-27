@@ -315,5 +315,8 @@ namespace Pocket.Common
                 default: return self.Name;
             }
         }
+
+        public static object Instantiate(this Type self) =>
+            Activator.CreateInstance(self);
     }
 }
