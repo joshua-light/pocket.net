@@ -17,7 +17,7 @@ namespace Pocket.Common
         {
             try
             {
-                return !(self.Poll(1, SelectMode.SelectRead) && self.Available == 0);
+                return !(self.Poll(0, SelectMode.SelectRead) && self.Available == 0);
             }
             catch (SocketException)
             {
