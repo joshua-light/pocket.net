@@ -11,7 +11,7 @@ namespace Pocket.Common
         private T _value;
 
         /// <summary>
-        ///     Internal value that is initialized through <see cref="Freeze"/>.
+        ///     Internal value of type <see cref="T"/> that is initialized through <see cref="Freeze"/>.
         /// </summary>
         /// <exception cref="InvalidOperationException">There is no value because <see cref="Freeze"/> wasn't called.</exception>
         public T Value
