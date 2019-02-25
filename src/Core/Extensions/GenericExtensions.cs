@@ -1,10 +1,15 @@
-﻿namespace Pocket.Common
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Pocket.Common
 {
     /// <summary>
     ///     Represents generic extension-methods for objects of all types.
     /// </summary>
     public static class GenericExtensions
     {
+        #region Or
+
         /// <summary>
         ///     Represents either <paramref name="self"/> or <paramref name="default"/> if the first one is <code>null</code>.
         /// </summary>
@@ -33,5 +38,17 @@
         /// <returns>Either <paramref name="self"/> inner value or default of <typeparamref name="T"/>.</returns>
         public static T OrDefault<T>(this T? self) where T : struct =>
             self.GetValueOrDefault();
+
+        #endregion
+        
+        #region Inverted Collections
+
+        public static void AddTo<T>(this T self, IList<T> list) =>
+            list.Add(self);
+
+        public static void RemoveFrom<T>(this T self, IList<T> list) =>
+            list.Remove(self);
+
+        #endregion
     }
 }
