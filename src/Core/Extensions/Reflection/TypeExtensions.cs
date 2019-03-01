@@ -263,7 +263,7 @@ namespace Pocket.Common
         public static IEnumerable<FieldInfo> FieldsWith<T>(this Type self) where T : Attribute =>
             self
                 .Fields(_ => _.AllInstance())
-                .Where(x => x.GetCustomAttribute<T>() != null);
+                .Where(x => x.Has<T>());
         
         /// <summary>
         ///     Gets all (static and instance) public properties of specified type.
@@ -299,7 +299,7 @@ namespace Pocket.Common
         public static IEnumerable<PropertyInfo> PropertiesWith<T>(this Type self) where T : Attribute =>
             self
                 .Properties(_ => _.AllInstance())
-                .Where(x => x.GetCustomAttribute<T>() != null);
+                .Where(x => x.Has<T>());
         
         /// <summary>
         ///     Gets all (static and instance) public methods of specified type.
@@ -326,7 +326,7 @@ namespace Pocket.Common
         public static IEnumerable<MethodInfo> MethodsWith<T>(this Type self) where T : Attribute =>
             self
                 .Methods(_ => _.AllInstance())
-                .Where(x => x.GetCustomAttribute<T>() != null);
+                .Where(x => x.Has<T>());
         
         /// <summary>
         ///     Name of the type (same as <code>Name</code> property) but with correct generic arguments.
