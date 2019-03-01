@@ -6,6 +6,9 @@ namespace Pocket.Common
     public static class MemberInfoExtensions
     {
         public static bool Has<T>(this MemberInfo self) where T : Attribute =>
-            self.GetCustomAttribute<T>() != null;
+            self.Attribute<T>() != null;
+
+        public static T Attribute<T>(this MemberInfo self) where T : Attribute =>
+            self.GetCustomAttribute<T>();
     }
 }
