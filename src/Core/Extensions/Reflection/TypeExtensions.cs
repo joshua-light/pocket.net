@@ -294,8 +294,8 @@ namespace Pocket.Common
         ///     Gets all (public and nonpublic) instance properties of specified type that are marked with <typeparamref name="T"/> attribute.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
-        /// <typeparam name="T">Type of attribute that field should be marked with.</typeparam>
-        /// <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        /// <typeparam name="T">Type of attribute that property should be marked with.</typeparam>
+        /// <returns>Properties of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
         public static IEnumerable<PropertyInfo> PropertiesWith<T>(this Type self) where T : Attribute =>
             self
                 .Properties(_ => _.AllInstance())
@@ -316,6 +316,17 @@ namespace Pocket.Common
         /// <returns>Methods of <paramref name="self"/> type.</returns>
         public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetMethods(specify(new BindingSpecification()));
+        
+        /// <summary>
+        ///     Gets all (public and nonpublic) instance methods of specified type that are marked with <typeparamref name="T"/> attribute.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of attribute that method should be marked with.</typeparam>
+        /// <returns>Methods of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        public static IEnumerable<MethodInfo> MethodsWith<T>(this Type self) where T : Attribute =>
+            self
+                .Methods(_ => _.AllInstance())
+                .Where(x => x.GetCustomAttribute<T>() != null);
         
         /// <summary>
         ///     Name of the type (same as <code>Name</code> property) but with correct generic arguments.
