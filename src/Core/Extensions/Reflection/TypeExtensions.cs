@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Pocket.Common
 {
@@ -269,16 +270,16 @@ namespace Pocket.Common
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
-                var argumentsText = new StringParts();
+                var argumentsText = new StringBuilder();
 
                 for (var i = 0; i < arguments.Length; i++)
                 {
                     var argument = arguments[i];
 
-                    argumentsText.With(self.IsConstructedGenericType ? argument.PrettyName() : "");
+                    argumentsText.Append(self.IsConstructedGenericType ? argument.PrettyName() : "");
                 
                     if (i != arguments.Length - 1)
-                        argumentsText.With(self.IsConstructedGenericType ? ", " : ",");
+                        argumentsText.Append(self.IsConstructedGenericType ? ", " : ",");
                 }
 
                 return $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
@@ -287,10 +288,10 @@ namespace Pocket.Common
             if (self.IsArray)
             {
                 var rank = self.GetArrayRank();
-                var commas = new StringParts();
+                var commas = new StringBuilder();
 
                 for (var i = 0; i < rank - 1; i++)
-                    commas.With(",");
+                    commas.Append(",");
 
                 return $"{self.GetElementType().PrettyName()}[{commas}]";
             }
