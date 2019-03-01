@@ -110,6 +110,27 @@ namespace Pocket.Common
                 _field.SetValue(_this, value);
         }
         
+        public struct BoundedPropertyInfo
+        {
+            public readonly object _this;
+            public readonly PropertyInfo _property;
+
+            public BoundedPropertyInfo(object @this, PropertyInfo property)
+            {
+                _this = @this;
+                _property = property;
+            }
+
+            public PropertyInfo Info =>
+                _property;
+
+            public T As<T>() => (T)
+                _property.GetValue(_this);
+
+            public void Set(object value) =>
+                _property.SetValue(_this, value);
+        }
+        
         /// <summary>
         ///     Checks whether specified type is <see cref="Nullable{T}"/>.
         /// </summary>
@@ -216,15 +237,6 @@ namespace Pocket.Common
         public static FieldInfo[] Fields(this Type self) => self.GetFields();
 
         /// <summary>
-        ///     Gets all (static and instance) public fields of specified type bounded to specified object.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
-        /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
-        public static BoundedFieldInfo[] Fields(this Type self, object obj) =>
-            self.Fields().Select(x => new BoundedFieldInfo(obj, x)).ToArray();
-        
-        /// <summary>
         ///     Gets fields configured by <see cref="BindingSpecification"/> of specified type.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
@@ -232,23 +244,16 @@ namespace Pocket.Common
         /// <returns>Fields of <paramref name="self"/> type.</returns>
         public static FieldInfo[] Fields(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
             self.GetFields(specify(new BindingSpecification()));
-    
-        /// <summary>
-        ///     Gets all (static and instance) public methods of specified type.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <returns>Public static and public instance methods of <paramref name="self"/> type.</returns>
-        public static MethodInfo[] Methods(this Type self) => self.GetMethods();
         
         /// <summary>
-        ///     Gets mehtods configured by <see cref="BindingSpecification"/> of specified type.
+        ///     Gets all (static and instance) public fields of specified type bounded to specified object.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
-        /// <returns>Methods of <paramref name="self"/> type.</returns>
-        public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
-            self.GetMethods(specify(new BindingSpecification()));
-
+        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
+        public static BoundedFieldInfo[] Fields(this Type self, object obj) =>
+            self.Fields().Select(x => new BoundedFieldInfo(obj, x)).ToArray();
+    
         /// <summary>
         ///     Gets all (public and nonpublic) instance fields of specified type that are marked with <typeparamref name="T"/> attribute.
         /// </summary>
@@ -259,6 +264,58 @@ namespace Pocket.Common
             self
                 .Fields(_ => _.AllInstance())
                 .Where(x => x.GetCustomAttribute<T>() != null);
+        
+        /// <summary>
+        ///     Gets all (static and instance) public properties of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
+        public static PropertyInfo[] Properties(this Type self) => self.GetProperties();
+        
+        /// <summary>
+        ///     Gets properties configured by <see cref="BindingSpecification"/> of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
+        /// <returns>Properties of <paramref name="self"/> type.</returns>
+        public static PropertyInfo[] Properties(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
+            self.GetProperties(specify(new BindingSpecification()));
+        
+        /// <summary>
+        ///     Gets all (static and instance) public properties of specified type bounded to specified object.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
+        public static BoundedPropertyInfo[] Properties(this Type self, object obj) =>
+            self.Properties().Select(x => new BoundedPropertyInfo(obj, x)).ToArray();
+        
+        /// <summary>
+        ///     Gets all (public and nonpublic) instance properties of specified type that are marked with <typeparamref name="T"/> attribute.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <typeparam name="T">Type of attribute that field should be marked with.</typeparam>
+        /// <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        public static IEnumerable<PropertyInfo> PropertiesWith<T>(this Type self) where T : Attribute =>
+            self
+                .Properties(_ => _.AllInstance())
+                .Where(x => x.GetCustomAttribute<T>() != null);
+        
+        /// <summary>
+        ///     Gets all (static and instance) public methods of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <returns>Public static and public instance methods of <paramref name="self"/> type.</returns>
+        public static MethodInfo[] Methods(this Type self) => self.GetMethods();
+        
+        /// <summary>
+        ///     Gets methods configured by <see cref="BindingSpecification"/> of specified type.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
+        /// <returns>Methods of <paramref name="self"/> type.</returns>
+        public static MethodInfo[] Methods(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
+            self.GetMethods(specify(new BindingSpecification()));
         
         /// <summary>
         ///     Name of the type (same as <code>Name</code> property) but with correct generic arguments.
