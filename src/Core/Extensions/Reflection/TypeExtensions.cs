@@ -76,6 +76,9 @@ namespace Pocket.Common
             /// <returns>New instance of <see cref="BindingSpecification"/>.</returns>
             public BindingSpecification Instance() =>
                 With(BindingFlags.Instance);
+
+            public BindingSpecification OfThatType() =>
+                With(~BindingFlags.FlattenHierarchy);
       
             /// <summary>
             ///     Implicitly casts <see cref="BindingSpecification"/> to <see cref="BindingFlags"/>.
