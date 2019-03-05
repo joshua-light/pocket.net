@@ -344,17 +344,7 @@ namespace Pocket.Common
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
-                var argumentsText = new StringBuilder();
-
-                for (var i = 0; i < arguments.Length; i++)
-                {
-                    var argument = arguments[i];
-
-                    argumentsText.Append(self.IsConstructedGenericType ? argument.PrettyName() : "");
-                
-                    if (i != arguments.Length - 1)
-                        argumentsText.Append(self.IsConstructedGenericType ? ", " : ",");
-                }
+                var argumentsText = string.Join(", ", arguments.Select(x => x.PrettyName()));
 
                 return $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }

@@ -161,7 +161,7 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         
         [Fact]
         public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsUnconstructedGenericAndOneParameterIsUsed() =>
-            typeof(IEnumerable<>).PrettyName().ShouldBe("IEnumerable<>");
+            typeof(IEnumerable<>).PrettyName().ShouldBe("IEnumerable<T>");
         
         [Fact]
         public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsConstructedGenericAndTwoParametersAreUsed() =>
@@ -169,7 +169,7 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         
         [Fact]
         public void PrettyName_ShouldReturnTypeNameWithGenericParameters_IfTypeIsUnconstructedGenericAndTwoParametersAreUsed() =>
-            typeof(IDictionary<,>).PrettyName().ShouldBe("IDictionary<,>");
+            typeof(IDictionary<,>).PrettyName().ShouldBe("IDictionary<TKey, TValue>");
         
         [Fact]
         public void PrettyName_ShouldReturnCorrectTypeName_IfTypeIsArray() =>
