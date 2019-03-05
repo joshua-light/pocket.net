@@ -2,36 +2,31 @@ using System;
 
 namespace Pocket.Common
 {
-  public static class Toggle
-  {
-    public static Toggle<bool> Bool() => new Toggle<bool>(off: false, on: true);
-  }
-  
   public class Toggle<T>  where T : IEquatable<T>
   {
-    private readonly T _off;
-    private readonly T _on;
+    private readonly T _default;
+    private readonly T _or;
     
     private T _current;
 
-    public Toggle(T off, T on)
+    public Toggle(T @default, T or)
     {
-      _off = off;
-      _on = on;
+      _default = @default;
+      _or = or;
       
-      _current = _off;
+      _current = _default;
     }
 
     public T Use()
     {
       var current = _current;
 
-      _current = current.Equals(_off) ? _on : _off;
+      _current = current.Equals(_default) ? _or : _default;
 
       return current;
     }
 
-    public void Reset() => _current = _off;
+    public void Reset() => _current = _default;
 
     public T UseAndReset()
     {

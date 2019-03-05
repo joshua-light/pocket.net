@@ -8,7 +8,7 @@ namespace Pocket.Common.Tests.Monads
     [Fact]
     public void Use_ShouldReturnCurrentValue_AndSwitchCurrentToOpposite()
     {
-      var toggle = new Toggle<bool>(off: false, on: true);
+      var toggle = new Toggle<bool>(@default: false, or: true);
 
       toggle.Use().ShouldBe(false);
       toggle.Use().ShouldBe(true);
@@ -18,7 +18,7 @@ namespace Pocket.Common.Tests.Monads
     [Fact]
     public void Reset_ShouldSetOffValue()
     {
-      var toggle = new Toggle<bool>(off: false, on: true);
+      var toggle = new Toggle<bool>(@default: false, or: true);
 
       toggle.Use().ShouldBe(false);
       toggle.Reset();
@@ -28,7 +28,7 @@ namespace Pocket.Common.Tests.Monads
     [Fact]
     public void UseAndReset_ShouldReturnCurrentValue_AndThenResetItToOff()
     {
-      var toggle = new Toggle<bool>(off: false, on: true);
+      var toggle = new Toggle<bool>(@default: false, or: true);
 
       toggle.UseAndReset().ShouldBe(false);
       toggle.UseAndReset().ShouldBe(false);
