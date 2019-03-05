@@ -16,7 +16,7 @@ namespace Pocket.Common.Tests.Monads
     }
 
     [Fact]
-    public void Reset_ShouldSetOffValue()
+    public void Reset_ShouldSetDefaultValue()
     {
       var toggle = new Toggle<bool>(@default: false, or: true);
 
@@ -26,7 +26,7 @@ namespace Pocket.Common.Tests.Monads
     }
 
     [Fact]
-    public void UseAndReset_ShouldReturnCurrentValue_AndThenResetItToOff()
+    public void UseAndReset_ShouldReturnCurrentValue_AndThenResetItToDefault()
     {
       var toggle = new Toggle<bool>(@default: false, or: true);
 
