@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Shouldly;
 using Xunit;
 
@@ -130,6 +131,15 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         [Fact]
         public void PrettyName_ShouldReturnTypeName_IfTypeIsNonGeneric() =>
             typeof(Man).PrettyName().ShouldBe("Man");
+
+        [Theory]
+        [InlineData(typeof(int?), "int?")]
+        [InlineData(typeof(BindingFlags?), "BindingFlags?")]
+        [InlineData(typeof(DateTime?), "DateTime?")]
+        [InlineData(typeof(GenericStruct<int>?), "GenericStruct<int>?")]
+        [InlineData(typeof(GenericStruct<int?>?), "GenericStruct<int?>?")]
+        public void PrettyName_ShouldReturnShortTypeName_IfTypeIsNullable(Type type, string name) =>
+            type.PrettyName().ShouldBe(name);
         
         [Theory]
         [InlineData(typeof(IEnumerable<bool>),    "IEnumerable<bool>")]
@@ -206,6 +216,7 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         private class GenericChild<T> : GenericParent<T> { }
         private class GenericGrandChild<T> : GenericChild<T> { }
         private class ConcreteChild : GenericChild<int> { }
+        private struct GenericStruct<T> { }
 
         #endregion
     }

@@ -335,6 +335,9 @@ namespace Pocket.Common
         /// <returns>Name of the type.</returns>
         public static string PrettyName(this Type self)
         {
+            if (self.IsNullable())
+                return $"{self.GetGenericArguments().First().PrettyName()}?";
+            
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
