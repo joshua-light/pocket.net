@@ -35,5 +35,17 @@ namespace Pocket.Common.Tests.Extensions
             ((string) null).Or("Hello").ShouldBe("Hello");
 
         #endregion
+
+        #region Map
+
+        [Fact]
+        public void MapOfCharToString_ShouldReplaceEveryCharacterWithOther() =>
+            "1234".Map(x => '*').ShouldBe("****");
+
+        [Fact]
+        public void MapOfCharToString_ShouldReplaceEveryCharacterWithString() =>
+            "1234".Map(x => "**").ShouldBe("********");
+
+        #endregion
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Pocket.Common
+﻿using System;
+using System.Text;
+
+namespace Pocket.Common
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="string"/>.
@@ -30,5 +33,25 @@
             self.As(long.Parse);
         public static long AsLong(this string self, long or) =>
             long.TryParse(self, out var result) ? result : or;
+        
+        public static string Map(this string self, Func<char, char> map)
+        {
+            var text = new StringBuilder();
+
+            foreach (var ch in self)
+                text.Append(map(ch));
+            
+            return text.ToString();
+        }
+        
+        public static string Map(this string self, Func<char, string> map)
+        {
+            var text = new StringBuilder();
+
+            foreach (var ch in self)
+                text.Append(map(ch));
+            
+            return text.ToString();
+        }
     }
 }
