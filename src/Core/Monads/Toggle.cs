@@ -2,6 +2,11 @@ using System;
 
 namespace Pocket.Common
 {
+  public static class Toggle
+  {
+    public static Toggle<bool> Bool() => new Toggle<bool>(off: false, on: true);
+  }
+  
   public class Toggle<T>  where T : IEquatable<T>
   {
     private readonly T _off;
@@ -27,5 +32,14 @@ namespace Pocket.Common
     }
 
     public void Reset() => _current = _off;
+
+    public T UseAndReset()
+    {
+      var value = Use();
+      
+      Reset();
+
+      return value;
+    }
   }
 }
