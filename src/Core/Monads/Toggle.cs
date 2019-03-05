@@ -4,26 +4,28 @@ namespace Pocket.Common
 {
   public class Toggle<T>  where T : IEquatable<T>
   {
-    private readonly T _a;
-    private readonly T _b;
+    private readonly T _off;
+    private readonly T _on;
     
     private T _current;
 
-    public Toggle(T a, T b)
+    public Toggle(T off, T on)
     {
-      _a = a;
-      _b = b;
+      _off = off;
+      _on = on;
       
-      _current = _a;
+      _current = _off;
     }
 
     public T Use()
     {
       var current = _current;
 
-      _current = current.Equals(_a) ? _b : _a;
+      _current = current.Equals(_off) ? _on : _off;
 
       return current;
     }
+
+    public void Reset() => _current = _off;
   }
 }
