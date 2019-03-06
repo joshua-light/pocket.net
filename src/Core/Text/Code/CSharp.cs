@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Pocket.Common
 {
@@ -27,6 +28,8 @@ namespace Pocket.Common
     public CSharp NewLine(bool when) =>
       With(_code.NewLine(when));
 
+    private CSharp With(Code _) => this;
+
     public Code.Scope Scope(bool endsWithNewLine = true) => new Code.Scope(_code,
       x => x.Text("{").NewLine(),
       x => x.Text("}").NewLine(when: endsWithNewLine)).With(_code.Indent(_indent));
@@ -46,6 +49,23 @@ namespace Pocket.Common
     public CSharp Using(string @namespace) =>
       Text($"using {@namespace};");
 
+    public CSharp Field(FieldInfo field)
+    {
+      return Text($"{Attributes()}{Modifier()} {field.FieldType.PrettyName()} {field.Name};");
+
+      string Attributes()
+      {
+        var joined = string.Join(" ", field.GetCustomAttributes().Select(x => Attribute(x.GetType())));
+        if (joined.IsEmpty())
+          return "";
+
+        return $"{joined} ";
+      }
+      
+      string Modifier() =>
+        field.IsPublic ? "public" : field.IsPrivate ? "private" : "protected";
+    }
+    
     public Code.Scope Declaration(Type type)
     {
       return Text($"{Modifier()} {Kind()} {type.PrettyName()}{Parent()}").NewLine().Scope();
@@ -77,7 +97,7 @@ namespace Pocket.Common
           : "";
       }
     }
-
+    
     public CSharp Enum(Type type)
     {
       using (Declaration(type))
@@ -102,7 +122,14 @@ namespace Pocket.Common
       
       return this;
     }
+    
+    private static string Attribute(Type type)
+    {
+      var name = type.PrettyName();
 
-    private CSharp With(Code _) => this;
+      name = name.EndsWith("Attribute") ? name.Remove(name.Length - "Attribute".Length) : name;
+
+      return $"[{name}]";
+    }
   }
 }

@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Serialization;
 using Shouldly;
 using Xunit;
 
@@ -175,12 +179,39 @@ namespace Pocket.Common.Tests.Text.Code
     D = 4
 }
 ");
+
+    [Fact]
+    public void Field_ShouldAppendFieldCode_IfFieldIsPrivate() =>
+      CSharp().Field(Of(typeof(ClassWithFields), withName: "_privateField"))
+        .ToString()
+        .ShouldBe("private int _privateField;");
+    
+    [Fact]
+    public void Field_ShouldAppendFieldCode_IfFieldIsProtected() =>
+      CSharp().Field(Of(typeof(ClassWithFields), withName: "ProtectedField"))
+        .ToString()
+        .ShouldBe("protected long ProtectedField;");
+    
+    [Fact]
+    public void Field_ShouldAppendFieldCode_IfFieldIsPublic() =>
+      CSharp().Field(Of(typeof(ClassWithFields), withName: "PublicField"))
+        .ToString()
+        .ShouldBe("public string PublicField;");
+    
+    [Fact]
+    public void Field_ShouldAppendFieldCode_IfFieldHasAttributes() =>
+      CSharp().Field(Of(typeof(ClassWithFields), withName: "FieldWithAttributes"))
+        .ToString()
+        .ShouldBe("[XmlAttribute] [SoapAttribute] public List<int> FieldWithAttributes;");
     
     private static CSharp CSharp() => new Common.Code().CSharp();
 
+    private static FieldInfo Of(Type type, string withName) =>
+      type.Fields(_ => _.AllStatic().And.AllInstance()).First(x => x.Name == withName);
+
     #region Nested Types
 
-    private class PrivateClass { } 
+    private class PrivateClass { }
     public class PublicClass { }
     
     public class BaseClass { }
@@ -196,6 +227,15 @@ namespace Pocket.Common.Tests.Text.Code
       B = 2,
       C = 3,
       D = 4,
+    }
+
+    public class ClassWithFields
+    {
+      private int _privateField;
+      protected long ProtectedField;
+      public string PublicField;
+
+      [XmlAttribute] [SoapAttribute] public List<int> FieldWithAttributes;
     }
 
     #endregion
