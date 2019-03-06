@@ -71,20 +71,21 @@ namespace Pocket.Common
                 return _text.WriteLine(text);
             }
         }
-        
-        public struct IndentScope : IDisposable
+
+        public struct Scope : IDisposable
         {
             private readonly Code _code;
-            private readonly IText _oldText;
+            private readonly Action<Code> _end;
 
-            public IndentScope(Code code, int size)
+            public Scope(Code code, Action<Code> begin, Action<Code> end)
             {
                 _code = code;
-                _oldText = code._text;
-                _code._text = new IndentedText(code._text, size);
+                _end = end;
+
+                begin(code);
             }
-            
-            public void Dispose() => _code._text = _oldText;
+
+            public void Dispose() => _end(_code);
         }
         
         private IText _text;
@@ -101,7 +102,11 @@ namespace Pocket.Common
         public Code WriteLine(string text) =>
             _text.WriteLine(text);
 
-        public IndentScope Indent(int size) =>
-           new IndentScope(this, size);
+        public Scope Indent(int size)
+        {
+            var oldText = _text;
+
+            return new Scope(this, x => x._text = new IndentedText(x._text, size), x => x._text = oldText);
+        }
     }
 }
