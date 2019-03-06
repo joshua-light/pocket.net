@@ -18,12 +18,10 @@ namespace Pocket.Common
     public CSharp NewLine() =>
       With(_code.NewLine());
 
-    public Code.Scope Scope()
-    {
-      return new Code.Scope(_code,
-          x => x.Text("{").NewLine(),
-          x => x.Text("}")).With(_code.Indent(_indent));
-    }
+    public Code.Scope Scope() => new Code.Scope(_code,
+      x => x.Text("{").NewLine(),
+      x => x.Text("}"))
+      .With(_code.Indent(_indent));
     
     private CSharp With(Code _) => this;
   }
