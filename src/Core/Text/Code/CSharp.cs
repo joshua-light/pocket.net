@@ -51,19 +51,47 @@ namespace Pocket.Common
 
     public CSharp Field(FieldInfo field)
     {
-      return Text($"{Attributes()}{Modifier()} {field.FieldType.PrettyName()} {field.Name};");
-
-      string Attributes()
-      {
-        var joined = string.Join(" ", field.GetCustomAttributes().Select(x => Attribute(x.GetType())));
-        if (joined.IsEmpty())
-          return "";
-
-        return $"{joined} ";
-      }
+      return Text($"{Attributes(field)}{Modifier()} {field.FieldType.PrettyName()} {field.Name};");
       
       string Modifier() =>
         field.IsPublic ? "public" : field.IsPrivate ? "private" : "protected";
+    }
+
+    public CSharp Property(PropertyInfo property)
+    {
+      return Text($"{Attributes(property)}{Modifier()} " +
+                  $"{property.PropertyType.PrettyName()} {property.Name} " +
+                  $"{{ {Get()}{Set()}}}");
+
+      string Modifier()
+      {        
+        var getMethod = property.GetMethod;
+        var setMethod = property.SetMethod;
+        
+        return
+          (getMethod?.IsPublic).Or(false) || (setMethod?.IsPublic).Or(false) ? "public" :
+          (getMethod?.IsPrivate).Or(true) && (setMethod?.IsPrivate).Or(true) ? "private" : "protected";
+      }
+
+      string Get()
+      {
+        if (property.GetMethod == null)
+          return "";
+        
+        var modifier = property.GetMethod.IsPublic ? "public" : property.GetMethod.IsPrivate ? "private" : "protected";
+
+        return modifier == Modifier() ? "get; " : $"{modifier} get; ";
+      }
+
+      string Set()
+      {
+        if (property.SetMethod == null)
+          return "";
+        
+        var modifier = property.SetMethod.IsPublic ? "public" : property.SetMethod.IsPrivate ? "private" : "protected";
+
+        return modifier == Modifier() ? "set; " : $"{modifier} set; ";
+      }
     }
     
     public Code.Scope Declaration(Type type)
@@ -121,6 +149,15 @@ namespace Pocket.Common
       }
       
       return this;
+    }
+
+    private static string Attributes(MemberInfo member)
+    {
+      var joined = string.Join(" ", member.GetCustomAttributes().Select(x => Attribute(x.GetType())));
+      if (joined.IsEmpty())
+        return "";
+
+      return $"{joined} ";
     }
     
     private static string Attribute(Type type) =>
