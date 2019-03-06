@@ -23,7 +23,7 @@ namespace Pocket.Common.Tests.Text.Code
     {
       var code = CSharp();
 
-      using (code.Scope(withHeader: "namespace Test"))
+      using (code.Scope(header: "namespace Test"))
         code.Text("Hello").NewLine();
       
       code.ToString().ShouldBe(@"namespace Test

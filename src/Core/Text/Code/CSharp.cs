@@ -23,8 +23,12 @@ namespace Pocket.Common
       x => x.Text("}"))
       .With(_code.Indent(_indent));
 
-    public Code.Scope Scope(string withHeader) =>
-      Text(withHeader).NewLine().Scope();
+    public Code.Scope Scope(string header) =>
+      Text(header).NewLine().Scope();
+    
+    public Code.Scope Region(string name) => new Code.Scope(_code,
+      x => x.Text($"#region {name}").NewLine(),
+      x => x.Text($"#endregion"));
     
     private CSharp With(Code _) => this;
   }
