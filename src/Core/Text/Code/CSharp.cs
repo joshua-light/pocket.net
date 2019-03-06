@@ -28,6 +28,9 @@ namespace Pocket.Common
     public Code.Scope Region(string name) => new Code.Scope(_code,
       x => x.Text($"#region {name}").NewLine(),
       x => x.Text($"#endregion").NewLine());
+
+    public Code.Scope Namespace(string name) =>
+      Scope(header: $"namespace {name}", endsWithNewLine: false);
     
     private CSharp With(Code _) => this;
   }

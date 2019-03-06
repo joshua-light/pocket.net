@@ -63,6 +63,20 @@ namespace Pocket.Common.Tests.Text.Code
 }
 ");
     }
+
+    [Fact]
+    public void Namespace_ShouldAppendNamespaceScopeWithoutNewLine()
+    {
+      var code = CSharp();
+
+      using (code.Namespace("Test"))
+        code.Text("Hello").NewLine();
+
+      code.ToString().ShouldBe(@"namespace Test
+{
+    Hello
+}");
+    }
     
     private static CSharp CSharp() => new Common.Code().CSharp();
   }
