@@ -6,16 +6,16 @@ namespace Pocket.Common.Tests.Code
     public class CodeTest
     {
         [Fact]
-        public void Text_OfEmptyCode_ShouldBeEmptyString() =>
-            Code().Text.ShouldBe("");
+        public void ToString_OfEmptyCode_ShouldBeEmptyString() =>
+            Code().ToString().ShouldBe("");
 
         [Fact]
         public void Write_ShouldChangeText() =>
-            Code().Write("Hello").Text.ShouldBe("Hello");
+            Code().Text("Hello").ToString().ShouldBe("Hello");
 
         [Fact]
         public void Write_AfterWriteLine_ShouldStartAtNewLine() =>
-            Code().WriteLine("").Write("Hello").Text.ShouldBe(@"
+            Code().Text("").NewLine().Text("Hello").ToString().ShouldBe(@"
 Hello");
 
         [Fact]
@@ -25,13 +25,13 @@ Hello");
 
             using (code.Indent(size: 4))
             {
-                code.WriteLine("1");
-                code.WriteLine("2");
-                code.WriteLine("3");
-                code.Write("4");
+                code.Text("1");
+                code.Text("2");
+                code.Text("3");
+                code.Text("4");
             }
             
-            code.Text.ShouldBe(@"    1
+            code.ToString().ShouldBe(@"    1
     2
     3
     4");
@@ -44,15 +44,15 @@ Hello");
 
             using (code.Indent(size: 4))
             {
-                code.WriteLine("1");
+                code.Text("1").NewLine();
                 
                 using (code.Indent(size: 2))
-                    code.WriteLine("2");
+                    code.Text("2").NewLine();
                 
-                code.Write("3");
+                code.Text("3");
             }
             
-            code.Text.ShouldBe(@"    1
+            code.ToString().ShouldBe(@"    1
       2
     3");
         }

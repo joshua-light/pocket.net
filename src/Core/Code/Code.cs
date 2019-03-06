@@ -8,27 +8,25 @@ namespace Pocket.Common
     {
         private interface IText
         {
-            Code Write(string text);
-            Code WriteLine(string text);
+            Code With(string text);
+            Code NewLine();
         }
 
         private class StringBuilderText : IText
         {
             private readonly Code _code;
-            private readonly StringBuilder _sb;
+            private readonly StringBuilder _sb = new StringBuilder();
 
-            public StringBuilderText(Code code)
-            {
+            public StringBuilderText(Code code) =>
                 _code = code;
-                _sb = new StringBuilder();
-            }
 
             public override string ToString() => _sb.ToString();
 
-            public Code Write(string text) =>
+            public Code With(string text) =>
                 With(_sb.Append(text));
-            public Code WriteLine(string text) =>
-                With(_sb.AppendLine(text));
+            
+            public Code NewLine() =>
+                With(_sb.AppendLine());
             
             private Code With(StringBuilder _) => _code;
         }
@@ -37,11 +35,10 @@ namespace Pocket.Common
         {
             private static class Cached
             {
-                private static readonly Dictionary<int, string> Cache =
-                    new Dictionary<int, string>();
+                private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();
 
                 public static string String(int with) =>
-                    Cache.One(with, () => new string(' ', with));
+                    Cache.One(with, or: () => new string(' ', with));
             }
             
             private readonly IText _text;
@@ -55,23 +52,22 @@ namespace Pocket.Common
                 _newLine = new Toggle<bool>(true, or: false);
             }
 
-            public Code Write(string text)
+            public Code With(string text)
             {
                 if (_newLine.Use())
-                    _text.Write(Cached.String(with: _indent));
+                    _text.With(Cached.String(with: _indent));
 
-                return _text.Write(text);
+                return _text.With(text);
             }
 
-            public Code WriteLine(string text)
+            public Code NewLine()
             {
-                if (_newLine.UseAndReset())
-                    _text.Write(Cached.String(with: _indent));
+                _newLine.Reset();
 
-                return _text.WriteLine(text);
+                return _text.NewLine();
             }
         }
-
+        
         public struct Scope : IDisposable
         {
             private readonly Code _code;
@@ -95,18 +91,22 @@ namespace Pocket.Common
             _text = new StringBuilderText(this);
         }
 
-        public string Text => _text.ToString();
+        public override string ToString() =>
+            _text.ToString();
 
-        public Code Write(string text) =>
-            _text.Write(text);
-        public Code WriteLine(string text) =>
-            _text.WriteLine(text);
+        public Code Text(string text) =>
+            _text.With(text);
+        
+        public Code NewLine() =>
+            _text.NewLine();
 
         public Scope Indent(int size)
         {
             var oldText = _text;
 
-            return new Scope(this, x => x._text = new IndentedText(x._text, size), x => x._text = oldText);
+            return new Scope(this,
+                x => x._text = new IndentedText(x._text, size),
+                x => x._text = oldText);
         }
     }
 }
