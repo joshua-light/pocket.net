@@ -53,5 +53,27 @@ namespace Pocket.Common
             
             return text.ToString();
         }
+
+        #region Without
+
+        public struct WithoutExpression
+        {
+            private readonly string _source;
+            private readonly string _part;
+
+            public WithoutExpression(string source, string part)
+            {
+                _source = source;
+                _part = part;
+            }
+
+            public string AtEnd() =>
+                _source.EndsWith(_part) ? _source.Remove(_source.Length - _part.Length) : _source;
+        }
+
+        public static WithoutExpression Without(this string self, string part) =>
+            new WithoutExpression(self, part);
+
+        #endregion
     }
 }

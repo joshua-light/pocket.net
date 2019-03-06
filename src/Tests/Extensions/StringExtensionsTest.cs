@@ -47,5 +47,21 @@ namespace Pocket.Common.Tests.Extensions
             "1234".Map(x => "**").ShouldBe("********");
 
         #endregion
+
+        #region Without
+
+        [Theory]
+        [InlineData("Test", "t", "Tes")]
+        [InlineData("Test", "st", "Te")]
+        [InlineData("Test", "est", "T")]
+        [InlineData("Test", "Test", "")]
+        
+        [InlineData("Test", "te", "Test")]
+        [InlineData("Test", "123", "Test")]
+        [InlineData("Test", "fasd", "Test")]
+        public void WithoutPartAtEnd_ShouldWorkCorrectly(string source, string part, string expected) =>
+            source.Without(part).AtEnd().ShouldBe(expected);
+
+        #endregion
     }
 }
