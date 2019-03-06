@@ -22,6 +22,9 @@ namespace Pocket.Common
       x => x.Text("{").NewLine(),
       x => x.Text("}"))
       .With(_code.Indent(_indent));
+
+    public Code.Scope Scope(string withHeader) =>
+      Text(withHeader).NewLine().Scope();
     
     private CSharp With(Code _) => this;
   }

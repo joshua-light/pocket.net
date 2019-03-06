@@ -18,6 +18,20 @@ namespace Pocket.Common.Tests.Text.Code
 }");
     }
 
+    [Fact]
+    public void ScopeWithHeader_ShouldAppendHeaderAndThenScopeAtNewLine()
+    {
+      var code = CSharp();
+
+      using (code.Scope(withHeader: "namespace Test"))
+        code.Text("Hello").NewLine();
+      
+      code.ToString().ShouldBe(@"namespace Test
+{
+    Hello
+}");
+    }
+
     private static CSharp CSharp() => new Common.Code().CSharp();
   }
 }
