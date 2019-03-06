@@ -88,11 +88,11 @@ namespace Pocket.Common.Tests.Text.Code
       CSharp().Using(typeof(List<>)).ToString().ShouldBe("using System.Collections.Generic;");
 
     [Fact]
-    public void Class_ShouldAppendScopeWithClassHeader_IfClassIsPrivate()
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassIsPrivate()
     {
       var code = CSharp();
       
-      using (code.Class(typeof(PrivateClass))) { }
+      using (code.Declaration(typeof(PrivateClass))) { }
       
       code.ToString().ShouldBe(@"private class PrivateClass
 {
@@ -101,11 +101,11 @@ namespace Pocket.Common.Tests.Text.Code
     }
     
     [Fact]
-    public void Class_ShouldAppendScopeWithClassHeader_IfClassIsPublic()
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassIsPublic()
     {
       var code = CSharp();
       
-      using (code.Class(typeof(PublicClass))) { }
+      using (code.Declaration(typeof(PublicClass))) { }
       
       code.ToString().ShouldBe(@"public class PublicClass
 {
@@ -114,13 +114,52 @@ namespace Pocket.Common.Tests.Text.Code
     }
     
     [Fact]
-    public void Class_ShouldAppendScopeWithClassHeader_IfClassHasParent()
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassHasParent()
     {
       var code = CSharp();
       
-      using (code.Class(typeof(Class))) { }
+      using (code.Declaration(typeof(Class))) { }
       
       code.ToString().ShouldBe(@"public class Class : BaseClass
+{
+}
+");
+    }
+    
+    [Fact]
+    public void Declaration_ShouldAppendScopeWithStructHeader()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(PublicStruct))) { }
+      
+      code.ToString().ShouldBe(@"public struct PublicStruct
+{
+}
+");
+    }
+    
+    [Fact]
+    public void Declaration_ShouldAppendScopeWithEnumHeader()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(PublicEnum))) { }
+      
+      code.ToString().ShouldBe(@"public enum PublicEnum
+{
+}
+");
+    }
+    
+    [Fact]
+    public void Declaration_ShouldAppendScopeWithEnumHeader_IfEnumHasNotIntBaseType()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(PublicLongEnum))) { }
+      
+      code.ToString().ShouldBe(@"public enum PublicLongEnum : long
 {
 }
 ");
@@ -135,6 +174,10 @@ namespace Pocket.Common.Tests.Text.Code
     
     public class BaseClass { }
     public class Class : BaseClass { }
+    
+    public struct PublicStruct { }
+    public enum PublicEnum { }
+    public enum PublicLongEnum : long { }
 
     #endregion
   }

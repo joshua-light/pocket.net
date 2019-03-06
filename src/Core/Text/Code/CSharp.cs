@@ -39,19 +39,36 @@ namespace Pocket.Common
     public CSharp Using(string @namespace) =>
       Text($"using {@namespace};");
 
-    public Code.Scope Class(Type type)
+    public Code.Scope Declaration(Type type)
     {
-      return Text($"{Modifier()} class {type.PrettyName()}{Parent()}").NewLine().Scope();
+      return Text($"{Modifier()} {Kind()} {type.PrettyName()}{Parent()}").NewLine().Scope();
       
       string Modifier() =>
         (type.IsNested ? type.IsNestedPublic : type.IsPublic)
           ? "public"
           : "private";
 
-      string Parent() =>
-        type.BaseType != null && type.BaseType != typeof(object)
+      string Kind() =>
+        type.IsValueType ? type.IsEnum ? "enum" : "struct" : "class";
+
+      string Parent()
+      {
+        if (type.IsEnum && Enum.GetUnderlyingType(type) != typeof(int))
+        {
+          var underlying = type.GetEnumUnderlyingType();
+          if (underlying != typeof(int))
+            return $" : {Enum.GetUnderlyingType(type).PrettyName()}";
+
+          return "";
+        }
+        
+        if (type.IsValueType)
+          return "";
+        
+        return type.BaseType != null && type.BaseType != typeof(object)
           ? $" : {type.BaseType.PrettyName()}"
           : "";
+      }
     }
 
     private CSharp With(Code _) => this;
