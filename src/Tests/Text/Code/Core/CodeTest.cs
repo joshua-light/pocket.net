@@ -16,8 +16,9 @@ namespace Pocket.Common.Tests.Text.Code.Core
 
         [Fact]
         public void Write_AfterWriteLine_ShouldStartAtNewLine() =>
-            Code().Text("").NewLine().Text("Hello").ToString().ShouldBe(@"
-Hello");
+            Code().Text("").NewLine().Text("Hello").ToString().ShouldBe(
+                "" + Environment.NewLine +
+                "Hello");
 
         [Fact]
         public void UsingIndent_ShouldAddSpacesForEveryNewLine()
