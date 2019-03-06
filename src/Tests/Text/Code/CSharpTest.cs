@@ -165,6 +165,17 @@ namespace Pocket.Common.Tests.Text.Code
 ");
     }
     
+    [Fact]
+    public void Enum_ShouldAppendScopeWithEnumHeaderAndAllValues() =>
+      CSharp().Enum(typeof(EnumWithValues)).ToString().ShouldBe(@"public enum EnumWithValues
+{
+    A = 1,
+    B = 2,
+    C = 3,
+    D = 4
+}
+");
+    
     private static CSharp CSharp() => new Common.Code().CSharp();
 
     #region Nested Types
@@ -178,6 +189,14 @@ namespace Pocket.Common.Tests.Text.Code
     public struct PublicStruct { }
     public enum PublicEnum { }
     public enum PublicLongEnum : long { }
+
+    public enum EnumWithValues
+    {
+      A = 1,
+      B = 2,
+      C = 3,
+      D = 4,
+    }
 
     #endregion
   }

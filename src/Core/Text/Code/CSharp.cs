@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Pocket.Common
 {
@@ -17,8 +19,13 @@ namespace Pocket.Common
 
     public CSharp Text(string text) =>
       With(_code.Text(text));
+    public CSharp Text(string text, bool when) =>
+      With(_code.Text(text, when));
+    
     public CSharp NewLine() =>
       With(_code.NewLine());
+    public CSharp NewLine(bool when) =>
+      With(_code.NewLine(when));
 
     public Code.Scope Scope(bool endsWithNewLine = true) => new Code.Scope(_code,
       x => x.Text("{").NewLine(),
@@ -69,6 +76,31 @@ namespace Pocket.Common
           ? $" : {type.BaseType.PrettyName()}"
           : "";
       }
+    }
+
+    public CSharp Enum(Type type)
+    {
+      using (Declaration(type))
+      {
+        var mappings = Mappings();
+
+        foreach (var mapping in mappings)
+          Text($"{mapping.Name} = {mapping.Value}")
+            .Text(",", when: mapping != mappings.Last())
+            .NewLine();
+      }
+      
+      List<(string Name, object Value)> Mappings()
+      {
+        var underlying = type.GetEnumUnderlyingType();
+
+        return type.GetEnumValues()
+          .Cast<object>()
+          .Select(x => (x.ToString(), Convert.ChangeType(x, underlying)))
+          .ToList();
+      }
+      
+      return this;
     }
 
     private CSharp With(Code _) => this;
