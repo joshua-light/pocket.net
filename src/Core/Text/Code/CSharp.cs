@@ -53,7 +53,7 @@ namespace Pocket.Common
 
       string Parent()
       {
-        if (type.IsEnum && Enum.GetUnderlyingType(type) != typeof(int))
+        if (type.IsEnum)
         {
           var underlying = type.GetEnumUnderlyingType();
           if (underlying != typeof(int))
