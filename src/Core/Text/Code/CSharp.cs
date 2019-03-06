@@ -18,10 +18,9 @@ namespace Pocket.Common
     public CSharp NewLine() =>
       With(_code.NewLine());
 
-    public Code.Scope Scope() => new Code.Scope(_code,
+    public Code.Scope Scope(bool endsWithNewLine = true) => new Code.Scope(_code,
       x => x.Text("{").NewLine(),
-      x => x.Text("}"))
-      .With(_code.Indent(_indent));
+      x => x.Text("}").NewLine(when: endsWithNewLine)).With(_code.Indent(_indent));
 
     public Code.Scope Scope(string header) =>
       Text(header).NewLine().Scope();
