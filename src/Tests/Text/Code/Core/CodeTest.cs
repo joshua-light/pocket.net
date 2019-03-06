@@ -1,7 +1,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Code.Core
+namespace Pocket.Common.Tests.Text.Code.Core
 {
     public class CodeTest
     {
@@ -25,9 +25,9 @@ Hello");
 
             using (code.Indent(size: 4))
             {
-                code.Text("1");
-                code.Text("2");
-                code.Text("3");
+                code.Text("1").NewLine();
+                code.Text("2").NewLine();
+                code.Text("3").NewLine();
                 code.Text("4");
             }
             

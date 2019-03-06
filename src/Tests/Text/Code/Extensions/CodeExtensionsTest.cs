@@ -1,7 +1,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Code.Extensions
+namespace Pocket.Common.Tests.Text.Code.Extensions
 {
   public class CodeExtensionsTest
   {

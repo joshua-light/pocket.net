@@ -15,4 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Pocket.Common.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Text\Code" />
+  </ItemGroup>
 </Project>
