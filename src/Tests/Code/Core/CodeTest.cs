@@ -1,7 +1,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Code
+namespace Pocket.Common.Tests.Code.Core
 {
     public class CodeTest
     {
@@ -36,7 +36,7 @@ Hello");
     3
     4");
         }
-        
+
         [Fact]
         public void UsingDoubleIndent_ShouldAddSpacesForEveryNewLine()
         {
@@ -45,18 +45,18 @@ Hello");
             using (code.Indent(size: 4))
             {
                 code.Text("1").NewLine();
-                
+
                 using (code.Indent(size: 2))
                     code.Text("2").NewLine();
-                
+
                 code.Text("3");
             }
-            
+
             code.ToString().ShouldBe(@"    1
       2
     3");
         }
-        
+
         private static Common.Code Code() => new Common.Code();
     }
 }
