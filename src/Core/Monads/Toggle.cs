@@ -11,30 +11,30 @@ namespace Pocket.Common
 
     public Toggle(T @default, T or)
     {
-      _default = @default;
-      _or = or;
+        _default = @default;
+        _or = or;
       
-      _current = _default;
+        _current = _default;
     }
 
     public T Use()
     {
-      var current = _current;
+        var current = _current;
 
-      _current = current.Equals(_default) ? _or : _default;
+        _current = current.Equals(_default) ? _or : _default;
 
-      return current;
+        return current;
     }
 
     public void Reset() => _current = _default;
 
     public T UseAndReset()
     {
-      var value = Use();
+        var value = Use();
       
-      Reset();
+        Reset();
 
-      return value;
+        return value;
     }
   }
 }
