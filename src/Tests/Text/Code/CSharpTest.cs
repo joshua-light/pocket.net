@@ -88,7 +88,7 @@ namespace Pocket.Common.Tests.Text.Code
       CSharp().Using(typeof(List<>)).ToString().ShouldBe("using System.Collections.Generic;");
 
     [Fact]
-    public void PrivateClass_ShouldAppendScopeWithClassHeader()
+    public void Class_ShouldAppendScopeWithClassHeader_IfClassIsPrivate()
     {
       var code = CSharp();
       
@@ -101,7 +101,7 @@ namespace Pocket.Common.Tests.Text.Code
     }
     
     [Fact]
-    public void PublicClass_ShouldAppendScopeWithClassHeader()
+    public void Class_ShouldAppendScopeWithClassHeader_IfClassIsPublic()
     {
       var code = CSharp();
       
@@ -113,12 +113,28 @@ namespace Pocket.Common.Tests.Text.Code
 ");
     }
     
+    [Fact]
+    public void Class_ShouldAppendScopeWithClassHeader_IfClassHasParent()
+    {
+      var code = CSharp();
+      
+      using (code.Class(typeof(Class))) { }
+      
+      code.ToString().ShouldBe(@"public class Class : BaseClass
+{
+}
+");
+    }
+    
     private static CSharp CSharp() => new Common.Code().CSharp();
 
     #region Nested Types
 
     private class PrivateClass { } 
-    public class PublicClass { } 
+    public class PublicClass { }
+    
+    public class BaseClass { }
+    public class Class : BaseClass { }
 
     #endregion
   }

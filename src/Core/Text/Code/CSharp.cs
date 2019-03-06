@@ -39,14 +39,21 @@ namespace Pocket.Common
     public CSharp Using(string @namespace) =>
       Text($"using {@namespace};");
 
-    public Code.Scope Class(Type type) =>
-      Text($"{Modifier(type)} class {type.PrettyName()}").NewLine().Scope();
+    public Code.Scope Class(Type type)
+    {
+      return Text($"{Modifier()} class {type.PrettyName()}{Parent()}").NewLine().Scope();
+      
+      string Modifier() =>
+        (type.IsNested ? type.IsNestedPublic : type.IsPublic)
+          ? "public"
+          : "private";
 
-    private string Modifier(Type type) =>
-      (type.IsNested ? type.IsNestedPublic : type.IsPublic)
-        ? "public"
-        : "private";
-    
+      string Parent() =>
+        type.BaseType != null && type.BaseType != typeof(object)
+          ? $" : {type.BaseType.PrettyName()}"
+          : "";
+    }
+
     private CSharp With(Code _) => this;
   }
 }
