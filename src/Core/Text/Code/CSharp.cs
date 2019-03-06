@@ -31,6 +31,9 @@ namespace Pocket.Common
 
     public Code.Scope Namespace(string name) =>
       Scope(header: $"namespace {name}", endsWithNewLine: false);
+
+    public CSharp Using(string @namespace) =>
+      Text($"using {@namespace};");
     
     private CSharp With(Code _) => this;
   }

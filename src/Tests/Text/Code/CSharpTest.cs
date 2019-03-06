@@ -77,6 +77,10 @@ namespace Pocket.Common.Tests.Text.Code
     Hello
 }");
     }
+
+    [Fact]
+    public void Using_ShouldAppendUsingStatementWithSpecifiedNamespaceAndSemicolon() =>
+      CSharp().Using("System").ToString().ShouldBe("using System;");
     
     private static CSharp CSharp() => new Common.Code().CSharp();
   }
