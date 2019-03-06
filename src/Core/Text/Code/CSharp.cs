@@ -155,7 +155,7 @@ namespace Pocket.Common
     {
       var joined = member
         .GetCustomAttributes()
-        .Select(x => Attribute(x.GetType()))
+        .Select(Attribute)
         .Separate(with: " ");
       if (joined.IsEmpty())
         return "";
@@ -163,7 +163,7 @@ namespace Pocket.Common
       return $"{joined} ";
     }
     
-    private static string Attribute(Type type) =>
-      $"[{type.PrettyName().Without("Attribute").AtEnd}]";
+    private static string Attribute(Attribute attribute) =>
+      $"[{attribute.GetType().PrettyName().Without("Attribute").AtEnd}]";
   }
 }
