@@ -4,13 +4,10 @@ namespace Pocket.Common
 {
   public class IndentedText : IText
   {
-    private static class Cached
-    {
-      private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();
-
-      public static string String(int with) =>
-        Cache.One(with, or: () => new string(' ', with));
-    }
+    private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();
+    
+    private static string Blank(int ofSize) =>
+      Cache.One(ofSize, or: () => new string(' ', ofSize));
             
     private readonly IText _text;
     private readonly int _indent;
@@ -24,7 +21,7 @@ namespace Pocket.Common
     }
 
     public IText With(string text) => _text
-      .With(Cached.String(with: _indent), when: _newLine)
+      .With(Blank(ofSize: _indent), when: _newLine)
       .With(text);
           
     public IText NewLine()
