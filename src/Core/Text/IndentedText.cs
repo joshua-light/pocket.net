@@ -23,14 +23,10 @@ namespace Pocket.Common
       _newLine = new Toggle<bool>(true, or: false);
     }
 
-    public IText With(string text)
-    {
-      if (_newLine.Use())
-        _text.With(Cached.String(with: _indent));
-
-      return _text.With(text);
-    }
-
+    public IText With(string text) => _text
+      .With(Cached.String(with: _indent), when: _newLine.Use())
+      .With(text);
+          
     public IText NewLine()
     {
       _newLine.Reset();
