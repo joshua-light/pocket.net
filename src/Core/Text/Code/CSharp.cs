@@ -28,7 +28,7 @@ namespace Pocket.Common
     
     public Code.Scope Region(string name) => new Code.Scope(_code,
       x => x.Text($"#region {name}").NewLine(),
-      x => x.Text($"#endregion"));
+      x => x.Text($"#endregion").NewLine());
     
     private CSharp With(Code _) => this;
   }

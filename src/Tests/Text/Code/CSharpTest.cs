@@ -32,6 +32,22 @@ namespace Pocket.Common.Tests.Text.Code
 }");
     }
 
+    [Fact]
+    public void Region_ShouldAppendStartAndEndRegionText_AndNotChangeIndent()
+    {
+      var code = CSharp();
+
+      using (code.Scope())
+      using (code.Region("Test"))
+        code.Text("Hello").NewLine();
+
+      code.ToString().ShouldBe(@"{
+    #region Test
+    Hello
+    #endregion
+}");
+    }
+    
     private static CSharp CSharp() => new Common.Code().CSharp();
   }
 }
