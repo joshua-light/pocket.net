@@ -22,8 +22,8 @@ namespace Pocket.Common
       x => x.Text("{").NewLine(),
       x => x.Text("}").NewLine(when: endsWithNewLine)).With(_code.Indent(_indent));
 
-    public Code.Scope Scope(string header) =>
-      Text(header).NewLine().Scope();
+    public Code.Scope Scope(string header, bool endsWithNewLine = true) =>
+      Text(header).NewLine().Scope(endsWithNewLine);
     
     public Code.Scope Region(string name) => new Code.Scope(_code,
       x => x.Text($"#region {name}").NewLine(),
