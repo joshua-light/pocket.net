@@ -154,7 +154,7 @@ namespace Pocket.Common
     private static string Attributes(MemberInfo member)
     {
       var joined = member
-        .GetCustomAttributes()
+        .GetCustomAttributesData()
         .Select(Attribute)
         .Separate(with: " ");
       if (joined.IsEmpty())
@@ -162,8 +162,19 @@ namespace Pocket.Common
 
       return $"{joined} ";
     }
-    
-    private static string Attribute(Attribute attribute) =>
-      $"[{attribute.GetType().PrettyName().Without("Attribute").AtEnd}]";
+
+    private static string Attribute(CustomAttributeData attribute)
+    {
+      var name = attribute.AttributeType.PrettyName().Without("Attribute").AtEnd;
+
+      if (attribute.NamedArguments.IsEmpty() && attribute.ConstructorArguments.IsEmpty())
+        return $"[{name}]";
+
+      var arguments = attribute.ConstructorArguments.Select(x => x.ToString())
+        .Concat(attribute.NamedArguments.Reverse().Select(x => x.ToString()))
+        .Separate(", ");
+      
+      return $"[{name}({arguments})]";
+    }
   }
 }

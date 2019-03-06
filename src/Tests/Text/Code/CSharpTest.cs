@@ -191,6 +191,8 @@ namespace Pocket.Common.Tests.Text.Code
         "}"                          + Environment.NewLine + 
         "");
 
+    #region Field
+
     [Fact]
     public void Field_ShouldAppendCode_IfFieldIsPrivate() =>
       Field(typeof(ClassWithFields), withName: "_privateField")
@@ -215,6 +217,40 @@ namespace Pocket.Common.Tests.Text.Code
         .ToString()
         .ShouldBe("[XmlAttribute] [SoapAttribute] public List<int> FieldWithAttributes;");
     
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldHasAttributeWithValueInCtor() =>
+      Field(typeof(ClassWithFields), withName: "FieldWithAttributeWithCtorArgument")
+        .ToString()
+        .ShouldBe("[XmlAttribute(\"Test\")] public List<int> FieldWithAttributeWithCtorArgument;");
+    
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldHasAttributeWithValuesInCtor() =>
+      Field(typeof(ClassWithFields), withName: "FieldWithAttributeWithCtorArguments")
+        .ToString()
+        .ShouldBe("[XmlAttribute(\"Test\", typeof(System.Int32))] public List<int> FieldWithAttributeWithCtorArguments;");
+
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldHasAttributeWithProperty() =>
+      Field(typeof(ClassWithFields), withName: "FieldWithAttributeWithProperty")
+        .ToString()
+        .ShouldBe("[XmlAttribute(AttributeName = \"Test\")] public List<int> FieldWithAttributeWithProperty;");
+    
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldHasAttributeWithProperties() =>
+      Field(typeof(ClassWithFields), withName: "FieldWithAttributeWithProperties")
+        .ToString()
+        .ShouldBe("[XmlAttribute(AttributeName = \"Test\", Type = typeof(System.Int32))] public List<int> FieldWithAttributeWithProperties;");
+    
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldHasAttributeWithCtorArgumentAndProperty() =>
+      Field(typeof(ClassWithFields), withName: "FieldWithCtorArgumentAndProperty")
+        .ToString()
+        .ShouldBe("[XmlAttribute(\"Test\", Type = typeof(System.Int32))] public List<int> FieldWithCtorArgumentAndProperty;");
+
+    #endregion
+    
+    #region Property
+
     [Fact]
     public void Property_ShouldAppendCode_IfPropertyIsPrivateReadonly() =>
       Property(typeof(ClassWithProperties), withName: "PrivateProperty")
@@ -280,7 +316,9 @@ namespace Pocket.Common.Tests.Text.Code
       Property(typeof(ClassWithProperties), withName: "PropertyWithAttributes")
         .ToString()
         .ShouldBe("[XmlAttribute] [SoapAttribute] public List<int> PropertyWithAttributes { get; }");
-    
+
+    #endregion
+
     private static CSharp CSharp() => new Common.Code().CSharp();
 
     private static CSharp Field(Type type, string withName) =>
@@ -316,6 +354,14 @@ namespace Pocket.Common.Tests.Text.Code
       public string PublicField;
 
       [XmlAttribute] [SoapAttribute] public List<int> FieldWithAttributes;
+      
+      [XmlAttribute("Test")] public List<int> FieldWithAttributeWithCtorArgument;
+      [XmlAttribute("Test", typeof(int))] public List<int> FieldWithAttributeWithCtorArguments;
+      
+      [XmlAttribute(AttributeName = "Test")] public List<int> FieldWithAttributeWithProperty;
+      [XmlAttribute(AttributeName = "Test", Type = typeof(int))] public List<int> FieldWithAttributeWithProperties;
+      
+      [XmlAttribute("Test", Type = typeof(int))] public List<int> FieldWithCtorArgumentAndProperty;
     }
     
     public class ClassWithProperties
