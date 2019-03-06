@@ -67,7 +67,7 @@ namespace Pocket.Common
                 _part = part;
             }
 
-            public string AtEnd() =>
+            public string AtEnd =>
                 _source.EndsWith(_part) ? _source.Remove(_source.Length - _part.Length) : _source;
         }
 

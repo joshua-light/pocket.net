@@ -123,13 +123,7 @@ namespace Pocket.Common
       return this;
     }
     
-    private static string Attribute(Type type)
-    {
-      var name = type.PrettyName();
-
-      name = name.EndsWith("Attribute") ? name.Remove(name.Length - "Attribute".Length) : name;
-
-      return $"[{name}]";
-    }
+    private static string Attribute(Type type) =>
+      $"[{type.PrettyName().Without("Attribute").AtEnd}]";
   }
 }
