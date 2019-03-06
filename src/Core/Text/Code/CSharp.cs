@@ -153,7 +153,10 @@ namespace Pocket.Common
 
     private static string Attributes(MemberInfo member)
     {
-      var joined = string.Join(" ", member.GetCustomAttributes().Select(x => Attribute(x.GetType())));
+      var joined = member
+        .GetCustomAttributes()
+        .Select(x => Attribute(x.GetType()))
+        .Separate(with: " ");
       if (joined.IsEmpty())
         return "";
 
