@@ -24,7 +24,7 @@ namespace Pocket.Common
     }
 
     public IText With(string text) => _text
-      .With(Cached.String(with: _indent), when: _newLine.Use())
+      .With(Cached.String(with: _indent), when: _newLine.Current)
       .With(text);
           
     public IText NewLine()

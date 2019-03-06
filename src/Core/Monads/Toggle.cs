@@ -17,24 +17,25 @@ namespace Pocket.Common
         _current = _default;
     }
 
-    public T Use()
+    public T Current
     {
+      get
+      {
         var current = _current;
 
         _current = current.Equals(_default) ? _or : _default;
 
         return current;
+      }
     }
 
-    public void Reset() => _current = _default;
-
-    public T UseAndReset()
+    public T Reset()
     {
-        var value = Use();
+      var current = _current;
       
-        Reset();
+      _current = _default;
 
-        return value;
+      return current;
     }
   }
 }

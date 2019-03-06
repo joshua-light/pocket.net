@@ -10,9 +10,9 @@ namespace Pocket.Common.Tests.Monads
     {
       var toggle = new Toggle<bool>(@default: false, or: true);
 
-      toggle.Use().ShouldBe(false);
-      toggle.Use().ShouldBe(true);
-      toggle.Use().ShouldBe(false);
+      toggle.Current.ShouldBe(false);
+      toggle.Current.ShouldBe(true);
+      toggle.Current.ShouldBe(false);
     }
 
     [Fact]
@@ -20,19 +20,19 @@ namespace Pocket.Common.Tests.Monads
     {
       var toggle = new Toggle<bool>(@default: false, or: true);
 
-      toggle.Use().ShouldBe(false);
+      toggle.Current.ShouldBe(false);
       toggle.Reset();
-      toggle.Use().ShouldBe(false);
+      toggle.Current.ShouldBe(false);
     }
 
     [Fact]
-    public void UseAndReset_ShouldReturnCurrentValue_AndThenResetItToDefault()
+    public void Reset_ShouldReturnCurrentValue()
     {
       var toggle = new Toggle<bool>(@default: false, or: true);
 
-      toggle.UseAndReset().ShouldBe(false);
-      toggle.UseAndReset().ShouldBe(false);
-      toggle.UseAndReset().ShouldBe(false);
+      toggle.Reset().ShouldBe(false);
+      toggle.Reset().ShouldBe(false);
+      toggle.Reset().ShouldBe(false);
     }
   }
 }
