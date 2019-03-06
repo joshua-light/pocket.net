@@ -57,7 +57,7 @@ namespace Pocket.Common
         {
           var underlying = type.GetEnumUnderlyingType();
           if (underlying != typeof(int))
-            return $" : {Enum.GetUnderlyingType(type).PrettyName()}";
+            return $" : {underlying.PrettyName()}";
 
           return "";
         }
