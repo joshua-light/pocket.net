@@ -7,7 +7,7 @@ namespace Pocket.Common
         public struct Scope : IDisposable
         {
             private readonly Code _code;
-            private readonly Action<Code> _end;
+            private Action<Code> _end;
 
             public Scope(Code code, Action<Code> begin, Action<Code> end)
             {
@@ -17,7 +17,19 @@ namespace Pocket.Common
                 begin(code);
             }
 
-            public void Dispose() => _end(_code);
+            public void Dispose() =>
+                _end(_code);
+
+            public Scope With(Scope other)
+            {
+                var end = _end;
+                
+                other._end += end;
+
+                _end = other._end;
+                
+                return this;
+            }
         }
         
         private IText _text = new StringBuilderText();
