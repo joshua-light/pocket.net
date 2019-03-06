@@ -86,7 +86,40 @@ namespace Pocket.Common.Tests.Text.Code
     [Fact]
     public void UsingWithType_ShouldAppendUsingStatementWithSpecifiedNamespaceAndSemicolon() =>
       CSharp().Using(typeof(List<>)).ToString().ShouldBe("using System.Collections.Generic;");
+
+    [Fact]
+    public void PrivateClass_ShouldAppendScopeWithClassHeader()
+    {
+      var code = CSharp();
+      
+      using (code.Class(typeof(PrivateClass))) { }
+      
+      code.ToString().ShouldBe(@"private class PrivateClass
+{
+}
+");
+    }
+    
+    [Fact]
+    public void PublicClass_ShouldAppendScopeWithClassHeader()
+    {
+      var code = CSharp();
+      
+      using (code.Class(typeof(PublicClass))) { }
+      
+      code.ToString().ShouldBe(@"public class PublicClass
+{
+}
+");
+    }
     
     private static CSharp CSharp() => new Common.Code().CSharp();
+
+    #region Nested Types
+
+    private class PrivateClass { } 
+    public class PublicClass { } 
+
+    #endregion
   }
 }
