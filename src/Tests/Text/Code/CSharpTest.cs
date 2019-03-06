@@ -15,6 +15,20 @@ namespace Pocket.Common.Tests.Text.Code
       
       code.ToString().ShouldBe(@"{
     Hello
+}
+");
+    }
+    
+    [Fact]
+    public void ScopeThatNotEndsWithNewLine_ShouldNotAppendNewLineAtEnd()
+    {
+      var code = CSharp();
+
+      using (code.Scope(endsWithNewLine: false))
+        code.Text("Hello").NewLine();
+      
+      code.ToString().ShouldBe(@"{
+    Hello
 }");
     }
 
@@ -29,7 +43,8 @@ namespace Pocket.Common.Tests.Text.Code
       code.ToString().ShouldBe(@"namespace Test
 {
     Hello
-}");
+}
+");
     }
 
     [Fact]
@@ -45,7 +60,8 @@ namespace Pocket.Common.Tests.Text.Code
     #region Test
     Hello
     #endregion
-}");
+}
+");
     }
     
     private static CSharp CSharp() => new Common.Code().CSharp();
