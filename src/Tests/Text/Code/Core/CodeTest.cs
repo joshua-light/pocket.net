@@ -1,3 +1,4 @@
+using System;
 using Shouldly;
 using Xunit;
 
@@ -31,10 +32,11 @@ Hello");
                 code.Text("4");
             }
             
-            code.ToString().ShouldBe(@"    1
-    2
-    3
-    4");
+            code.ToString().ShouldBe(
+                "    1" + Environment.NewLine +
+                "    2" + Environment.NewLine +
+                "    3" + Environment.NewLine +
+                "    4");
         }
 
         [Fact]
@@ -52,9 +54,10 @@ Hello");
                 code.Text("3");
             }
 
-            code.ToString().ShouldBe(@"    1
-      2
-    3");
+            code.ToString().ShouldBe(
+                "    1"   + Environment.NewLine +              
+                "      2" + Environment.NewLine + 
+                "    3");
         }
 
         private static Common.Code Code() => new Common.Code();

@@ -17,10 +17,11 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Scope())
         code.Text("Hello").NewLine();
       
-      code.ToString().ShouldBe(@"{
-    Hello
-}
-");
+      code.ToString().ShouldBe(
+        "{"         + Environment.NewLine + 
+        "    Hello" + Environment.NewLine + 
+        "}"         + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -31,9 +32,10 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Scope(endsWithNewLine: false))
         code.Text("Hello").NewLine();
       
-      code.ToString().ShouldBe(@"{
-    Hello
-}");
+      code.ToString().ShouldBe(
+        "{"         + Environment.NewLine + 
+        "    Hello" + Environment.NewLine + 
+        "}");
     }
 
     [Fact]
@@ -44,11 +46,12 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Scope(header: "namespace Test"))
         code.Text("Hello").NewLine();
       
-      code.ToString().ShouldBe(@"namespace Test
-{
-    Hello
-}
-");
+      code.ToString().ShouldBe(
+        "namespace Test" + Environment.NewLine + 
+        "{"              + Environment.NewLine + 
+        "    Hello"      + Environment.NewLine + 
+        "}"              + Environment.NewLine + 
+        "");
     }
 
     [Fact]
@@ -60,12 +63,13 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Region("Test"))
         code.Text("Hello").NewLine();
 
-      code.ToString().ShouldBe(@"{
-    #region Test
-    Hello
-    #endregion
-}
-");
+      code.ToString().ShouldBe(
+        "{" +                Environment.NewLine + 
+        "    #region Test" + Environment.NewLine + 
+        "    Hello" +        Environment.NewLine + 
+        "    #endregion" +   Environment.NewLine + 
+        "}" +                Environment.NewLine + 
+        "");
     }
 
     [Fact]
@@ -75,11 +79,12 @@ namespace Pocket.Common.Tests.Text.Code
 
       using (code.Namespace("Test"))
         code.Text("Hello").NewLine();
-
-      code.ToString().ShouldBe(@"namespace Test
-{
-    Hello
-}");
+      
+      code.ToString().ShouldBe(
+        "namespace Test" + Environment.NewLine + 
+        "{"              + Environment.NewLine + 
+        "    Hello"      + Environment.NewLine + 
+        "}");
     }
 
     [Fact]
@@ -97,10 +102,11 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(PrivateClass))) { }
       
-      code.ToString().ShouldBe(@"private class PrivateClass
-{
-}
-");
+      code.ToString().ShouldBe(
+        "private class PrivateClass" + Environment.NewLine + 
+        "{"                          + Environment.NewLine + 
+        "}"                          + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -110,10 +116,11 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(PublicClass))) { }
       
-      code.ToString().ShouldBe(@"public class PublicClass
-{
-}
-");
+      code.ToString().ShouldBe(
+        "public class PublicClass"   + Environment.NewLine + 
+        "{"                          + Environment.NewLine + 
+        "}"                          + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -123,10 +130,11 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(Class))) { }
       
-      code.ToString().ShouldBe(@"public class Class : BaseClass
-{
-}
-");
+      code.ToString().ShouldBe(
+        "public class Class : BaseClass" + Environment.NewLine + 
+        "{"                              + Environment.NewLine + 
+        "}"                              + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -136,10 +144,11 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(PublicStruct))) { }
       
-      code.ToString().ShouldBe(@"public struct PublicStruct
-{
-}
-");
+      code.ToString().ShouldBe(
+        "public struct PublicStruct"   + Environment.NewLine + 
+        "{"                            + Environment.NewLine + 
+        "}"                            + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -149,10 +158,11 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(PublicEnum))) { }
       
-      code.ToString().ShouldBe(@"public enum PublicEnum
-{
-}
-");
+      code.ToString().ShouldBe(
+        "public enum PublicEnum"   + Environment.NewLine + 
+        "{"                        + Environment.NewLine + 
+        "}"                        + Environment.NewLine + 
+        "");
     }
     
     [Fact]
@@ -162,22 +172,24 @@ namespace Pocket.Common.Tests.Text.Code
       
       using (code.Declaration(typeof(PublicLongEnum))) { }
       
-      code.ToString().ShouldBe(@"public enum PublicLongEnum : long
-{
-}
-");
+      code.ToString().ShouldBe(
+        "public enum PublicLongEnum : long"   + Environment.NewLine + 
+        "{"                                   + Environment.NewLine + 
+        "}"                                   + Environment.NewLine + 
+        "");
     }
     
     [Fact]
     public void Enum_ShouldAppendScopeWithEnumHeaderAndAllValues() =>
-      CSharp().Enum(typeof(EnumWithValues)).ToString().ShouldBe(@"public enum EnumWithValues
-{
-    A = 1,
-    B = 2,
-    C = 3,
-    D = 4
-}
-");
+      CSharp().Enum(typeof(EnumWithValues)).ToString().ShouldBe(
+        "public enum EnumWithValues" + Environment.NewLine + 
+        "{"                          + Environment.NewLine + 
+        "    A = 1,"                 + Environment.NewLine + 
+        "    B = 2,"                 + Environment.NewLine + 
+        "    C = 3,"                 + Environment.NewLine + 
+        "    D = 4"                  + Environment.NewLine + 
+        "}"                          + Environment.NewLine + 
+        "");
 
     [Fact]
     public void Field_ShouldAppendCode_IfFieldIsPrivate() =>
