@@ -11,24 +11,28 @@ namespace Pocket.Common
             
     private readonly IText _text;
     private readonly int _indent;
-    private readonly BoolToggle _newLine;
+    
+    private bool _newLine;
 
     public IndentedText(IText text, int indent)
     {
       _text = text;
       _indent = indent;
-      _newLine = new BoolToggle(true, or: false);
+      _newLine = true;
     }
 
     public IText With(string text) => _text
-      .With(Blank(ofSize: _indent), when: _newLine)
+      .With(Blank(ofSize: _indent), when: Is(ref _newLine))
       .With(text);
           
     public IText NewLine()
     {
-      _newLine.Reset();
+      _newLine = true;
 
       return _text.NewLine();
     }
+
+    private static bool Is(ref bool newLine) =>
+      newLine ? !(newLine = false) : false;
   }
 }
