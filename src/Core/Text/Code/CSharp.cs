@@ -1,3 +1,5 @@
+using System;
+
 namespace Pocket.Common
 {
   public struct CSharp
@@ -32,6 +34,8 @@ namespace Pocket.Common
     public Code.Scope Namespace(string name) =>
       Scope(header: $"namespace {name}", endsWithNewLine: false);
 
+    public CSharp Using(Type namespaceOf) =>
+      Using(namespaceOf.Namespace);
     public CSharp Using(string @namespace) =>
       Text($"using {@namespace};");
     

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Shouldly;
 using Xunit;
 
@@ -81,6 +82,10 @@ namespace Pocket.Common.Tests.Text.Code
     [Fact]
     public void Using_ShouldAppendUsingStatementWithSpecifiedNamespaceAndSemicolon() =>
       CSharp().Using("System").ToString().ShouldBe("using System;");
+    
+    [Fact]
+    public void UsingWithType_ShouldAppendUsingStatementWithSpecifiedNamespaceAndSemicolon() =>
+      CSharp().Using(typeof(List<>)).ToString().ShouldBe("using System.Collections.Generic;");
     
     private static CSharp CSharp() => new Common.Code().CSharp();
   }
