@@ -122,25 +122,11 @@ namespace Pocket.Common
         if (type.BaseType == null || type.BaseType == typeof(object))
           return "";
 
-        var name = type.BaseType.PrettyName();
-
-        if (type.BaseType.IsNested)
-          name = DeclaringTypes(type.BaseType, andThis: true)
-            .Except(DeclaringTypes(type))
-            .Select(x => x.PrettyName())
-            .Reverse()
-            .Separate(".");
+        var name = type.BaseType.IsNested
+          ? NestedName(type.BaseType, root: type)
+          : type.BaseType.PrettyName();
 
         return $" : {name}";
-      }
-
-      IEnumerable<Type> DeclaringTypes(Type x, bool andThis = false)
-      {
-        if (andThis)
-          yield return x;
-        
-        while (x.DeclaringType != null)
-          yield return x = x.DeclaringType;
       }
     }
     
@@ -193,6 +179,24 @@ namespace Pocket.Common
         .Separate(", ");
       
       return $"[{name}({arguments})]";
+    }
+
+    private static string NestedName(Type type, Type root)
+    {
+      return DeclaringTypes(type, andThis: true)
+        .Except(DeclaringTypes(root))
+        .Select(x => x.PrettyName())
+        .Reverse()
+        .Separate(".");
+      
+      IEnumerable<Type> DeclaringTypes(Type x, bool andThis = false)
+      {
+        if (andThis)
+          yield return x;
+        
+        while (x.DeclaringType != null)
+          yield return x = x.DeclaringType;
+      }
     }
   }
 }
