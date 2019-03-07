@@ -354,10 +354,7 @@ namespace Pocket.Common
             if (self.IsArray)
             {
                 var rank = self.GetArrayRank();
-                var commas = new StringBuilder();
-
-                for (var i = 0; i < rank - 1; i++)
-                    commas.Append(",");
+                var commas = new string(',', rank - 1);
 
                 name = $"{self.GetElementType().PrettyName()}[{commas}]";
             }
