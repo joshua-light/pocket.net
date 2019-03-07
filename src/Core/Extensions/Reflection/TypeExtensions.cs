@@ -338,17 +338,19 @@ namespace Pocket.Common
         /// <returns>Name of the type.</returns>
         public static string PrettyName(this Type self)
         {
-            if (self.IsNullable())
-                return $"{self.GetGenericArguments().First().PrettyName()}?";
+            var name = default(string);
             
+            if (self.IsNullable())
+                name = $"{self.GetGenericArguments().First().PrettyName()}?";
+            else
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
                 var argumentsText = string.Join(", ", arguments.Select(x => x.PrettyName()));
 
-                return $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
+                name = $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }
-
+            else
             if (self.IsArray)
             {
                 var rank = self.GetArrayRank();
@@ -357,28 +359,33 @@ namespace Pocket.Common
                 for (var i = 0; i < rank - 1; i++)
                     commas.Append(",");
 
-                return $"{self.GetElementType().PrettyName()}[{commas}]";
+                name = $"{self.GetElementType().PrettyName()}[{commas}]";
             }
-            
+            else
             switch (self.FullName)
             {
-                case "System.Boolean":  return "bool";
-                case "System.Byte":     return "byte";
-                case "System.SByte":    return "sbyte";
-                case "System.Int16":    return "short";
-                case "System.UInt16":   return "ushort";
-                case "System.Int32":    return "int";
-                case "System.UInt32":   return "uint";
-                case "System.Int64":    return "long";
-                case "System.UInt64":   return "ulong";
-                case "System.Single":   return "float";
-                case "System.Double":   return "double";
-                case "System.Decimal":  return "decimal";
-                case "System.String":   return "string";
-                case "System.Object":   return "object";
+                case "System.Boolean":  name = "bool"; break;
+                case "System.Byte":     name = "byte"; break;
+                case "System.SByte":    name = "sbyte"; break;
+                case "System.Int16":    name = "short"; break;
+                case "System.UInt16":   name = "ushort"; break;
+                case "System.Int32":    name = "int"; break;
+                case "System.UInt32":   name = "uint"; break;
+                case "System.Int64":    name = "long"; break;
+                case "System.UInt64":   name = "ulong"; break;
+                case "System.Single":   name = "float"; break;
+                case "System.Double":   name = "double"; break;
+                case "System.Decimal":  name = "decimal"; break;
+                case "System.String":   name = "string"; break;
+                case "System.Object":   name = "object"; break;
                 
-                default: return self.Name;
+                default: name = self.Name; break;
             }
+
+            if (self.IsNested && !self.IsGenericParameter)
+                return $"{self.DeclaringType.PrettyName()}.{name}";
+            
+            return name;
         }
 
         public static object Instantiate(this Type self) =>

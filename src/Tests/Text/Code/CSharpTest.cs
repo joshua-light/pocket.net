@@ -103,7 +103,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(PrivateClass))) { }
       
       code.ToString().ShouldBe(
-        "private class PrivateClass" + Environment.NewLine + 
+        "private class CSharpTest.PrivateClass" + Environment.NewLine + 
         "{"                          + Environment.NewLine + 
         "}"                          + Environment.NewLine + 
         "");
@@ -117,7 +117,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(PublicClass))) { }
       
       code.ToString().ShouldBe(
-        "public class PublicClass"   + Environment.NewLine + 
+        "public class CSharpTest.PublicClass"   + Environment.NewLine + 
         "{"                          + Environment.NewLine + 
         "}"                          + Environment.NewLine + 
         "");
@@ -131,7 +131,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(Class))) { }
       
       code.ToString().ShouldBe(
-        "public class Class : BaseClass" + Environment.NewLine + 
+        "public class CSharpTest.Class : CSharpTest.BaseClass" + Environment.NewLine + 
         "{"                              + Environment.NewLine + 
         "}"                              + Environment.NewLine + 
         "");
@@ -145,7 +145,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(PublicStruct))) { }
       
       code.ToString().ShouldBe(
-        "public struct PublicStruct"   + Environment.NewLine + 
+        "public struct CSharpTest.PublicStruct"   + Environment.NewLine + 
         "{"                            + Environment.NewLine + 
         "}"                            + Environment.NewLine + 
         "");
@@ -159,7 +159,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(PublicEnum))) { }
       
       code.ToString().ShouldBe(
-        "public enum PublicEnum"   + Environment.NewLine + 
+        "public enum CSharpTest.PublicEnum"   + Environment.NewLine + 
         "{"                        + Environment.NewLine + 
         "}"                        + Environment.NewLine + 
         "");
@@ -173,7 +173,7 @@ namespace Pocket.Common.Tests.Text.Code
       using (code.Declaration(typeof(PublicLongEnum))) { }
       
       code.ToString().ShouldBe(
-        "public enum PublicLongEnum : long"   + Environment.NewLine + 
+        "public enum CSharpTest.PublicLongEnum : long"   + Environment.NewLine + 
         "{"                                   + Environment.NewLine + 
         "}"                                   + Environment.NewLine + 
         "");
@@ -182,7 +182,7 @@ namespace Pocket.Common.Tests.Text.Code
     [Fact]
     public void Enum_ShouldAppendScopeWithEnumHeaderAndAllValues() =>
       CSharp().Enum(typeof(EnumWithValues)).ToString().ShouldBe(
-        "public enum EnumWithValues" + Environment.NewLine + 
+        "public enum CSharpTest.EnumWithValues" + Environment.NewLine + 
         "{"                          + Environment.NewLine + 
         "    A = 1,"                 + Environment.NewLine + 
         "    B = 2,"                 + Environment.NewLine + 

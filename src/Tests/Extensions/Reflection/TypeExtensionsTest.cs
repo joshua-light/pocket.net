@@ -131,6 +131,10 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         [Fact]
         public void PrettyName_ShouldReturnTypeName_IfTypeIsNonGeneric() =>
             typeof(Man).PrettyName().ShouldBe("Man");
+        
+        [Fact]
+        public void PrettyName_ShouldReturnFullTypeName_IfTypeIsNested() =>
+            typeof(Item.Nested).PrettyName().ShouldBe("Item.Nested");
 
         [Theory]
         [InlineData(typeof(int?), "int?")]
@@ -200,24 +204,22 @@ namespace Pocket.Common.Tests.Extensions.Reflection
             typeof(int[,][,]).PrettyName().ShouldBe("int[,][,]");
 
         #endregion
-        
-        #region Inner Classes
-        
-        private interface IAnimal { }
-        private interface IOrganism { }
-
-        private class Human : IAnimal, IOrganism { }
-        private class Man : Human { }
-        private class Woman : Human { }
-        private class John : Man { }
-        private class Jannet : Woman { }
-        
-        private class GenericParent<T> { }
-        private class GenericChild<T> : GenericParent<T> { }
-        private class GenericGrandChild<T> : GenericChild<T> { }
-        private class ConcreteChild : GenericChild<int> { }
-        private struct GenericStruct<T> { }
-
-        #endregion
     }
+    
+    public interface IAnimal { }
+    public interface IOrganism { }
+
+    public class Human : IAnimal, IOrganism { }
+    public class Man : Human { }
+    public class Woman : Human { }
+    public class John : Man { }
+    public class Jannet : Woman { }
+
+    public class Item { public class Nested { } }
+        
+    public class GenericParent<T> { }
+    public class GenericChild<T> : GenericParent<T> { }
+    public class GenericGrandChild<T> : GenericChild<T> { }
+    public class ConcreteChild : GenericChild<int> { }
+    public struct GenericStruct<T> { }
 }
