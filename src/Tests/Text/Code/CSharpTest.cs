@@ -138,6 +138,34 @@ namespace Pocket.Common.Tests.Text.Code
     }
     
     [Fact]
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassHasParentAndParentIsNested()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(Class2))) { }
+      
+      code.ToString().ShouldBe(
+        "public class Class2 : BaseClass.Nested" + Environment.NewLine + 
+        "{"                                      + Environment.NewLine + 
+        "}"                                      + Environment.NewLine + 
+        "");
+    }
+    
+    [Fact]
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassHasParentAndParentIsOuterNested()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(Class3))) { }
+      
+      code.ToString().ShouldBe(
+        "public class Class3 : OuterClass.Nested.One" + Environment.NewLine + 
+        "{"                                           + Environment.NewLine + 
+        "}"                                           + Environment.NewLine + 
+        "");
+    }
+    
+    [Fact]
     public void Declaration_ShouldAppendScopeWithStructHeader()
     {
       var code = CSharp();
@@ -332,8 +360,10 @@ namespace Pocket.Common.Tests.Text.Code
     private class PrivateClass { }
     public class PublicClass { }
     
-    public class BaseClass { }
+    public class BaseClass { public class Nested { } }
     public class Class : BaseClass { }
+    public class Class2 : BaseClass.Nested { }
+    public class Class3 : OuterClass.Nested.One { }
     
     public struct PublicStruct { }
     public enum PublicEnum { }
@@ -384,4 +414,6 @@ namespace Pocket.Common.Tests.Text.Code
 
     #endregion
   }
+
+  public class OuterClass { public class Nested { public class One { } } }
 }

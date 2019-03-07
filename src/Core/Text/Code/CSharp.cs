@@ -119,10 +119,45 @@ namespace Pocket.Common
         
         if (type.IsValueType)
           return "";
+        if (type.BaseType == null || type.BaseType == typeof(object))
+          return "";
+
+        var name = type.BaseType.PrettyName();
+
+        if (type.IsNested && type.BaseType.IsNested)
+        {
+          var declaring = DeclaringTypes(type.BaseType)
+            .Except(DeclaringTypes(type))
+            .Select(x => x.PrettyName())
+            .Reverse()
+            .Separate(".");
+
+          name = $"{declaring}.{name}";
+        }
+
+        return $" : {name}";
+      }
+
+      IEnumerable<Type> DeclaringTypes(Type x)
+      {
+        while (x.DeclaringType != null)
+          yield return x = x.DeclaringType;
+      }
+
+      string WithoutCommonStart(string source, string other)
+      {
+        var start = 0;
+        var length = source.Length.Or(other.Length).IfGreater();
         
-        return type.BaseType != null && type.BaseType != typeof(object)
-          ? $" : {type.BaseType.PrettyName()}"
-          : "";
+        for (var i = 0; i < length; i++)
+        {
+          if (source[i] != other[i])
+            break;
+          
+          start = i;
+        }
+
+        return source.Substring(start + 2);
       }
     }
     
