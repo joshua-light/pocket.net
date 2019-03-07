@@ -123,7 +123,7 @@ namespace Pocket.Common
           return "";
 
         var name = type.BaseType.IsNested
-          ? NestedName(type.BaseType, root: type)
+          ? type.BaseType.NestedName(root: type)
           : type.BaseType.PrettyName();
 
         return $" : {name}";
@@ -179,24 +179,6 @@ namespace Pocket.Common
         .Separate(", ");
       
       return $"[{name}({arguments})]";
-    }
-
-    private static string NestedName(Type type, Type root)
-    {
-      return DeclaringTypes(type, andThis: true)
-        .Except(DeclaringTypes(root))
-        .Select(x => x.PrettyName())
-        .Reverse()
-        .Separate(".");
-      
-      IEnumerable<Type> DeclaringTypes(Type x, bool andThis = false)
-      {
-        if (andThis)
-          yield return x;
-        
-        while (x.DeclaringType != null)
-          yield return x = x.DeclaringType;
-      }
     }
   }
 }

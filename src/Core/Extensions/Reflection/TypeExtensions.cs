@@ -385,6 +385,24 @@ namespace Pocket.Common
             return name;
         }
 
+        public static string NestedName(this Type self, Type root)
+        {
+            return DeclaringTypes(self, andThis: true)
+                .Except(DeclaringTypes(root))
+                .Select(x => x.PrettyName())
+                .Reverse()
+                .Separate(".");
+      
+            IEnumerable<Type> DeclaringTypes(Type x, bool andThis = false)
+            {
+                if (andThis)
+                    yield return x;
+        
+                while (x.DeclaringType != null)
+                    yield return x = x.DeclaringType;
+            }
+        }
+        
         public static object Instantiate(this Type self) =>
             Activator.CreateInstance(self);
     }
