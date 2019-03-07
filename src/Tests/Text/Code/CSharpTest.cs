@@ -156,12 +156,12 @@ namespace Pocket.Common.Tests.Text.Code
     {
       var code = CSharp();
       
-      using (code.Declaration(typeof(Class3))) { }
+      using (code.Declaration(typeof(OuterClass))) { }
       
       code.ToString().ShouldBe(
-        "public class Class3 : OuterClass.Nested.One" + Environment.NewLine + 
-        "{"                                           + Environment.NewLine + 
-        "}"                                           + Environment.NewLine + 
+        "public class OuterClass : OuterClassWith.Nested.One" + Environment.NewLine + 
+        "{"                                                   + Environment.NewLine + 
+        "}"                                                   + Environment.NewLine + 
         "");
     }
     
@@ -363,7 +363,6 @@ namespace Pocket.Common.Tests.Text.Code
     public class BaseClass { public class Nested { } }
     public class Class : BaseClass { }
     public class Class2 : BaseClass.Nested { }
-    public class Class3 : OuterClass.Nested.One { }
     
     public struct PublicStruct { }
     public enum PublicEnum { }
@@ -415,5 +414,6 @@ namespace Pocket.Common.Tests.Text.Code
     #endregion
   }
 
-  public class OuterClass { public class Nested { public class One { } } }
+  public class OuterClass : OuterClassWith.Nested.One { }
+  public class OuterClassWith { public class Nested { public class One { } } }
 }
