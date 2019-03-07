@@ -336,7 +336,7 @@ namespace Pocket.Common
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <returns>Name of the type.</returns>
-        public static string PrettyName(this Type self)
+        public static string PrettyName(this Type self, bool withDeclaringType = false)
         {
             var name = default(string);
             
@@ -346,7 +346,7 @@ namespace Pocket.Common
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
-                var argumentsText = arguments.Select(x => x.PrettyName()).Separate(with: ", ");
+                var argumentsText = arguments.Select(x => x.PrettyName(withDeclaringType: true)).Separate(with: ", ");
 
                 name = $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }
@@ -379,8 +379,8 @@ namespace Pocket.Common
                 default: name = self.Name; break;
             }
 
-            if (self.IsNested && !self.IsGenericParameter)
-                return $"{self.DeclaringType.PrettyName()}.{name}";
+            if (withDeclaringType && self.IsNested && !self.IsGenericParameter)
+                return $"{self.DeclaringType.PrettyName(withDeclaringType: true)}.{name}";
             
             return name;
         }

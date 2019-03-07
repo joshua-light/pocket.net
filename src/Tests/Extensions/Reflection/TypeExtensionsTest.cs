@@ -133,8 +133,12 @@ namespace Pocket.Common.Tests.Extensions.Reflection
             typeof(Man).PrettyName().ShouldBe("Man");
         
         [Fact]
-        public void PrettyName_ShouldReturnFullTypeName_IfTypeIsNested() =>
-            typeof(Item.Nested).PrettyName().ShouldBe("Item.Nested");
+        public void PrettyNameWithDeclaringType_ShouldReturnFullTypeName_IfTypeIsNested() =>
+            typeof(Item.Nested).PrettyName(withDeclaringType: true).ShouldBe("Item.Nested");
+        
+        [Fact]
+        public void PrettyNameWithDeclaringType_ShouldReturnFullTypeName_IfTypeIsDoubleNested() =>
+            typeof(Item.Nested.Again).PrettyName(withDeclaringType: true).ShouldBe("Item.Nested.Again");
 
         [Theory]
         [InlineData(typeof(int?), "int?")]
@@ -215,7 +219,7 @@ namespace Pocket.Common.Tests.Extensions.Reflection
     public class John : Man { }
     public class Jannet : Woman { }
 
-    public class Item { public class Nested { } }
+    public class Item { public class Nested { public class Again { } } }
         
     public class GenericParent<T> { }
     public class GenericChild<T> : GenericParent<T> { }
