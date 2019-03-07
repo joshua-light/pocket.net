@@ -346,7 +346,7 @@ namespace Pocket.Common
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
-                var argumentsText = string.Join(", ", arguments.Select(x => x.PrettyName()));
+                var argumentsText = arguments.Select(x => x.PrettyName()).Separate(with: ", ");
 
                 name = $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }
