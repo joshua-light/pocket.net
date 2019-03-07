@@ -123,7 +123,7 @@ namespace Pocket.Common
           return "";
 
         var name = type.BaseType.IsNested
-          ? type.BaseType.NestedName(root: type)
+          ? type.BaseType.PrettyName(context: type)
           : type.BaseType.PrettyName();
 
         return $" : {name}";

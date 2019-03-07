@@ -330,23 +330,30 @@ namespace Pocket.Common
             self
                 .Methods(_ => _.AllInstance())
                 .Where(x => x.Has<T>());
+
+        public static string PrettyName(this Type self, bool asNested = false) =>
+            self.PrettyName(asNested, context: null);
+        public static string PrettyName(this Type self, Type context) =>
+            self.PrettyName(asNested: true, context);
         
         /// <summary>
         ///     Name of the type (same as <code>Name</code> property) but with correct generic arguments.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <returns>Name of the type.</returns>
-        public static string PrettyName(this Type self, bool withDeclaringType = false)
+        private static string PrettyName(this Type self, bool asNested, Type context)
         {
             var name = default(string);
             
             if (self.IsNullable())
-                name = $"{self.GetGenericArguments().First().PrettyName()}?";
+                name = $"{self.GetGenericArguments().First().PrettyName(asNested, context)}?";
             else
             if (self.IsGenericType)
             {
                 var arguments = self.GetGenericArguments();
-                var argumentsText = arguments.Select(x => x.PrettyName(withDeclaringType: true)).Separate(with: ", ");
+                var argumentsText = arguments
+                    .Select(x => x.PrettyName(asNested: true, context))
+                    .Separate(with: ", ");
 
                 name = $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }
@@ -356,7 +363,7 @@ namespace Pocket.Common
                 var rank = self.GetArrayRank();
                 var commas = new string(',', rank - 1);
 
-                name = $"{self.GetElementType().PrettyName()}[{commas}]";
+                name = $"{self.GetElementType().PrettyName(asNested, context)}[{commas}]";
             }
             else
             switch (self.FullName)
@@ -378,24 +385,27 @@ namespace Pocket.Common
                 
                 default: name = self.Name; break;
             }
-
-            if (withDeclaringType && self.IsNested && !self.IsGenericParameter)
-                return $"{self.DeclaringType.PrettyName(withDeclaringType: true)}.{name}";
+            
+            if (asNested && self.IsNested && !self.IsGenericParameter)
+                name = $"{self.NestedName(context)}";
             
             return name;
         }
 
-        public static string NestedName(this Type self, Type root)
+        private static string NestedName(this Type self, Type context = null)
         {
-            return DeclaringTypes(self, andThis: true)
-                .Except(DeclaringTypes(root))
+            return DeclaringTypes(self, andSelf: true)
+                .Except(DeclaringTypes(context))
                 .Select(x => x.PrettyName())
                 .Reverse()
                 .Separate(".");
       
-            IEnumerable<Type> DeclaringTypes(Type x, bool andThis = false)
+            IEnumerable<Type> DeclaringTypes(Type x, bool andSelf = false)
             {
-                if (andThis)
+                if (x == null)
+                    yield break;
+                
+                if (andSelf)
                     yield return x;
         
                 while (x.DeclaringType != null)

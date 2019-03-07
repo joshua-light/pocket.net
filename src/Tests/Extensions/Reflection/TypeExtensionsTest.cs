@@ -134,11 +134,11 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         
         [Fact]
         public void PrettyNameWithDeclaringType_ShouldReturnFullTypeName_IfTypeIsNested() =>
-            typeof(Item.Nested).PrettyName(withDeclaringType: true).ShouldBe("Item.Nested");
+            typeof(Item.Nested).PrettyName(asNested: true).ShouldBe("Item.Nested");
         
         [Fact]
         public void PrettyNameWithDeclaringType_ShouldReturnFullTypeName_IfTypeIsDoubleNested() =>
-            typeof(Item.Nested.Again).PrettyName(withDeclaringType: true).ShouldBe("Item.Nested.Again");
+            typeof(Item.Nested.Again).PrettyName(asNested: true).ShouldBe("Item.Nested.Again");
 
         [Theory]
         [InlineData(typeof(int?), "int?")]
