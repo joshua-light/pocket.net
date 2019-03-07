@@ -51,7 +51,7 @@ namespace Pocket.Common
 
     public CSharp Field(FieldInfo field)
     {
-      return Text($"{Attributes(field)}{Modifier()} {field.FieldType.PrettyName()} {field.Name};");
+      return Text($"{Attributes(field)}{Modifier()} {field.FieldType.PrettyName(context: field.DeclaringType)} {field.Name};");
       
       string Modifier() =>
         field.IsPublic ? "public" : field.IsPrivate ? "private" : "protected";
@@ -60,7 +60,7 @@ namespace Pocket.Common
     public CSharp Property(PropertyInfo property)
     {
       return Text($"{Attributes(property)}{Modifier()} " +
-                  $"{property.PropertyType.PrettyName()} {property.Name} " +
+                  $"{property.PropertyType.PrettyName(context: property.DeclaringType)} {property.Name} " +
                   $"{{ {Get()}{Set()}}}");
 
       string Modifier()

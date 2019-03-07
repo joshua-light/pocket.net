@@ -274,6 +274,12 @@ namespace Pocket.Common.Tests.Text.Code
       Field(typeof(ClassWithFields), withName: "FieldWithCtorArgumentAndProperty")
         .ToString()
         .ShouldBe("[XmlAttribute(\"Test\", Type = typeof(System.Int32))] public List<int> FieldWithCtorArgumentAndProperty;");
+    
+    [Fact]
+    public void Field_ShouldAppendCode_IfFieldIsOfNestedType() =>
+      Field(typeof(ClassWithFields), withName: "FieldOfNestedType")
+        .ToString()
+        .ShouldBe("public Nested FieldOfNestedType;");
 
     #endregion
     
@@ -378,6 +384,8 @@ namespace Pocket.Common.Tests.Text.Code
 
     public class ClassWithFields
     {
+      public class Nested { }
+      
       private int _privateField;
       protected long ProtectedField;
       public string PublicField;
@@ -391,6 +399,8 @@ namespace Pocket.Common.Tests.Text.Code
       [XmlAttribute(AttributeName = "Test", Type = typeof(int))] public List<int> FieldWithAttributeWithProperties;
       
       [XmlAttribute("Test", Type = typeof(int))] public List<int> FieldWithCtorArgumentAndProperty;
+
+      public Nested FieldOfNestedType;
     }
     
     public class ClassWithProperties

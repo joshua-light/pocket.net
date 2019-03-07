@@ -394,19 +394,18 @@ namespace Pocket.Common
 
         private static string NestedName(this Type self, Type context = null)
         {
-            return DeclaringTypes(self, andSelf: true)
-                .Except(DeclaringTypes(context))
+            return WithDeclaringTypes(self)
+                .Except(WithDeclaringTypes(context))
                 .Select(x => x.PrettyName())
                 .Reverse()
                 .Separate(".");
       
-            IEnumerable<Type> DeclaringTypes(Type x, bool andSelf = false)
+            IEnumerable<Type> WithDeclaringTypes(Type x)
             {
                 if (x == null)
                     yield break;
                 
-                if (andSelf)
-                    yield return x;
+                yield return x;
         
                 while (x.DeclaringType != null)
                     yield return x = x.DeclaringType;
