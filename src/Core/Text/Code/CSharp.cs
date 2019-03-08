@@ -64,21 +64,21 @@ namespace Pocket.Common
                   $"{{ {Get()}{Set()}}}");
 
       string Modifier()
-      {        
-        var getMethod = property.GetMethod;
-        var setMethod = property.SetMethod;
-        
-        return
-          (getMethod?.IsPublic).Or(false) || (setMethod?.IsPublic).Or(false) ? "public" :
-          (getMethod?.IsPrivate).Or(true) && (setMethod?.IsPrivate).Or(true) ? "private" : "protected";
-      }
+      {
+        var getModifier = ModifierOf(property.GetMethod);
+        var setModifier = ModifierOf(property.SetMethod);
 
+        return getModifier.Order > setModifier.Order
+             ? getModifier.Text
+             : setModifier.Text;
+      }
+      
       string Get()
       {
         if (property.GetMethod == null)
           return "";
-        
-        var modifier = property.GetMethod.IsPublic ? "public" : property.GetMethod.IsPrivate ? "private" : "protected";
+
+        var modifier = ModifierOf(property.GetMethod).Text;
 
         return modifier == Modifier() ? "get; " : $"{modifier} get; ";
       }
@@ -87,10 +87,18 @@ namespace Pocket.Common
       {
         if (property.SetMethod == null)
           return "";
-        
-        var modifier = property.SetMethod.IsPublic ? "public" : property.SetMethod.IsPrivate ? "private" : "protected";
+
+        var modifier = ModifierOf(property.SetMethod).Text;
 
         return modifier == Modifier() ? "set; " : $"{modifier} set; ";
+      }
+
+      (int Order, string Text) ModifierOf(MethodInfo method)
+      {
+        if (method == null)
+          return (1, "private");
+        
+        return method.IsPublic ? (3, "public") : method.IsPrivate ? (1, "private") : (2, "protected");
       }
     }
     
