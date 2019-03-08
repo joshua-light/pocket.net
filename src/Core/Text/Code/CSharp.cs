@@ -61,45 +61,22 @@ namespace Pocket.Common
     {
       return Text($"{Attributes(property)}{Modifier()} " +
                   $"{property.PropertyType.PrettyName(context: property.DeclaringType)} {property.Name} " +
-                  $"{{ {Get()}{Set()}}}");
+                  $"{{ {Body(property.GetMethod, "get")}{Body(property.SetMethod, "set")}}}");
 
-      string Modifier()
-      {
-        var getModifier = ModifierOf(property.GetMethod);
-        var setModifier = ModifierOf(property.SetMethod);
+      string Modifier() =>
+            ModifierOf(property.GetMethod).Order > ModifierOf(property.SetMethod).Order
+          ? ModifierOf(property.GetMethod).Text
+          : ModifierOf(property.SetMethod).Text;
 
-        return getModifier.Order > setModifier.Order
-             ? getModifier.Text
-             : setModifier.Text;
-      }
-      
-      string Get()
-      {
-        if (property.GetMethod == null)
-          return "";
+      string Body(MethodInfo method, string text) =>
+        method != null
+          ? ModifierOf(method).Text.As(x => x == Modifier() ? $"{text}; " : $"{x} {text}; ")
+          : "";
 
-        var modifier = ModifierOf(property.GetMethod).Text;
-
-        return modifier == Modifier() ? "get; " : $"{modifier} get; ";
-      }
-
-      string Set()
-      {
-        if (property.SetMethod == null)
-          return "";
-
-        var modifier = ModifierOf(property.SetMethod).Text;
-
-        return modifier == Modifier() ? "set; " : $"{modifier} set; ";
-      }
-
-      (int Order, string Text) ModifierOf(MethodInfo method)
-      {
-        if (method == null)
-          return (1, "private");
-        
-        return method.IsPublic ? (3, "public") : method.IsPrivate ? (1, "private") : (2, "protected");
-      }
+      (int Order, string Text) ModifierOf(MethodInfo method) =>
+        method == null
+          ? (1, "private")
+          : method.IsPublic ? (3, "public") : method.IsPrivate ? (1, "private") : (2, "protected");
     }
     
     public Code.Scope Declaration(Type type)
