@@ -61,6 +61,18 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData("Test", "fasd", "Test")]
         public void WithoutPartAtEnd_ShouldWorkCorrectly(string source, string part, string expected) =>
             source.Without(part).AtEnd.ShouldBe(expected);
+        
+        [Theory]
+        [InlineData("Test", "T", "est")]
+        [InlineData("Test", "Te", "st")]
+        [InlineData("Test", "Tes", "t")]
+        [InlineData("Test", "Test", "")]
+        
+        [InlineData("Test", "te", "Test")]
+        [InlineData("Test", "123", "Test")]
+        [InlineData("Test", "fasd", "Test")]
+        public void WithoutPartAtStart_ShouldWorkCorrectly(string source, string part, string expected) =>
+            source.Without(part).AtStart.ShouldBe(expected);
 
         #endregion
     }
