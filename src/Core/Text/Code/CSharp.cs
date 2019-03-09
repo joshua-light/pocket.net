@@ -155,13 +155,14 @@ namespace Pocket.Common
     private static string Attribute(CustomAttributeData attribute)
     {
       var name = attribute.AttributeType.PrettyName().Without("Attribute").AtEnd;
-
-      if (attribute.NamedArguments.IsEmpty() && attribute.ConstructorArguments.IsEmpty())
+      var namedArguments = attribute.NamedArguments;
+      var ctorArguments = attribute.ConstructorArguments;
+      if (ctorArguments.IsEmpty() && namedArguments.IsEmpty())
         return $"[{name}]";
 
-      var arguments = attribute.ConstructorArguments.Select(x => x.ToString())
-        .Concat(attribute.NamedArguments.Reverse().Select(x => x.ToString()))
-        .Separate(", ");
+      var arguments = ctorArguments.Select(x => x.ToString())
+        .Concat(namedArguments.Reverse().Select(x => x.ToString()))
+        .Separate(with: ", ");
       
       return $"[{name}({arguments})]";
     }
