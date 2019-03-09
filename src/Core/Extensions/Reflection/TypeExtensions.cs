@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Pocket.Common
 {
@@ -132,6 +131,32 @@ namespace Pocket.Common
 
             public void Set(object value) =>
                 _property.SetValue(_this, value);
+        }
+
+        public struct EnumType
+        {
+            private readonly Type _type;
+            private readonly List<(object Value, string Name)> _values;
+
+            public EnumType(Type type)
+            {
+                type.Ensure(x => x.IsEnum);
+                
+                Underlying = type.GetEnumUnderlyingType();
+
+                var underlying = Underlying;
+                
+                _type = type;
+                _values = type
+                    .GetEnumValues()
+                    .Cast<object>()
+                    .Select(x => (Convert.ChangeType(x, underlying), x.ToString()))
+                    .ToList();
+            }
+
+            public Type Underlying { get; }
+
+            public IReadOnlyList<(object Value, string Name)> Values => _values;
         }
         
         /// <summary>
@@ -414,5 +439,8 @@ namespace Pocket.Common
         
         public static object Instantiate(this Type self) =>
             Activator.CreateInstance(self);
+
+        public static EnumType Enum(this Type self) =>
+            new EnumType(self);
     }
 }

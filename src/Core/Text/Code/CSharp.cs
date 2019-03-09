@@ -126,16 +126,9 @@ namespace Pocket.Common
             .Text(",", when: mapping != mappings.Last())
             .NewLine();
       }
-      
-      List<(string Name, object Value)> Mappings()
-      {
-        var underlying = type.GetEnumUnderlyingType();
 
-        return type.GetEnumValues()
-          .Cast<object>()
-          .Select(x => (x.ToString(), Convert.ChangeType(x, underlying)))
-          .ToList();
-      }
+      IReadOnlyList<(object Value, string Name)> Mappings() =>
+        type.Enum().Values;
       
       return this;
     }
