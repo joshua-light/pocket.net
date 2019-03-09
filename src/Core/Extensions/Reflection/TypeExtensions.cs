@@ -353,7 +353,7 @@ namespace Pocket.Common
                 var arguments = self.GetGenericArguments();
                 var argumentsText = arguments
                     .Select(x => x.PrettyName(asNested: true, context))
-                    .Separate(with: ", ");
+                    .Separated(with: ", ");
 
                 name = $"{self.Name.Replace($"`{arguments.Length}", "")}<{argumentsText}>";
             }
@@ -398,7 +398,7 @@ namespace Pocket.Common
                 .Except(WithDeclaringTypes(context))
                 .Select(x => x.PrettyName())
                 .Reverse()
-                .Separate(".");
+                .Separated(".");
       
             IEnumerable<Type> WithDeclaringTypes(Type x)
             {

@@ -249,9 +249,9 @@ namespace Pocket.Common
             return default;
         }
 
-        public static string Separate<T>(this IEnumerable<T> self, string with) =>
+        public static string Separated<T>(this IEnumerable<T> self, string with) =>
             string.Join(with, self);
-        public static string Separate(this IEnumerable<string> self, string with) =>
+        public static string Separated(this IEnumerable<string> self, string with) =>
             string.Join(with, self);
     }
 }

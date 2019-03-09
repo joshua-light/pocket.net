@@ -145,7 +145,7 @@ namespace Pocket.Common
       var joined = member
         .GetCustomAttributesData()
         .Select(Attribute)
-        .Separate(with: " ");
+        .Separated(with: " ");
       if (joined.IsEmpty())
         return "";
 
@@ -162,7 +162,7 @@ namespace Pocket.Common
 
       var arguments = ctorArguments.Select(x => x.ToString())
         .Concat(namedArguments.Reverse().Select(x => x.ToString()))
-        .Separate(with: ", ");
+        .Separated(with: ", ");
       
       return $"[{name}({arguments})]";
     }
