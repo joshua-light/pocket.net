@@ -30,6 +30,14 @@ namespace Pocket.Common
       With(_code.NewLine(when));
 
     private CSharp With(Code _) => this;
+    
+    private CSharp Separate(IReadOnlyList<string> items, string with, bool andNewLine = false)
+    {
+      foreach (var item in items)
+        Text(item).Text(with, when: item != items.Last()).NewLine(when: andNewLine);
+
+      return this;
+    }
 
     public Code.Scope Scope(bool endsWithNewLine = true) => new Code.Scope(_code,
       x => x.Text("{").NewLine(),
@@ -120,12 +128,9 @@ namespace Pocket.Common
     {
       using (Declaration(type))
       {
-        var mappings = Mappings();
+        var mappings = Mappings().Select(x => $"{x.Name} = {x.Value}").ToList();
 
-        foreach (var mapping in mappings)
-          Text($"{mapping.Name} = {mapping.Value}")
-            .Text(",", when: mapping != mappings.Last())
-            .NewLine();
+        Separate(mappings, with: ",", andNewLine: true);
       }
 
       IReadOnlyList<(object Value, string Name)> Mappings() =>
