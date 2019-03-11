@@ -96,5 +96,61 @@ namespace Pocket.Common
       new CopyExpression(self);
     
     #endregion
+
+    #region Clear
+
+    public struct ClearExpression
+    {
+      private readonly DirectoryInfo _root;
+      private readonly Predicate<FileInfo> _file;
+      private readonly Predicate<DirectoryInfo> _directory;
+
+      public ClearExpression(DirectoryInfo root, Predicate<FileInfo> file = null, Predicate<DirectoryInfo> directory = null)
+      {
+        _root = root;
+        _file = file;
+        _directory = directory;
+      }
+
+      public void Files()
+      {
+        if (!_root.Exists)
+          return;
+        
+        foreach (var x in _root.GetFiles())
+        {
+          var isOk = (_file?.Invoke(x)).Or(true);
+          if (isOk)
+            x.Delete();
+        }
+      }
+      
+      public void Directories()
+      {
+        if (!_root.Exists)
+          return;
+        
+        foreach (var x in _root.GetDirectories())
+        {
+          var isOk = (_directory?.Invoke(x)).Or(true);
+          if (isOk)
+          {
+            x.Clear().Directories();
+            x.Delete();
+          }
+        }
+      }
+      
+      public void All()
+      {
+        Files();
+        Directories();
+      }
+    }
+
+    public static ClearExpression Clear(this DirectoryInfo self) =>
+      new ClearExpression(self);
+
+    #endregion
   }
 }
