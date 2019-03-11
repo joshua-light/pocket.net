@@ -124,6 +124,20 @@ namespace Pocket.Common.Tests.Text.Code
     }
     
     [Fact]
+    public void Declaration_ShouldAppendScopeWithClassHeader_IfClassIsPartial()
+    {
+      var code = CSharp();
+      
+      using (code.Declaration(typeof(PartialClass), partial: true)) { }
+      
+      code.ToString().ShouldBe(
+        "public partial class PartialClass" + Environment.NewLine + 
+        "{"                                 + Environment.NewLine + 
+        "}"                                 + Environment.NewLine + 
+        "");
+    }
+    
+    [Fact]
     public void Declaration_ShouldAppendScopeWithClassHeader_IfClassHasParent()
     {
       var code = CSharp();
@@ -365,6 +379,8 @@ namespace Pocket.Common.Tests.Text.Code
 
     private class PrivateClass { }
     public class PublicClass { }
+    public partial class PartialClass { }
+    public partial class PartialClass { }
     
     public class BaseClass { public class Nested { } }
     public class Class : BaseClass { }

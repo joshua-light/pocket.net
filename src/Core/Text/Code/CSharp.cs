@@ -88,14 +88,17 @@ namespace Pocket.Common
           : method.IsPublic ? (3, "public") : method.IsPrivate ? (1, "private") : (2, "protected");
     }
     
-    public Code.Scope Declaration(Type type)
+    public Code.Scope Declaration(Type type, bool partial = false)
     {
-      return Text($"{Modifier()} {Kind()} {type.PrettyName()}{Parent()}").NewLine().Scope();
+      return Text($"{Modifier()}{Partial()} {Kind()} {type.PrettyName()}{Parent()}").NewLine().Scope();
       
       string Modifier() =>
         (type.IsNested ? type.IsNestedPublic : type.IsPublic)
           ? "public"
           : "private";
+
+      string Partial() =>
+        partial ? " partial" : "";
 
       string Kind() =>
         type.IsValueType ? type.IsEnum ? "enum" : "struct" : "class";
