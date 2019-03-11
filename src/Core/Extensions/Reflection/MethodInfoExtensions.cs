@@ -14,5 +14,8 @@ namespace Pocket.Common
     /// <returns>An array of <see cref="ParameterInfo"/> that represent arguments of method.</returns>
     public static ParameterInfo[] Arguments(this MethodInfo self) =>
       self.GetParameters();
+    
+    public static bool HasOneArgument(this MethodInfo self) =>
+      self.Arguments().Length == 1;
   }
 }
