@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace Pocket.Common
@@ -53,6 +54,9 @@ namespace Pocket.Common
             
             return text.ToString();
         }
+        
+        public static DirectoryInfo AsDirectory(this string self) =>
+            new DirectoryInfo(self);
 
         #region Without
 
