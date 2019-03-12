@@ -367,6 +367,14 @@ namespace Pocket.Common.Tests.Text.Code
 
     #endregion
 
+    #region Method
+
+    [Fact]
+    public void Method_ShouldAppendEmptyMethodCall_IfNoArgumentsSpecified() =>
+      CSharp().Method("Test").ToString().ShouldBe("Test();");
+
+    #endregion
+
     private static CSharp CSharp() => new Common.Code().CSharp();
 
     private static CSharp Field(Type type, string withName) =>

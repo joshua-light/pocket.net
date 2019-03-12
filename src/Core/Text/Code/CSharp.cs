@@ -142,6 +142,18 @@ namespace Pocket.Common
       return this;
     }
 
+    public struct MethodArguments
+    {
+      
+    }
+
+    public CSharp Method(string name, Func<MethodArguments, MethodArguments> args = null)
+    {
+      var argsText = args == null ? "" : args(new MethodArguments()).ToString();
+      
+      return Text($"{name}({argsText});");
+    }
+
     private static string Attributes(MemberInfo member)
     {
       var joined = member
