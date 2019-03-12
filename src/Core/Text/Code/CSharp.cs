@@ -144,12 +144,46 @@ namespace Pocket.Common
 
     public struct MethodArguments
     {
+      public struct One
+      {
+        public One(string value) : this(null, value) { }
+        public One(string name, string value)
+        {
+          Name = name;
+          Value = value;
+        }
+        
+        public readonly string Name;
+        public readonly string Value;
+
+        public override string ToString() =>
+          Name.IsNullOrEmpty() ? Value : $"{Name}: {Value}";
+      }
       
+      private readonly List<One> _all;
+
+      public MethodArguments(List<One> all) =>
+        _all = all;
+
+      public MethodArguments Arg(string value) =>
+        With(new One(value));
+      public MethodArguments Arg(string name, string value) =>
+        With(new One(name, value));
+        
+      public override string ToString() =>
+        _all.Separated(with: ", ");
+
+      private MethodArguments With(One arg)
+      {
+        _all.Add(arg);
+
+        return this;
+      }
     }
 
     public CSharp Method(string name, Func<MethodArguments, MethodArguments> args = null)
     {
-      var argsText = args == null ? "" : args(new MethodArguments()).ToString();
+      var argsText = args == null ? "" : args(new MethodArguments(new List<MethodArguments.One>())).ToString();
       
       return Text($"{name}({argsText});");
     }

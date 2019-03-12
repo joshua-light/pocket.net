@@ -371,7 +371,33 @@ namespace Pocket.Common.Tests.Text.Code
 
     [Fact]
     public void Method_ShouldAppendEmptyMethodCall_IfNoArgumentsSpecified() =>
-      CSharp().Method("Test").ToString().ShouldBe("Test();");
+      CSharp().Method("Test")
+        .ToString()
+        .ShouldBe("Test();");
+    
+    [Fact]
+    public void Method_ShouldAppendMethodCall_IfOneArgumentSpecified() =>
+      CSharp().Method("Test", _ => _.Arg("1"))
+        .ToString()
+        .ShouldBe("Test(1);");
+    
+    [Fact]
+    public void Method_ShouldAppendMethodCall_IfTwoArgumentsSpecified() =>
+      CSharp().Method("Test", _ => _.Arg("1").Arg("2"))
+        .ToString()
+        .ShouldBe("Test(1, 2);");
+    
+    [Fact]
+    public void Method_ShouldAppendMethodCall_IfOneNamedArgumentSpecified() =>
+      CSharp().Method("Test", _ => _.Arg("arg1", "1"))
+        .ToString()
+        .ShouldBe("Test(arg1: 1);");
+    
+    [Fact]
+    public void Method_ShouldAppendMethodCall_IfTwoNamedArgumentsSpecified() =>
+      CSharp().Method("Test", _ => _.Arg("arg1", "1").Arg("arg2", "2"))
+        .ToString()
+        .ShouldBe("Test(arg1: 1, arg2: 2);");
 
     #endregion
 
