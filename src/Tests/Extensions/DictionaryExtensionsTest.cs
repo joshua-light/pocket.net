@@ -35,8 +35,8 @@ namespace Pocket.Common.Tests.Extensions
         {
             var dictionary = new Dictionary<int, List<int>>();
                 
-            var list = dictionary.One(1, or: () => new List<int>());
-            var otherList = dictionary.One(1, or: () => new List<int>());
+            var list = dictionary.One(1, orNew: () => new List<int>());
+            var otherList = dictionary.One(1, orNew: () => new List<int>());
 
             list.ShouldBeSameAs(otherList);
         }

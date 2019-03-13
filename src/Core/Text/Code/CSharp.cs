@@ -169,6 +169,13 @@ namespace Pocket.Common
         With(new One(value));
       public MethodArguments Arg(string name, string value) =>
         With(new One(name, value));
+
+      public MethodArguments As<TEnum>() where TEnum : Enum
+      {
+        _all[_all.Count - 1] = new One(_all.Last().Name, $"{typeof(TEnum).Name}.{_all.Last().Value}");
+
+        return this;
+      }
         
       public override string ToString() =>
         _all.Separated(with: ", ");

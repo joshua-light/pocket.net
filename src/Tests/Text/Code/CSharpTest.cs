@@ -398,6 +398,12 @@ namespace Pocket.Common.Tests.Text.Code
       CSharp().Method("Test", _ => _.Arg("arg1", "1").Arg("arg2", "2"))
         .ToString()
         .ShouldBe("Test(arg1: 1, arg2: 2);");
+    
+    [Fact]
+    public void Method_ShouldAppendMethodCall_IfEnumArgSpecified() =>
+      CSharp().Method("Test", _ => _.Arg("A").As<PublicEnum>())
+        .ToString()
+        .ShouldBe("Test(PublicEnum.A);");
 
     #endregion
 

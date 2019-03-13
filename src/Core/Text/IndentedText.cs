@@ -7,7 +7,7 @@ namespace Pocket.Common
     private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();
     
     private static string Blank(int ofSize) =>
-      Cache.One(ofSize, or: () => new string(' ', ofSize));
+      Cache.One(ofSize, orNew: () => new string(' ', ofSize));
             
     private readonly IText _text;
     private readonly int _indent;
