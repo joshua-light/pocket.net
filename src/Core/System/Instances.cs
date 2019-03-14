@@ -20,19 +20,39 @@ namespace Pocket.Common
         
         foreach (var type in assembly.GetTypes())
           if (_predicate(type))
-            all.Add((T) type.New());
+            all.Add(type.New<T>());
 
         return all;
       }
     }
     
     public static AssemblyExpression<T> Of<T>() where T : class =>
-      new AssemblyExpression<T>(x => typeof(T).IsInterface && x.Implements<T>() || typeof(T).IsClass && x.Extends<T>());
+      new AssemblyExpression<T>(x => Implements(x, typeof(T)) || Extends(x, typeof(T)));
     
     public static AssemblyExpression<T> ThatExtend<T>() where T : class =>
-      new AssemblyExpression<T>(x => typeof(T).IsInterface && x.Implements<T>());
+      new AssemblyExpression<T>(x => Implements(x, typeof(T)));
     
     public static AssemblyExpression<T> ThatImplement<T>() where T : class =>
-      new AssemblyExpression<T>(x => typeof(T).IsClass && x.Extends<T>());
+      new AssemblyExpression<T>(x => Extends(x, typeof(T)));
+
+    private static bool Implements(Type self, Type other)
+    {
+      if (!other.IsInterface)
+        return false;
+
+      return other.IsConstructedGenericType
+        ? self.Implements(other.GetGenericTypeDefinition())
+        : self.Implements(other);
+    }
+    
+    private static bool Extends(Type self, Type other)
+    {
+      if (!other.IsClass)
+        return false;
+
+      return other.IsConstructedGenericType
+        ? self.Extends(other.GetGenericTypeDefinition())
+        : self.Extends(other);
+    }
   }
 }

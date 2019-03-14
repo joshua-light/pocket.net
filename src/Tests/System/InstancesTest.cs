@@ -38,14 +38,27 @@ namespace Pocket.Common.Tests.System
         typeof(ChildAndImplementation5),
       });
     
+    [Fact]
+    public void InstancesOf_ConstructedGenericInterface_ShouldBeConstructed() =>
+      Instances.Of<IGenericInterface<string>>().InThisAssembly().Select(x => x.GetType()).ShouldBe(new[]
+      {
+        typeof(GenericImplementation<string>),
+        typeof(ConstructedGenericImplementation)
+      });
+    
     public interface IInterface { }
+    public interface IGenericInterface<T> { }
+    
     public abstract class Class { }
     
     public class Implementation1 : IInterface { }
     public class Implementation2 : IInterface { }
-    public class Implementation3 : IInterface{ }
-    public class Implementation4 : IInterface{ }
-    public class Implementation5 : IInterface{ }
+    public class Implementation3 : IInterface { }
+    public class Implementation4 : IInterface { }
+    public class Implementation5 : IInterface { }
+    
+    public class GenericImplementation<T> : IGenericInterface<T> { }
+    public class ConstructedGenericImplementation : IGenericInterface<string> { }
     
     public class Child1 : Class  { }
     public class Child2 : Class  { }
