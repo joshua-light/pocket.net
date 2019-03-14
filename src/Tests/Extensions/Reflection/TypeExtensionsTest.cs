@@ -223,6 +223,14 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         public void New_ShouldThrow_IfSelfIsUnconstructedGenericType() =>
             Assert.Throws<ArgumentException>(() => typeof(HashSet<>).New());
 
+        [Fact]
+        public void New_UnconstructedList_AsConstructedList_ShouldWork() =>
+            typeof(List<>).New<List<string>>().ShouldBeOfType<List<string>>();
+        
+        [Fact]
+        public void New_UnconstructedList_AsConstructedEnumerableInterface_ShouldWork() =>
+            typeof(List<>).New<IEnumerable<string>>().ShouldBeOfType<List<string>>();
+
         #endregion
     }
     

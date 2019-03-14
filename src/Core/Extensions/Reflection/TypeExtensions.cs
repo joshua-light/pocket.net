@@ -446,6 +446,26 @@ namespace Pocket.Common
         public static object New(this Type self) =>
             Activator.CreateInstance(self);
 
+        public static T New<T>(this Type self) => (T) self.New(@as: typeof(T));
+        public static object New(this Type self, Type @as)
+        {
+            if (!self.IsGenericTypeDefinition)
+                return self.New();
+            if (!@as.IsConstructedGenericType)
+                throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: second one is generic type definition.");
+
+            var asDefinition = @as.GetGenericTypeDefinition();
+            if (asDefinition != self)
+            {
+                if (@as.IsInterface && !self.Implements(asDefinition))
+                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: first doesn't implement second.");
+                if (@as.IsClass && self != asDefinition && !self.Extends(asDefinition))
+                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: first doesn't extend second.");    
+            }
+            
+            return self.MakeGenericType(@as.GetGenericArguments()).New();
+        }
+
         public static EnumType Enum(this Type self) =>
             new EnumType(self);
     }
