@@ -216,6 +216,14 @@ namespace Pocket.Common.Tests.Extensions.Reflection
             typeof(int[,][,]).PrettyName().ShouldBe("int[,][,]");
 
         #endregion
+
+        #region New
+
+        [Fact]
+        public void New_ShouldThrow_IfSelfIsUnconstructedGenericType() =>
+            Assert.Throws<ArgumentException>(() => typeof(HashSet<>).New());
+
+        #endregion
     }
     
     public interface IAnimal { }
