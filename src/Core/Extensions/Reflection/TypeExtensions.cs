@@ -243,7 +243,7 @@ namespace Pocket.Common
         public static bool Extends(this Type self, Type other)
         {
             if (!other.IsClass)
-                throw new InvalidOperationException($"Specified {other.Name} is not an interface.");
+                throw new InvalidOperationException($"Specified {other.Name} is not a class.");
             
             if (self == other)
                 return false;
