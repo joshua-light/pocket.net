@@ -93,6 +93,10 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         #endregion
 
         #region Extends
+        
+        [Fact]
+        public void Extends_ShouldBeFalse_IfTypeIsSelf() =>
+            typeof(Human).Extends<Human>().ShouldBeFalse();
 
         [Fact]
         public void Extends_ShouldBeTrue_IfTypeExtendsClass()
