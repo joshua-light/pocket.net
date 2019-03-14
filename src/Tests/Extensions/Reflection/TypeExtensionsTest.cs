@@ -55,6 +55,10 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         #region Implements
 
         [Fact]
+        public void Implements_ShouldBeFalse_IfTypeIsSelf() =>
+            typeof(IAnimal).Implements<IAnimal>().ShouldBeFalse();
+
+        [Fact]
         public void Implements_ShouldBeTrue_IfTypeImplementsInterface()
         {
             Assert.True(typeof(Human).Implements(typeof(IAnimal)));

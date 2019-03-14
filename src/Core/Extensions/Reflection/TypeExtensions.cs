@@ -207,6 +207,9 @@ namespace Pocket.Common
         /// <exception cref="InvalidOperationException"><paramref name="other"/> is not an interface type.</exception>
         public static bool Implements(this Type self, Type other)
         {
+            if (self == other)
+                return false;
+            
             if (!other.IsInterface)
                 throw new InvalidOperationException($"Specified {other.Name} is not an interface.");
             
