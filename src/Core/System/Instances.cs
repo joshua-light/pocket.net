@@ -19,7 +19,7 @@ namespace Pocket.Common
         var all = new List<T>();
         
         foreach (var type in assembly.GetTypes())
-          if (_predicate(type))
+          if (!type.IsAbstract && _predicate(type))
             all.Add(type.New<T>());
 
         return all;

@@ -50,6 +50,7 @@ namespace Pocket.Common.Tests.System
     public interface IGenericInterface<T> { }
     
     public abstract class Class { }
+    public abstract class AbstractChild : Class { }
     
     public class Implementation1 : IInterface { }
     public class Implementation2 : IInterface { }
