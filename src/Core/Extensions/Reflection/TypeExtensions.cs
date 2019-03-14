@@ -443,7 +443,7 @@ namespace Pocket.Common
             }
         }
         
-        public static object Instantiate(this Type self) =>
+        public static object New(this Type self) =>
             Activator.CreateInstance(self);
 
         public static EnumType Enum(this Type self) =>

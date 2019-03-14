@@ -20,7 +20,7 @@ namespace Pocket.Common
         
         foreach (var type in assembly.GetTypes())
           if (_predicate(type))
-            all.Add((T) type.Instantiate());
+            all.Add((T) type.New());
 
         return all;
       }
