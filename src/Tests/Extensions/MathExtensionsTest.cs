@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
@@ -77,6 +78,18 @@ namespace Pocket.Common.Tests.Extensions
       public void IfLess_ShouldReturnFirstValue_IfFirstIsGreaterThanSecond(int first, int second) =>
         Assert.Equal(first, new MathExtensions.OrCouple<int>(first, second).IfLess());
       
+      [Fact]
+      public void IfLessThan_ShouldReturnFirstValue_IfItIsLessThanSpecified() =>
+        1.Or(2).IfLess(than: 0).ShouldBe(1);
+      
+      [Fact]
+      public void IfLessThan_ShouldReturnFirstValue_IfItEqualsToSpecified() =>
+        1.Or(2).IfLess(than: 1).ShouldBe(1);
+      
+      [Fact]
+      public void IfLessThan_ShouldReturnSecondValue_IfItIsGreaterThanSpecified() =>
+        1.Or(2).IfLess(than: 2).ShouldBe(2);
+      
       [Theory]
       [InlineData(0, 0)]
       [InlineData(1, 0)]
@@ -93,6 +106,18 @@ namespace Pocket.Common.Tests.Extensions
       [InlineData(-10, -9)]
       public void IfGreater_ShouldReturnFirstValue_IfFirstIsLessThanSecond(int first, int second) =>
         Assert.Equal(first, new MathExtensions.OrCouple<int>(first, second).IfGreater());
+
+      [Fact]
+      public void IfGreaterThan_ShouldReturnFirstValue_IfItIsLessThanSpecified() =>
+        1.Or(2).IfGreater(than: 3).ShouldBe(1);
+      
+      [Fact]
+      public void IfGreaterThan_ShouldReturnFirstValue_IfItEqualsToSpecified() =>
+        1.Or(2).IfGreater(than: 1).ShouldBe(1);
+      
+      [Fact]
+      public void IfGreaterThan_ShouldReturnSecondValue_IfItIsGreaterThanSpecified() =>
+        1.Or(2).IfGreater(than: 0).ShouldBe(2);
     }
   }
 }

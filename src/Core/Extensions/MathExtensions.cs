@@ -95,6 +95,9 @@ namespace Pocket.Common
             /// <returns>Minimum of two items.</returns>
             /// <remarks>Works like <see cref="Math.Min"/>.</remarks>
             public T IfGreater() => _a.IsGreater(_b) ? _b : _a;
+
+            public T IfGreater(T than) => _a.IsGreater(than) ? _b : _a;
+            public T IfLess(T than) => _a.IsLess(than) ? _b : _a;
         }
 
         /// <summary>
