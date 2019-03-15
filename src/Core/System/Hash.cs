@@ -35,7 +35,13 @@ namespace Pocket.Common
             items.Aggregate(Of(0), (hash, x) => hash.With(x));
         
         public Hash With<T>(T item) =>
-            new Hash((_hash * Prime) ^ (item?.GetHashCode() ?? 0));
+            new Hash((_hash * Prime) ^ Of(item));
+        public Hash With<T>(T[] items) =>
+            new Hash((_hash * Prime) ^ Of(items));
+        public Hash With<T>(IList<T> items) =>
+            new Hash((_hash * Prime) ^ Of(items));
+        public Hash With<T>(IEnumerable<T> items) =>
+            new Hash((_hash * Prime) ^ Of(items));
 
         public override int GetHashCode() =>
             _hash;
