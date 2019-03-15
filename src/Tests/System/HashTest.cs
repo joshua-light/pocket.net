@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Shouldly;
+using Xunit;
 
 namespace Pocket.Common.Tests.System
 {
@@ -52,5 +53,9 @@ namespace Pocket.Common.Tests.System
         [InlineData(100)]
         public void With_ShouldAppendZero_IfObjectIsNull(int hash) =>
             Assert.Equal(hash * Hash.Prime, Hash.Of(hash).With((string) null));
+
+        [Fact]
+        public void Of_MultipleItems_ShouldEqualToConsequentWithCalls() =>
+            Hash.Of(new[] { 1, 2, 3, 4, 5, 6 }).ShouldBe(Hash.Of(1).With(2).With(3).With(4).With(5).With(6));
     }
 }
