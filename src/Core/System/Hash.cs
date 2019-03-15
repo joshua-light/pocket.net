@@ -15,7 +15,22 @@ namespace Pocket.Common
         public static Hash Of<T>(T item) =>
             new Hash(item?.GetHashCode() ?? 0);
 
-        public static Hash Of<T>(T[] items) => Of((IEnumerable<T>) items);
+        public static Hash Of<T>(T[] items) => Of((IList<T>) items);
+        public static Hash Of<T>(IList<T> items)
+        {
+            if (items.Count == 0)
+                return Of(0);
+            if (items.Count == 1)
+                return Of(items[0]);
+
+            var hash = Of(items[0]);
+
+            for (var i = 1; i < items.Count; i++)
+                hash = hash.With(items[i]);
+
+            return hash;
+        }
+        
         public static Hash Of<T>(IEnumerable<T> items) =>
             items.Aggregate(Of(0), (hash, x) => hash.With(x));
         

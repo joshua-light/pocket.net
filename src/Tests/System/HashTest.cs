@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using System.Linq;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Common.Tests.System
@@ -55,7 +56,11 @@ namespace Pocket.Common.Tests.System
             Assert.Equal(hash * Hash.Prime, Hash.Of(hash).With((string) null));
 
         [Fact]
-        public void Of_MultipleItems_ShouldEqualToConsequentWithCalls() =>
+        public void Of_Array_ShouldEqualToConsequentWithCalls() =>
             Hash.Of(new[] { 1, 2, 3, 4, 5, 6 }).ShouldBe(Hash.Of(1).With(2).With(3).With(4).With(5).With(6));
+        
+        [Fact]
+        public void Of_Enumerable_ShouldEqualToConsequentWithCalls() =>
+            Hash.Of(Enumerable.Range(1, 6)).ShouldBe(Hash.Of(1).With(2).With(3).With(4).With(5).With(6));
     }
 }
