@@ -18,5 +18,13 @@ namespace Pocket.Common
 
             return $"[ {string.Join(", ", self.Select(x => $"{asString(x) ?? "null"}"))} ]";
         }
+
+        public static IList<IList<T>> Permutations<T>(this IList<T> self)
+        {
+            if (self.IsEmpty())
+                return new List<IList<T>>();
+
+            return null;
+        }
     }
 }
