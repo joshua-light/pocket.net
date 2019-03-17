@@ -268,7 +268,7 @@ namespace Pocket.Common
         public static string Separated(this IEnumerable<string> self, string with) =>
             string.Join(with, self);
 
-        public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate) =>
-            self.FirstOrDefault(predicate);
+        public static T One<T>(this IEnumerable<T> self, Func<T, bool> that) =>
+            self.FirstOrDefault(that);
     }
 }
