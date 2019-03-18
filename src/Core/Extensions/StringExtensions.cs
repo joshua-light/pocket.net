@@ -75,6 +75,8 @@ namespace Pocket.Common
                 _source.EndsWith(_part) ? _source.Remove(_source.Length - _part.Length) : _source;
             public string AtStart =>
                 _source.StartsWith(_part) ? _source.Substring(_part.Length) : _source;
+            public string Everywhere =>
+                _source.Replace(_part, "");
         }
 
         public static WithoutExpression Without(this string self, string part) =>
