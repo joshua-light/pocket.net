@@ -36,5 +36,19 @@ namespace Pocket.Common.Tests.System
     [InlineData(3, 4, 5, 3)]
     public void Change_ShouldReturnOldValueOfSelf(int actual, int from, int to, int expected) =>
       Concurrently.Change(ref actual, from, to).ShouldBe(expected);
+    
+    [Theory]
+    [InlineData(1, 1, 2)]
+    [InlineData(2, 2, 3)]
+    [InlineData(3, 3, 4)]
+    public void Changed_ShouldBeTrue_IfValueWasChanged(int actual, int from, int to) =>
+      Concurrently.Changed(ref actual, from, to).ShouldBeTrue();
+    
+    [Theory]
+    [InlineData(1, 2, 3)]
+    [InlineData(2, 3, 4)]
+    [InlineData(3, 4, 5)]
+    public void Changed_ShouldBeFalse_IfValueWasNotChanged(int actual, int from, int to) =>
+      Concurrently.Changed(ref actual, from, to).ShouldBeFalse();
   }
 }
