@@ -4,7 +4,7 @@ namespace Pocket.Common
 {
   public static class Concurrent
   {
-    public static int Change(ref int self, int to, int when) =>
-      Interlocked.CompareExchange(ref self, to, when);
+    public static int Change(ref int self, int from, int to) =>
+      Interlocked.CompareExchange(ref self, to, from);
   }
 }
