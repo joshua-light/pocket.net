@@ -267,8 +267,5 @@ namespace Pocket.Common
         /// <returns>Items of <paramref name="self"/> converted to string and separated with <paramref name="with"/>.</returns>
         public static string Separated(this IEnumerable<string> self, string with) =>
             string.Join(with, self);
-
-        public static T One<T>(this IEnumerable<T> self, Func<T, bool> that) =>
-            self.FirstOrDefault(that);
     }
 }
