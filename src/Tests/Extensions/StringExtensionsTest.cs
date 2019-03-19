@@ -81,6 +81,26 @@ namespace Pocket.Common.Tests.Extensions
         public void WithoutEverywhere_ShouldReplacePartWithEmptyString(string source, string part, string expected) =>
             source.Without(part).Everywhere.ShouldBe(expected);
 
+        [Theory]
+        [InlineData("Test", 0, "est")]
+        [InlineData("Test", 1, "Tst")]
+        [InlineData("Test", 2, "Tet")]
+        [InlineData("Test", 3, "Tes")]
+        public void WithoutCharAt_ShouldRemoveCharacterAtSpecifiedPosition(string source, int index, string expected) =>
+            source.Without(charAt: index).ShouldBe(expected);
+
+        [Theory]
+        [InlineData("Test", 0, "est")]
+        [InlineData("Test", 1, "Tst")]
+        [InlineData("Test", 2, "Tet")]
+        [InlineData("Test", 3, "Tes")]
+        public void WithoutCharAt_UsingBuffer_ShouldRemoveCharacterAtSpecifiedPosition(string source, int index, string expected)
+        {
+            var buffer = new char[100];
+            
+            source.Without(charAt: index, @using: buffer).ShouldBe(expected);
+        }
+
         #endregion
     }
 }

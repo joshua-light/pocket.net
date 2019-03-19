@@ -82,6 +82,23 @@ namespace Pocket.Common
         public static WithoutExpression Without(this string self, string part) =>
             new WithoutExpression(self, part);
 
+        public static string Without(this string self, int charAt) => self.Without(charAt, new char[self.Length - 1]);
+        public static string Without(this string self, int charAt, char[] @using)
+        {
+            if (self.Length == 1)
+                return "";
+
+            for (var i = 0; i < self.Length; i++)
+            {
+                if (i < charAt)
+                    @using[i] = self[i];
+                else if (i > charAt)
+                    @using[i - 1] = self[i];
+            }
+
+            return new string(@using, 0, self.Length - 1);
+        }
+
         #endregion
     }
 }
