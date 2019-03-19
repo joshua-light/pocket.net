@@ -165,12 +165,12 @@ namespace Pocket.Common
                 $"Only {_size - _usedSegments.Last().End} free space left.");
         }
 
-        private void Release(Segment semgent)
+        private void Release(Segment segment)
         {
-            for (var i = 0; i < semgent.Length; i++)
-                semgent[i] = default;
+            for (var i = 0; i < segment.Length; i++)
+                segment[i] = default;
 
-            _usedSegments.Remove(semgent);
+            _usedSegments.Remove(segment);
         }
     }
 }
