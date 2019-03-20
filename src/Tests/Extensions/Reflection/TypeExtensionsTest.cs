@@ -228,10 +228,6 @@ namespace Pocket.Common.Tests.Extensions.Reflection
             typeof(List<string>).New<IEnumerable>().ShouldBeOfType<List<string>>();
         
         [Fact]
-        public void New_UnconstructedList_AsNonGenericEnumerable_ShouldWork() =>
-            typeof(List<>).New<IEnumerable>().ShouldBeOfType<List<string>>();
-        
-        [Fact]
         public void New_UnconstructedList_AsConstructedList_ShouldWork() =>
             typeof(List<>).New<List<string>>().ShouldBeOfType<List<string>>();
         
