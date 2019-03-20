@@ -66,7 +66,7 @@ namespace Pocket.Common
     public static Expression<T> Ensure<T>(T that) =>
       new Expression<T>(that);
     public static BoolExpression Ensure(bool that) =>
-      new BoolExpression(that);
+      new BoolExpression(that); 
     public static TypeExpression Ensure(Type that) =>
       new TypeExpression(that);
 
