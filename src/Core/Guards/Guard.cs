@@ -76,9 +76,7 @@ namespace Pocket.Common
     private static void When(bool fact, Func<Exception> @throw)
     {
       if (fact)
-        return;
-        
-      throw @throw();
+        throw @throw();
     }
   }
 }
