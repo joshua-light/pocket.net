@@ -459,15 +459,18 @@ namespace Pocket.Common
             if (!self.IsGenericTypeDefinition)
                 return self.New();
             if (!@as.IsConstructedGenericType)
-                throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: second one is generic type definition.");
+                throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: " +
+                                            $"second one is not constructed generic type.");
 
             var asDefinition = @as.GetGenericTypeDefinition();
             if (asDefinition != self)
             {
                 if (@as.IsInterface && !self.Implements(asDefinition))
-                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: first doesn't implement second.");
+                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: " +
+                                                $"first doesn't implement second.");
                 if (@as.IsClass && self != asDefinition && !self.Extends(asDefinition))
-                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: first doesn't extend second.");    
+                    throw new ArgumentException($"Couldn't create [ {self.PrettyName()} ] as [ {@as.PrettyName()} ]: " +
+                                                $"first doesn't extend second.");    
             }
             
             return self.MakeGenericType(@as.GetGenericArguments()).New();
