@@ -171,6 +171,8 @@ namespace Pocket.Common
             return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
+        public static bool Is<T>(this Type self) => self.Is(typeof(T));
+
         /// <summary>
         ///     Checks whether <paramref name="self"/> is somehow equal to <paramref name="other"/>.
         /// </summary>
