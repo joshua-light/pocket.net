@@ -4,11 +4,11 @@ namespace Pocket.Common
 {
   public static class Guard
   {
-    public struct GuardExpression<T>
+    public struct Expression<T>
     {
       private readonly T _this;
 
-      public GuardExpression(T @this) =>
+      public Expression(T @this) =>
         _this = @this;
 
       public void NotNull() =>
@@ -22,11 +22,11 @@ namespace Pocket.Common
         When(_this != null, @throw: () => new ArgumentNullException("", because));
     }
 
-    public struct BoolGuardExpression
+    public struct BoolExpression
     {
       private readonly bool _this;
 
-      public BoolGuardExpression(bool @this) =>
+      public BoolExpression(bool @this) =>
         _this = @this;
 
       public void True() => True("Specified value must be true.");
@@ -38,11 +38,11 @@ namespace Pocket.Common
         When(_this, @throw: () => new ArgumentException(because));
     }
 
-    public struct TypeGuardExpression
+    public struct TypeExpression
     {
       private readonly Type _this;
 
-      public TypeGuardExpression(Type @this) =>
+      public TypeExpression(Type @this) =>
         _this = @this;
 
       public void NotNull() =>
@@ -56,15 +56,15 @@ namespace Pocket.Common
         Common(_this).Null(because);
     }
 
-    public static GuardExpression<T> Ensure<T>(T that) =>
-      new GuardExpression<T>(that);
-    public static BoolGuardExpression Ensure(bool that) =>
-      new BoolGuardExpression(that);
-    public static TypeGuardExpression Ensure(Type that) =>
-      new TypeGuardExpression(that);
+    public static Expression<T> Ensure<T>(T that) =>
+      new Expression<T>(that);
+    public static BoolExpression Ensure(bool that) =>
+      new BoolExpression(that);
+    public static TypeExpression Ensure(Type that) =>
+      new TypeExpression(that);
 
-    private static GuardExpression<T> Common<T>(T value) =>
-      new GuardExpression<T>(value);
+    private static Expression<T> Common<T>(T value) =>
+      new Expression<T>(value);
     
     private static void When(bool fact, Func<Exception> @throw)
     {
