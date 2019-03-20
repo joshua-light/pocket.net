@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Pocket.Common
 {
-  public static class Concurrently
+  public static class Atomicly
   {
     public static bool Changed(ref int self, int from, int to) =>
       Change(ref self, from, to) == from;
