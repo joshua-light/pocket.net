@@ -38,10 +38,30 @@ namespace Pocket.Common
         When(_this, @throw: () => new ArgumentException(because));
     }
 
+    public struct TypeGuardExpression
+    {
+      private readonly Type _this;
+
+      public TypeGuardExpression(Type @this) =>
+        _this = @this;
+
+      public void NotNull() =>
+        Common(_this).NotNull();
+      public void NotNull(string because) =>
+        Common(_this).NotNull(because);
+      
+      public void Null() =>
+        Common(_this).Null();
+      public void Null(string because) =>
+        Common(_this).Null(because);
+    }
+
     public static GuardExpression<T> Ensure<T>(T that) =>
       new GuardExpression<T>(that);
     public static BoolGuardExpression Ensure(bool that) =>
       new BoolGuardExpression(that);
+    public static TypeGuardExpression Ensure(Type that) =>
+      new TypeGuardExpression(that);
 
     private static GuardExpression<T> Common<T>(T value) =>
       new GuardExpression<T>(value);
