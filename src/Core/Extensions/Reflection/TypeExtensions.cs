@@ -189,6 +189,10 @@ namespace Pocket.Common
             return self == other;
         }
 
+        public static bool Derives<T>(this Type self) => self.Derives(typeof(T));
+        public static bool Derives(this Type self, Type from) =>
+            from.IsInterface ? self.Implements(from) : self.Extends(from);
+
         /// <summary>
         ///     Checks whether <paramref name="self"/> implements <typeparamref name="T"/> at type level.
         /// </summary>
