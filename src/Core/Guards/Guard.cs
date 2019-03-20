@@ -54,6 +54,9 @@ namespace Pocket.Common
         Common(_this).Null();
       public void Null(string because) =>
         Common(_this).Null(because);
+      
+      public void Is<T>() =>
+        When(_this != typeof(T), @throw: () => new ArgumentException($"Specified type must be [ {typeof(T).PrettyName()} ]."));
     }
 
     public static Expression<T> Ensure<T>(T that) =>
