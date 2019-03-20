@@ -57,6 +57,10 @@ namespace Pocket.Common
       
       public void Is<T>() =>
         When(!_this.Is<T>(), @throw: () => new ArgumentException($"Specified type must be [ {typeof(T).PrettyName()} ]."));
+      public void Derives<T>() =>
+        When(!_this.Derives<T>(), @throw: () => new ArgumentException($"Specified type must derive from [ {typeof(T).PrettyName()} ]."));
+      public void IsOrDerives<T>() =>
+        When(!_this.Is<T>() && !_this.Derives<T>(), @throw: () => new ArgumentException($"Specified type must be (or derive from) [ {typeof(T).PrettyName()} ]."));
     }
 
     public static Expression<T> Ensure<T>(T that) =>
