@@ -58,6 +58,7 @@ namespace Pocket.Common.Tests.System
     public class Implementation4 : IInterface { }
     public class Implementation5 : IInterface { }
     
+    public class GenericImplementationThatShouldNotBeCreated<T> : IInterface { }
     public class GenericImplementation<T> : IGenericInterface<T> { }
     public class ConstructedGenericImplementation : IGenericInterface<string> { }
     

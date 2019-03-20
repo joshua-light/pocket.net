@@ -17,10 +17,18 @@ namespace Pocket.Common
       public List<T> In(Assembly assembly)
       {
         var all = new List<T>();
-        
+
         foreach (var type in assembly.GetTypes())
-          if (!type.IsAbstract && _predicate(type))
-            all.Add(type.New<T>());
+        {
+          if (type.IsAbstract)
+            continue;
+          if (type.IsGenericTypeDefinition && !typeof(T).IsConstructedGenericType)
+            continue;
+          if (!_predicate(type))
+            continue;
+          
+          all.Add(type.New<T>());
+        }
 
         return all;
       }
