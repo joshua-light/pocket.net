@@ -17,7 +17,7 @@ namespace Pocket.Common
         When(_this == null, @throw: () => new ArgumentNullException("", because));
       
       public void Null() =>
-        NotNull(because: "Specified value must be null.");
+        Null(because: "Specified value must be null.");
       public void Null(string because) =>
         When(_this != null, @throw: () => new ArgumentNullException("", because));
     }
