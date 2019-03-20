@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -28,7 +29,7 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static IEnumerable<T> Each<T>(this IEnumerable<T> self, Action<T> onEach)
         {
-            self.EnsureNotNull();
+            Ensure(self).NotNull();
 
             return EachIterator(self, onEach);
         }

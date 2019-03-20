@@ -1,4 +1,5 @@
 ﻿using System;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -18,7 +19,7 @@ namespace Pocket.Common
         /// <returns></returns>
         public static TOut Using<TIn, TOut>(this TIn self, Func<TIn, TOut> map) where TIn : IDisposable
         {
-            map.EnsureNotNull();
+            Ensure(map).NotNull();
 
             return self
                 .As(map)
@@ -34,7 +35,7 @@ namespace Pocket.Common
         /// <typeparam name="T">Type of <see cref="IDisposable"/> object.</typeparam>
         public static void Using<T>(this T self, Action<T> action) where T : IDisposable
         {
-            action.EnsureNotNull();
+            Ensure(action).NotNull();
 
             self
                 .Do(action)

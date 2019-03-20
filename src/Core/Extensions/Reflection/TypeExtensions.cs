@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -140,7 +141,7 @@ namespace Pocket.Common
 
             public EnumType(Type type)
             {
-                type.Ensure(x => x.IsEnum);
+                Ensure(type.IsEnum);
                 
                 Underlying = type.GetEnumUnderlyingType();
 
