@@ -13,7 +13,7 @@ namespace Pocket.Common
       public AssemblyExpression(Predicate<Type> predicate) =>
         _predicate = predicate;
 
-      public List<T> InThisAssembly() => In(Assembly.GetCallingAssembly());
+      public List<T> InCurrentAssembly() => In(Assembly.GetCallingAssembly());
       public List<T> In(Assembly assembly)
       {
         var all = new List<T>();

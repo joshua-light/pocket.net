@@ -8,7 +8,7 @@ namespace Pocket.Common.Tests.System
   {
     [Fact]
     public void InstancesOf_IInterface_ShouldBeAllImplementations() =>
-      Instances.Of<IInterface>().InThisAssembly().Select(x => x.GetType()).ShouldBe(new[]
+      Instances.Of<IInterface>().InCurrentAssembly().Select(x => x.GetType()).ShouldBe(new[]
       {
         typeof(Implementation1),
         typeof(Implementation2),
@@ -24,7 +24,7 @@ namespace Pocket.Common.Tests.System
     
     [Fact]
     public void InstancesOf_Class_ShouldBeAllChilds() =>
-      Instances.Of<Class>().InThisAssembly().Select(x => x.GetType()).ShouldBe(new[]
+      Instances.Of<Class>().InCurrentAssembly().Select(x => x.GetType()).ShouldBe(new[]
       {
         typeof(Child1),
         typeof(Child2),
@@ -40,7 +40,7 @@ namespace Pocket.Common.Tests.System
     
     [Fact]
     public void InstancesOf_ConstructedGenericInterface_ShouldBeConstructed() =>
-      Instances.Of<IGenericInterface<string>>().InThisAssembly().Select(x => x.GetType()).ShouldBe(new[]
+      Instances.Of<IGenericInterface<string>>().InCurrentAssembly().Select(x => x.GetType()).ShouldBe(new[]
       {
         typeof(GenericImplementation<string>),
         typeof(ConstructedGenericImplementation)
