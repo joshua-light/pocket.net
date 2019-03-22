@@ -9,7 +9,7 @@ namespace Pocket.Common.Flows
 
         public CountFlow(ICollectionFlow<T> collection)
         {
-            _flux = new PureFlux<int>(collection.Current.Count());
+            _flux = collection.Current.Count().Flux();
 
             collection.Added.OnNext(_ => _flux.Increment());
             collection.Removed.OnNext(_ => _flux.Decrement());
