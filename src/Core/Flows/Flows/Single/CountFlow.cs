@@ -11,12 +11,14 @@ namespace Pocket.Common.Flows
         {
             _flux = new PureFlux<int>(collection.Current.Count());
 
-            collection.Added.OnNext(_ => _flux.Pulse(_flux.Current + 1));
-            collection.Removed.OnNext(_ => _flux.Pulse(_flux.Current - 1));
+            collection.Added.OnNext(_ => _flux.Increment());
+            collection.Removed.OnNext(_ => _flux.Decrement());
         }
 
-        public int Current => _flux.Current;
+        public int Current =>
+            _flux.Current;
         
-        public IDisposable OnNext(Action<int> action) => _flux.OnNext(action);
+        public IDisposable OnNext(Action<int> action) =>
+            _flux.OnNext(action);
     }
 }
