@@ -50,12 +50,15 @@ namespace Pocket.Common.Tests.Time.Schedules
         public void Skip_ShouldSatisfy_IfPromiseRescheduleSelf()
         {
             var schedule = new ManualSchedule();
+            var action = Substitute.For<Action>();
 
             schedule
                 .Wait(100)
-                .Then(() => schedule.Wait(100));
+                .Then(() => schedule.Wait(100).Then(action));
 
-            schedule.Skip(100);
+            schedule.Skip(200);
+            
+            action.Received(1).Invoke();
         }
     }
 }
