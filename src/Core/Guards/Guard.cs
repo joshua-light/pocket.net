@@ -14,7 +14,7 @@ namespace Pocket.Common
       public void NotNull() =>
         NotNull(because: "Specified value must be not null.");
       public void NotNull(string because) =>
-        When(_this == null, @throw: () => new ArgumentNullException("", because));
+        When(_this == null, @throw: () => new ArgumentException(because));
       
       public void Null() =>
         Null(because: "Specified value must be null.");
@@ -54,13 +54,18 @@ namespace Pocket.Common
         Common(_this).Null();
       public void Null(string because) =>
         Common(_this).Null(because);
-      
-      public void Is<T>() =>
-        When(!_this.Is<T>(), @throw: () => new ArgumentException($"Specified type must be [ {typeof(T).PrettyName()} ]."));
-      public void Derives<T>() =>
-        When(!_this.Derives<T>(), @throw: () => new ArgumentException($"Specified type must derive from [ {typeof(T).PrettyName()} ]."));
-      public void IsOrDerives<T>() =>
-        When(!_this.Is<T>() && !_this.Derives<T>(), @throw: () => new ArgumentException($"Specified type must be (or derive from) [ {typeof(T).PrettyName()} ]."));
+
+      public void Is<T>() => Is(typeof(T));
+      public void Is(Type type) =>
+        When(!_this.Is(type), @throw: () => new ArgumentException($"Specified type must be [ {type.PrettyName()} ]."));
+
+      public void Derives<T>() => Derives(typeof(T));
+      public void Derives(Type type) =>
+        When(!_this.Derives(type), @throw: () => new ArgumentException($"Specified type must derive from [ {type.PrettyName()} ]."));
+
+      public void IsOrDerives<T>() => IsOrDerives(typeof(T));
+      public void IsOrDerives(Type type) =>
+        When(!_this.Is(type) && !_this.Derives(type), @throw: () => new ArgumentException($"Specified type must be (or derive from) [ {type.PrettyName()} ]."));
     }
 
     public static Expression<T> Ensure<T>(T that) =>
