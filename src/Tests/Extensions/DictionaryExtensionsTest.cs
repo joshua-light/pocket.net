@@ -7,65 +7,73 @@ namespace Pocket.Common.Tests.Extensions
     public class DictionaryExtensionsTest
     {        
         #region One
-
-        [Fact]
-        public void One_ShouldReturnObject_IfKeyExists()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
-            var list = new List<int>();
-            dictionary[1] = list;
-
-            var otherList = dictionary.One(1);
-
-            list.ShouldBeSameAs(otherList);
-        }
-
-        [Fact]
-        public void One_ShouldReturnDefault_IfKeyDoesNotExist()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
-            
-            dictionary.One(1).ShouldBeNull();
-            dictionary.One(2).ShouldBeNull();
-            dictionary.One(3).ShouldBeNull();
-        }
         
         [Fact]
-        public void OneWithFunc_ShouldReturnSameObject_IfCalledTwice()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
-                
-            var list = dictionary.One(1, orNew: () => new List<int>());
-            var otherList = dictionary.One(1, orNew: () => new List<int>());
-
-            list.ShouldBeSameAs(otherList);
-        }
+        public void OneOrDefault_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).OrDefault().ShouldBe("");
         
-        #endregion
-
-        #region OneOrThrow
+        [Fact]
+        public void OneOr_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).Or("1").ShouldBe("");
+        
+        [Fact]
+        public void OneOrFunc_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).Or(() => "1").ShouldBe("");
+        
+        [Fact]
+        public void OneOrNew_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).OrNew("1").ShouldBe("");
+        
+        [Fact]
+        public void OneOrNewFunc_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).OrNew(() => "1").ShouldBe("");
+        
+        [Fact]
+        public void OneOrThrow_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).OrThrow().ShouldBe("");
+        
+        [Fact]
+        public void OneOrThrowWithMessage_ShouldReturnObject_IfKeyExists() =>
+            Dictionary(with: (1, "")).One(1).OrThrow(withMessage: "").ShouldBe("");
 
         [Fact]
-        public void OneOrThrow_ShouldReturnObject_IfKeyExist()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
-            var list = new List<int>();
-            dictionary[1] = list;
-
-            var otherList = dictionary.OneOrThrow(1);
-
-            list.ShouldBeSameAs(otherList);
-        }
+        public void OneOrDefault_ShouldReturnDefault_IfKeyDoesNotExist() =>
+            Empty<int, string>().One(1).OrDefault().ShouldBeNull();
 
         [Fact]
-        public void OneOrThrow_ShouldThrowKeyNotFoundExceptionWithCorrectMessage_IfKeyDoesNotExist()
-        {
-            var dictionary = new Dictionary<int, List<int>>();
+        public void OneOr_ShouldReturnValue_IfKeyDoesNotExist() =>
+            Empty<int, string>().One(1).Or("").ShouldBe("");
+        
+        [Fact]
+        public void OneOrFunc_ShouldReturnValue_IfKeyDoesNotExist() =>
+            Empty<int, string>().One(1).Or(() => "").ShouldBe("");
+        
+        [Fact]
+        public void OneOrNew_ShouldWriteNewValue_IfKeyDoesNotExist() =>
+            Empty<int, string>()
+                .Do(_ => _.One(1).OrNew(""))
+                .One(1).OrDefault().ShouldBe("");
+        
+        [Fact]
+        public void OneOrNewFunc_ShouldWriteNewValue_IfKeyDoesNotExist() =>
+            Empty<int, string>()
+                .Do(_ => _.One(1).OrNew(() => ""))
+                .One(1).OrDefault().ShouldBe("");
 
-            var e = Assert.Throws<KeyNotFoundException>(() => dictionary.OneOrThrow(0));
-            
-            e.Message.ShouldBe("Couldn't find value by [ 0 ] key.");
-        }
+        [Fact]
+        public void OneOrThrow_ShouldThrow_IfKeyDoesNotExist() =>
+            Assert.Throws<KeyNotFoundException>(() => Empty<int, string>().One(1).OrThrow())
+                .Message.ShouldBe("Couldn't find value with [ 1 ] key.");
+        
+        [Fact]
+        public void OneOrThrow_ShouldThrowWithSpecifiedMessage_IfKeyDoesNotExist() =>
+            Assert.Throws<KeyNotFoundException>(() => Empty<int, string>().One(1).OrThrow(withMessage: ""))
+                .Message.ShouldBe("");
+        
+        private static IDictionary<TKey, TValue> Empty<TKey, TValue>() =>
+            new Dictionary<TKey, TValue>();
+        private static IDictionary<TKey, TValue> Dictionary<TKey, TValue>((TKey Key, TValue Value) with) =>
+            new Dictionary<TKey, TValue> { { with.Key, with.Value } };
 
         #endregion
     }

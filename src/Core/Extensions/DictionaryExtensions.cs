@@ -7,69 +7,36 @@ namespace Pocket.Common
     ///     Represents extension-methods for <see cref="IDictionary{T, K}"/>.
     /// </summary>
     public static class DictionaryExtensions
-    {      
-        /// <summary>
-        ///     Gets element by specified key or default value, if one doesn't exist.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="key">Key of element to get.</param>
-        /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
-        /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
-        /// <returns>Element with specified key or default value for type <typeparamref name="TValue"/>.</returns>
-        public static TValue One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
-            self.TryGetValue(key, out var result) ? result : default;
-        
-        /// <summary>
-        ///     Gets element by specified key or sets new value, if one doesn't exist.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="key">Key of element to get.</param>
-        /// <param name="orNew">New value.</param>
-        /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
-        /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
-        /// <returns>Element or newly created value with specified key.</returns>
-        public static TValue One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key, TValue orNew) =>
-            self.TryGetValue(key, out var result) ? result : self[key] = orNew;
-        
-        /// <summary>
-        ///     Gets element by specified key or sets new value, if one doesn't exist.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="key">Key of element to get.</param>
-        /// <param name="orNew">Function that creates new value.</param>
-        /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
-        /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
-        /// <returns>Element or newly created value with specified key.</returns>
-        public static TValue One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key, Func<TValue> orNew) =>
-            self.TryGetValue(key, out var result) ? result : self[key] = orNew();
+    {
+        public struct Value<TKey, TValue>
+        {
+            private readonly IDictionary<TKey, TValue> _dictionary;
+            private readonly TKey _key;
 
-        /// <summary>
-        ///     Gets element by specified key or throws exception with more verbose message than indexer's one.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="key">Key of element to get.</param>
-        /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
-        /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
-        /// <returns>Element with specified key.</returns>
-        /// <exception cref="KeyNotFoundException">Specified <paramref name="key"/> was not found.</exception>
-        public static TValue OneOrThrow<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key) =>
-            self.TryGetValue(key, out var result)
-                ? result
-                : throw new KeyNotFoundException($"Couldn't find value by [ {key} ] key.");
-        
-        /// <summary>
-        ///     Gets element by specified key or throws exception with more verbose message than indexer's one.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="key">Key of element to get.</param>
-        /// <param name="withMessage">Message that will represent exception in case if key is not found.</param>
-        /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
-        /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
-        /// <returns>Element with specified key.</returns>
-        /// <exception cref="KeyNotFoundException">Specified <paramref name="key"/> was not found.</exception>
-        public static TValue OneOrThrow<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key, string withMessage) =>
-            self.TryGetValue(key, out var result)
-                ? result
-                : throw new KeyNotFoundException(withMessage);
+            public Value(IDictionary<TKey, TValue> dictionary, TKey key)
+            {
+                _dictionary = dictionary;
+                _key = key;
+            }
+
+            public TValue OrDefault() => Or(default(TValue));
+
+            public TValue Or(TValue @default) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : @default;
+            public TValue Or(Func<TValue> @default) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : @default();
+            
+            public TValue OrNew(TValue @default) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : _dictionary[_key] = @default;
+            public TValue OrNew(Func<TValue> @default) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : _dictionary[_key] = @default();
+
+            public TValue OrThrow() => OrThrow($"Couldn't find value with [ {_key} ] key.");
+            public TValue OrThrow(string withMessage) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : throw new KeyNotFoundException(withMessage);
+        }
+
+        public static Value<TKey, TValue> One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey withKey) =>
+            new Value<TKey, TValue>(self, withKey);
     }
 }
