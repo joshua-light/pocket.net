@@ -37,10 +37,21 @@ namespace Pocket.Common.Time
 
         public void Skip(int ms)
         {
-            for (var i = 0; i < _promises.Count; i++)
-                _promises[i].Exist(ms);
+            while (_promises.Count > 0 && ms > 0)
+            {
+                var maxElapsed = 0;
+
+                for (int i = 0, count = _promises.Count; i < count; i++)
+                {
+                    maxElapsed = _promises[i].Ms;
+                    
+                    _promises[i].Exist(ms);
+                }
             
-            _promises.RemoveAll(x => x.Ms <= 0);
+                _promises.RemoveAll(x => x.Ms <= 0);
+
+                ms -= maxElapsed.Or(ms).IfGreater();
+            }
         }
     }
 }
