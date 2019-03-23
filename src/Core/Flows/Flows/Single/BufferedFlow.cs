@@ -12,16 +12,28 @@ namespace Pocket.Common.Flows
         {
             _flux = new PureFlux<IEnumerable<T>>(Enumerable.Empty<T>());
 
+            var dog = new object();
             var buffer = new List<T>();
-            source.OnNext(x => buffer.Add(x));
+            
+            source.OnNext(x =>
+            {
+                lock (dog) buffer.Add(x);
+            });
+            
             bufferFlow.OnNext(() =>
             {
-                _flux.Pulse(buffer);
-                buffer.Clear();
+                lock (dog)
+                {
+                    _flux.Pulse(buffer);
+
+                    buffer = new List<T>();    
+                }
             });
         }
 
-        public IEnumerable<T> Current => _flux.Current;
-        public IDisposable OnNext(Action<IEnumerable<T>> action) => _flux.OnNext(action);
+        public IEnumerable<T> Current =>
+            _flux.Current;
+        public IDisposable OnNext(Action<IEnumerable<T>> action) =>
+            _flux.OnNext(action);
     }
 }
