@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -23,11 +24,8 @@ namespace Pocket.Common
 
                 public Enumerator(T[] source, int iStart, int iEnd)
                 {
-                    iStart.EnsureGreaterOrEqual(0);
-                    iStart.EnsureLess(source.Length);
-
-                    iEnd.EnsureGreaterOrEqual(iStart);
-                    iEnd.EnsureLess(source.Length);
+                    Ensure(iStart).InRange(0, source.Length - 1);
+                    Ensure(iEnd).InRange(iStart, source.Length - 1);
 
                     _source = source;
                     _iStart = iStart;
@@ -72,8 +70,8 @@ namespace Pocket.Common
             {
                 // We ensure that `index` is not less than zero,
                 // because it can be used to access elements of neighbour segments.
-                get { index.EnsureGreaterOrEqual(0); return _source[Start + index]; }
-                set { index.EnsureGreaterOrEqual(0); _source[Start + index] = value; }
+                get { Ensure(index).GreaterOrEqual(0); return _source[Start + index]; }
+                set { Ensure(index).GreaterOrEqual(0); _source[Start + index] = value; }
             }
             
             /// <summary>

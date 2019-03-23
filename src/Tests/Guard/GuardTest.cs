@@ -76,6 +76,62 @@ namespace Pocket.Common.Tests.Guard
         [Fact]
         public void EnsureIsNot0_ShouldNotThrow_IfValueIs1() =>
             Call(() => Ensure(1).IsNot(0)).ShouldNotThrow();
+
+        [Fact]
+        public void EnsureLessThan1_ShouldThrow_IfValueIs1() =>
+            Call(() => Ensure(1).Less(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureLessThan1_ShouldThrow_IfValueIs2() =>
+            Call(() => Ensure(2).Less(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureLessThan1_ShouldNotThrow_IfValueIs0() =>
+            Call(() => Ensure(0).Less(1)).ShouldNotThrow();
+        
+        [Fact]
+        public void EnsureLessOrEqualTo1_ShouldThrow_IfValueIs2() =>
+            Call(() => Ensure(2).LessOrEqual(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureLessOrEqualTo1_ShouldNotThrow_IfValueIs1() =>
+            Call(() => Ensure(1).LessOrEqual(1)).ShouldNotThrow();
+        [Fact]
+        public void EnsureLessOrEqualTo1_ShouldNotThrow_IfValueIs0() =>
+            Call(() => Ensure(0).LessOrEqual(1)).ShouldNotThrow();
+        
+        [Fact]
+        public void EnsureGreaterThan1_ShouldThrow_IfValueIs1() =>
+            Call(() => Ensure(1).Greater(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureGreaterThan1_ShouldThrow_IfValueIs0() =>
+            Call(() => Ensure(0).Greater(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureGreaterThan1_ShouldNotThrow_IfValueIs2() =>
+            Call(() => Ensure(2).Greater(1)).ShouldNotThrow();
+        
+        [Fact]
+        public void EnsureGreaterOrEqualTo1_ShouldThrow_IfValueIs0() =>
+            Call(() => Ensure(0).GreaterOrEqual(1)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureGreaterOrEqualTo1_ShouldNotThrow_IfValueIs1() =>
+            Call(() => Ensure(1).GreaterOrEqual(1)).ShouldNotThrow();
+        [Fact]
+        public void EnsureGreaterOrEqualTo1_ShouldNotThrow_IfValueIs2() =>
+            Call(() => Ensure(2).GreaterOrEqual(1)).ShouldNotThrow();
+
+        [Fact]
+        public void EnsureInRangeFrom1To10_ShouldThrow_IfValueIs0() =>
+            Call(() => Ensure(0).InRange(1, 10)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureInRangeFrom1To10_ShouldThrow_IfValueIs11() =>
+            Call(() => Ensure(11).InRange(1, 10)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureInRangeFrom1To10_ShouldNotThrow_IfValueIs1() =>
+            Call(() => Ensure(1).InRange(1, 10)).ShouldNotThrow();
+        [Fact]
+        public void EnsureInRangeFrom1To10_ShouldNotThrow_IfValueIs5() =>
+            Call(() => Ensure(5).InRange(1, 10)).ShouldNotThrow();
+        [Fact]
+        public void EnsureInRangeFrom1To10_ShouldNotThrow_IfValueIs10() =>
+            Call(() => Ensure(10).InRange(1, 10)).ShouldNotThrow();
         
         private static string Null() => null;
         private static string NotNull() => "";

@@ -13,24 +13,59 @@ namespace Pocket.Common
         _this = @this;
 
       public void NotNull() =>
-        NotNull(because: "Specified value must be not null.");
+        NotNull(because: "Specified value should be not null.");
       public void NotNull(string because) =>
         When(_this == null, @throw: () => new ArgumentNullException("", because));
       
       public void Null() =>
-        Null(because: "Specified value must be null.");
+        Null(because: $"[ {_this} ] should be null.");
       public void Null(string because) =>
-        When(_this != null, @throw: () => new ArgumentException(because));
+        When(_this != null, @throw: because);
       
-      public void Is(T value) => Is(value, $"Expected that [ {_this} ] is equal to [ {value} ].");
+      public void Is(T value) =>
+        Is(value, $"[ {_this} ] should be [ {value} ].");
       public void Is(T value, string because) =>
-        When(!Equals(_this, value), @throw: () => new ArgumentException(because));
+        When(!Equals(_this, value), @throw: because);
       
-      public void IsNot(T value) => IsNot(value, $"Expected that [ {_this} ] is not equal to [ {value} ].");
+      public void IsNot(T value) =>
+        IsNot(value, $"[ {_this} ] should not be [ {value} ].");
       public void IsNot(T value, string because) =>
-        When(Equals(_this, value), @throw: () => new ArgumentException(because));
+        When(Equals(_this, value), @throw: because);
 
+      public void Less(T than) =>
+        Less(than, $"[ {_this} ] should be less than [ {than} ].");
+      public void Less(T than, string because) =>
+        When(Compared(_this, than) >= 0, @throw: because);
+
+      public void LessOrEqual(T to) =>
+        LessOrEqual(to, $"[ {_this} ] should be less or equal to [ {to} ].");
+      public void LessOrEqual(T to, string because) =>
+        When(Compared(_this, to) > 0, @throw: because);
+
+      public void Greater(T than) =>
+        Greater(than, $"[ {_this} ] should be greater than [ {than} ].");
+      public void Greater(T than, string because) =>
+        When(Compared(_this, than) <= 0, @throw: because);
+
+      public void GreaterOrEqual(T to) =>
+        GreaterOrEqual(to, $"[ {_this} ] should be greater or equal to [ {to} ].");
+      public void GreaterOrEqual(T to, string because) =>
+        When(Compared(_this, to) < 0, @throw: because);
+
+      public void InRange(T from, T to) =>
+        InRange(from, to, $"[ {_this} ] should be in range [ {from}, {to} ].");
+      public void InRange(T from, T to, string because)
+      {
+        Ensure(from).LessOrEqual(from);
+        
+        When(Compared(_this, from) < 0 || Compared(_this, to) > 0, @throw: because);
+      }
+      
       private static bool Equals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
+
+      private static int Compared(T x, T y) => x is IComparable<T> c
+        ? c.CompareTo(y)
+        : throw new ArgumentException($"[ {x.GetType().PrettyName()} ] should implement [ {typeof(IComparable<T>).PrettyName()} ].");
     }
 
     public struct BoolExpression
@@ -40,13 +75,15 @@ namespace Pocket.Common
       public BoolExpression(bool @this) =>
         _this = @this;
 
-      public void True() => True("Specified value must be true.");
+      public void True() =>
+        True($"[ {_this} ] should be true.");
       public void True(string because) =>
-        When(!_this, @throw: () => new ArgumentException(because));
+        When(!_this, @throw: because);
       
-      public void False() => False("Specified value must be false.");
+      public void False() =>
+        False($"[ {_this} ] should be false.");
       public void False(string because) =>
-        When(_this, @throw: () => new ArgumentException(because));
+        When(_this, @throw: because);
     }
 
     public struct TypeExpression
@@ -66,17 +103,32 @@ namespace Pocket.Common
       public void Null(string because) =>
         Common(_this).Null(because);
 
-      public void Is<T>() => Is(typeof(T));
+      public void Is<T>() =>
+        Is(typeof(T));
+      public void Is<T>(string because) =>
+        Is(typeof(T), because);
       public void Is(Type type) =>
-        When(!_this.Is(type), @throw: () => new ArgumentException($"Specified type must be [ {type.PrettyName()} ]."));
+        Is(type, $"[ {_this.PrettyName()} ] should be [ {type.PrettyName()} ].");
+      public void Is(Type type, string because) =>
+        When(!_this.Is(type), @throw: because);
 
-      public void Derives<T>() => Derives(typeof(T));
+      public void Derives<T>() =>
+        Derives(typeof(T));
+      public void Derives<T>(string because) =>
+        Derives(typeof(T), because);
       public void Derives(Type type) =>
-        When(!_this.Derives(type), @throw: () => new ArgumentException($"Specified type must derive from [ {type.PrettyName()} ]."));
+        Derives(type, $"Specified type must derive from [ {type.PrettyName()} ].");
+      public void Derives(Type type, string because) =>
+        When(!_this.Derives(type), @throw: because);
 
-      public void IsOrDerives<T>() => IsOrDerives(typeof(T));
+      public void IsOrDerives<T>() =>
+        IsOrDerives(typeof(T));
+      public void IsOrDerives<T>(string because) =>
+        IsOrDerives(typeof(T), because);
       public void IsOrDerives(Type type) =>
-        When(!_this.Is(type) && !_this.Derives(type), @throw: () => new ArgumentException($"Specified type must be (or derive from) [ {type.PrettyName()} ]."));
+        IsOrDerives(type, $"Specified type must be (or derive from) [ {type.PrettyName()} ].");
+      public void IsOrDerives(Type type, string because) =>
+        When(!_this.Is(type) && !_this.Derives(type), @throw: because);
     }
 
     public static Expression<T> Ensure<T>(T that) =>
@@ -88,6 +140,9 @@ namespace Pocket.Common
 
     private static Expression<T> Common<T>(T value) =>
       new Expression<T>(value);
+    
+    private static void When(bool fact, string @throw) =>
+      When(fact, @throw: () => new ArgumentException(@throw));
     
     private static void When(bool fact, Func<Exception> @throw)
     {
