@@ -52,7 +52,7 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static void ForEach<T>(this IEnumerable<T> self, Action<T> onEach)
         {
-            self.EnsureNotNull();
+            Ensure(self).NotNull();
 
             foreach (var item in self)
                 onEach(item);
@@ -69,8 +69,8 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static T TakeMin<T, TMin>(this IEnumerable<T> self, Func<T, TMin> selector) where TMin : IComparable<TMin>
         {
-            self.EnsureNotNull();
-            selector.EnsureNotNull();
+            Ensure(self).NotNull();
+            Ensure(selector).NotNull();
             
             var min = default(T);
             var first = true;
@@ -102,8 +102,8 @@ namespace Pocket.Common
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
         public static T TakeMax<T, TMax>(this IEnumerable<T> self, Func<T, TMax> selector) where TMax : IComparable<TMax>
         {
-            self.EnsureNotNull();
-            selector.EnsureNotNull();
+            Ensure(self).NotNull();
+            Ensure(selector).NotNull();
             
             var max = default(T);
             var first = true;

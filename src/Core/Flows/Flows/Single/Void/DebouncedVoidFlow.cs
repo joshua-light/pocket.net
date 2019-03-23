@@ -1,5 +1,6 @@
 ﻿using System;
 using Pocket.Common.Time;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common.Flows
 {
@@ -16,8 +17,8 @@ namespace Pocket.Common.Flows
         
         public DebouncedVoidFlow(IVoidFlow flow, IClock clock, ISchedule schedule, TimeSpan delay)
         {
-            flow.EnsureNotNull();
-            schedule.EnsureNotNull();
+            Ensure(flow).NotNull();
+            Ensure(schedule).NotNull();
             
             _flux = new PureVoidFlux();
 

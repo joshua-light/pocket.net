@@ -1,4 +1,5 @@
 ﻿using System;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common.Flows
 {
@@ -8,7 +9,7 @@ namespace Pocket.Common.Flows
 
         public IDisposable OnNext(Action action)
         {
-            action.EnsureNotNull();
+            Ensure(action).NotNull();
             
             return new CompactDisposable(
                 () => Next += action,

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -9,7 +10,7 @@ namespace Pocket.Common
 
         public FuncAsEqualityComparer(Func<T, T, bool> func)
         {
-            func.EnsureNotNull();
+            Ensure(func).NotNull();
             
             _func = func;
         }

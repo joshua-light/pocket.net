@@ -1,4 +1,5 @@
 ﻿using System;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common.Flows
 {
@@ -9,8 +10,8 @@ namespace Pocket.Common.Flows
 
         public MappedFlow(IFlow<TIn> source, Func<TIn, TOut> map)
         {
-            source.EnsureNotNull();
-            map.EnsureNotNull();
+            Ensure(source).NotNull();
+            Ensure(map).NotNull();
             
             _source = source;
             _map = map;
@@ -20,7 +21,7 @@ namespace Pocket.Common.Flows
 
         public IDisposable OnNext(Action<TOut> action)
         {
-            action.EnsureNotNull();
+            Ensure(action).NotNull();
             
             return _source.OnNext(x => action(_map(x)));
         }

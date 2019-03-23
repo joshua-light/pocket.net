@@ -1,4 +1,5 @@
 ﻿using System;
+using static Pocket.Common.Guard;
 
 namespace Pocket.Common
 {
@@ -17,7 +18,7 @@ namespace Pocket.Common
         /// <returns>Representation of <paramref name="self"/> in <typeparamref name="TResult"/> type.</returns>
         public static TResult As<TInput, TResult>(this TInput self, Func<TInput, TResult> map)
         {
-            map.EnsureNotNull();
+            Ensure(map).NotNull();
             return map(self);
         }
 
