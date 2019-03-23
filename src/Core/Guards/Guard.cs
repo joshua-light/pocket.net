@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Pocket.Common
 {
@@ -14,12 +15,22 @@ namespace Pocket.Common
       public void NotNull() =>
         NotNull(because: "Specified value must be not null.");
       public void NotNull(string because) =>
-        When(_this == null, @throw: () => new ArgumentNullException(because));
+        When(_this == null, @throw: () => new ArgumentNullException("", because));
       
       public void Null() =>
         Null(because: "Specified value must be null.");
       public void Null(string because) =>
-        When(_this != null, @throw: () => new ArgumentException("", because));
+        When(_this != null, @throw: () => new ArgumentException(because));
+      
+      public void Is(T value) => Is(value, $"Expected that [ {_this} ] is equal to [ {value} ].");
+      public void Is(T value, string because) =>
+        When(!Equals(_this, value), @throw: () => new ArgumentException(because));
+      
+      public void IsNot(T value) => IsNot(value, $"Expected that [ {_this} ] is not equal to [ {value} ].");
+      public void IsNot(T value, string because) =>
+        When(Equals(_this, value), @throw: () => new ArgumentException(because));
+
+      private static bool Equals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
     }
 
     public struct BoolExpression

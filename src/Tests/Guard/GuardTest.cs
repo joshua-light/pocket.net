@@ -62,6 +62,20 @@ namespace Pocket.Common.Tests.Guard
         [Fact]
         public void EnsureIsOrDerivesParent_ShouldNotThrow_IfValueIsChild() =>
             Call(() => Ensure(typeof(Child)).IsOrDerives(typeof(Parent))).ShouldNotThrow();
+
+        [Fact]
+        public void EnsureIs0_ShouldThrow_IfValueIs1() =>
+            Call(() => Ensure(1).Is(0)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureIs0_ShouldNotThrow_IfValueIs0() =>
+            Call(() => Ensure(0).Is(0)).ShouldNotThrow();
+        
+        [Fact]
+        public void EnsureIsNot0_ShouldThrow_IfValueIs0() =>
+            Call(() => Ensure(0).IsNot(0)).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureIsNot0_ShouldNotThrow_IfValueIs1() =>
+            Call(() => Ensure(1).IsNot(0)).ShouldNotThrow();
         
         private static string Null() => null;
         private static string NotNull() => "";
