@@ -10,14 +10,14 @@ namespace Pocket.Common.Tests.Guard
     {
         [Fact]
         public void EnsureNotNull_ShouldThrow_IfValueIsNull() =>
-            Call(() => Ensure(Null()).NotNull()).ShouldThrow(typeof(ArgumentException));
+            Call(() => Ensure(Null()).NotNull()).ShouldThrow(typeof(ArgumentNullException));
         [Fact]
         public void EnsureNotNull_ShouldNotThrow_IfValueIsNotNull() =>
             Call(() => Ensure(NotNull()).NotNull()).ShouldNotThrow();
 
         [Fact]
         public void EnsureNull_ShouldThrow_IfValueIsNotNull() =>
-            Call(() => Ensure(NotNull()).Null()).ShouldThrow(typeof(ArgumentNullException));
+            Call(() => Ensure(NotNull()).Null()).ShouldThrow(typeof(ArgumentException));
         [Fact]
         public void EnsureNull_ShouldNotThrow_IfValueIsNull() =>
             Call(() => Ensure(Null()).Null()).ShouldNotThrow();

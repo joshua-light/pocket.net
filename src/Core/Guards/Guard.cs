@@ -14,12 +14,12 @@ namespace Pocket.Common
       public void NotNull() =>
         NotNull(because: "Specified value must be not null.");
       public void NotNull(string because) =>
-        When(_this == null, @throw: () => new ArgumentException(because));
+        When(_this == null, @throw: () => new ArgumentNullException(because));
       
       public void Null() =>
         Null(because: "Specified value must be null.");
       public void Null(string because) =>
-        When(_this != null, @throw: () => new ArgumentNullException("", because));
+        When(_this != null, @throw: () => new ArgumentException("", because));
     }
 
     public struct BoolExpression
