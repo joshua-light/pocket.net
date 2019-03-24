@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Shouldly;
 using Xunit;
 using static Pocket.Common.Guard;
@@ -132,9 +134,26 @@ namespace Pocket.Common.Tests.Guard
         [Fact]
         public void EnsureInRangeFrom1To10_ShouldNotThrow_IfValueIs10() =>
             Call(() => Ensure(10).InRange(1, 10)).ShouldNotThrow();
+
+        [Fact]
+        public void EnsureEmpty_ShouldThrow_IfValueIsNotEmpty() =>
+            Call(() => Ensure(NotEmpty()).Empty()).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureEmpty_ShouldNotThrow_IfValueIsEmpty() =>
+            Call(() => Ensure(Empty()).Empty()).ShouldNotThrow();
+
+        [Fact]
+        public void EnsureNotEmpty_ShouldThrow_IfValueIsEmpty() =>
+            Call(() => Ensure(Empty()).NotEmpty()).ShouldThrow(typeof(ArgumentException));
+        [Fact]
+        public void EnsureNotEmpty_ShouldNotThrow_IfValueIsNotEmpty() =>
+            Call(() => Ensure(NotEmpty()).NotEmpty()).ShouldNotThrow();
         
         private static string Null() => null;
         private static string NotNull() => "";
+
+        private static IEnumerable<int> Empty() => Enumerable.Empty<int>();
+        private static IEnumerable<int> NotEmpty() => new [] { 1 };
         
         private class Parent { }
         private class Child : Parent { }

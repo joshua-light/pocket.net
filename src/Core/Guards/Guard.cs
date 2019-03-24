@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pocket.Common
 {
@@ -131,23 +132,60 @@ namespace Pocket.Common
         When(!_this.Is(type) && !_this.Derives(type), @throw: because);
     }
 
+    public struct EnumerableExpression<T>
+    {
+      public IEnumerable<T> _this;
+
+      public EnumerableExpression(IEnumerable<T> @this) =>
+        _this = @this;
+      
+      public void NotNull() =>
+        Common(_this).NotNull();
+      public void NotNull(string because) =>
+        Common(_this).NotNull(because);
+      
+      public void Null() =>
+        Common(_this).Null();
+      public void Null(string because) =>
+        Common(_this).Null(because);
+
+      public void Empty() =>
+        When(_this, x => !x.IsNullOrEmpty(), @throw: x => $"{x.ToList().AsString()} should be empty.");
+      public void Empty(string because) =>
+        When(!_this.IsNullOrEmpty(), @throw: because);
+
+      public void NotEmpty() =>
+        NotEmpty($"Specified value should be not empty.");
+      public void NotEmpty(string because) =>
+        When(_this.IsNullOrEmpty(), @throw: because);
+    }
+
     public static Expression<T> Ensure<T>(T that) =>
       new Expression<T>(that);
     public static BoolExpression Ensure(bool that) =>
       new BoolExpression(that); 
     public static TypeExpression Ensure(Type that) =>
       new TypeExpression(that);
+    public static EnumerableExpression<T> Ensure<T>(IEnumerable<T> that) =>
+      new EnumerableExpression<T>(that);
 
     private static Expression<T> Common<T>(T value) =>
       new Expression<T>(value);
     
+    
     private static void When(bool fact, string @throw) =>
       When(fact, @throw: () => new ArgumentException(@throw));
+
+    private static void When(bool fact, Func<Exception> @throw) =>
+      When<bool>(default, _ => fact, _ => @throw());
+
+    private static void When<T>(T value, Func<T, bool> fact, Func<T, string> @throw) =>
+      When(value, fact, @throw: x => new ArgumentException(@throw(x)));
     
-    private static void When(bool fact, Func<Exception> @throw)
+    private static void When<T>(T value, Func<T, bool> fact, Func<T, Exception> @throw)
     {
-      if (fact)
-        throw @throw();
+      if (fact(value))
+        throw @throw(value);
     }
   }
 }
