@@ -10,10 +10,12 @@ namespace Pocket.Common.Flows
         
         public SumFlow(IEnumerable<IFlow<T>> flows, Func<T, T, T> add)
         {
-            _flux = new PureFlux<T>(flows.Aggregate(default(T), (current, x) => add(current, x.Current)));
+            _flux = new PureFlux<T>(Sum());
 
             foreach (var flow in flows)
-                flow.OnNext(_ => _flux.Pulse(flows.Aggregate(default(T), (current, x) => add(current, x.Current))));
+                flow.OnNext(_ => _flux.Pulse(Sum()));
+
+            T Sum() => flows.Aggregate(default(T), (current, x) => add(current, x.Current));
         }
         
         public SumFlow(ICollectionFlow<T> collection, Func<T, T, T> add, Func<T, T, T> subtract)

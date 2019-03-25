@@ -39,10 +39,10 @@ namespace Pocket.Common.Flows
         public static IFlow<IEnumerable<T>> Buffered<T>(this IFlow<T> self, IVoidFlow buffer) =>
             new BufferedFlow<T>(self, buffer);
         
-        public static IFlow<int> SumAsFlow<T>(this IEnumerable<IFlow<T>> flows, Func<T, int> selector) =>
+        public static IFlow<int> FlowSum<T>(this IEnumerable<IFlow<T>> flows, Func<T, int> selector) =>
             new SumFlow<int>(flows.Select(x => x.Select(selector)), (x, y) => x + y);
         
-        public static IFlow<double> SumAsFlow<T>(this IEnumerable<IFlow<T>> flows, Func<T, double> selector) =>
+        public static IFlow<double> FlowSum<T>(this IEnumerable<IFlow<T>> flows, Func<T, double> selector) =>
             new SumFlow<double>(flows.Select(x => x.Select(selector)), (x, y) => x + y);
     }
 }

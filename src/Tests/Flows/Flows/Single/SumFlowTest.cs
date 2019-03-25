@@ -13,7 +13,7 @@ namespace Pocket.Common.Tests.Flows.Flows.Single
         [Fact]
         public void Current_ShouldBeZero_IfEnumerableIsEmpty()
         {
-            var flow = Enumerable.Empty<IFlow<int>>().SumAsFlow(x => x);
+            var flow = Enumerable.Empty<IFlow<int>>().FlowSum(x => x);
             Assert.Equal(0, flow.Current);
         }
 
@@ -26,7 +26,7 @@ namespace Pocket.Common.Tests.Flows.Flows.Single
                 new PureFlux<string>("2"),
                 new PureFlux<string>("3")
             };
-            var flow = items.SumAsFlow(x => x.Length);
+            var flow = items.FlowSum(x => x.Length);
 
             Assert.Equal(3, flow.Current);
         }
@@ -40,7 +40,7 @@ namespace Pocket.Common.Tests.Flows.Flows.Single
                 new PureFlux<string>("2"),
                 new PureFlux<string>("3")
             };
-            var flow = items.SumAsFlow(x => x.Length);
+            var flow = items.FlowSum(x => x.Length);
             items[0].Pulse("123");
             items[1].Pulse("123");
             items[2].Pulse("123");
