@@ -302,11 +302,11 @@ namespace Pocket.Common.Tests.Extensions
         }
         
         [Fact]
-        public void One_ShouldThrowInvalidOperationException_IfItemDoesNotExist()
+        public void One_ShouldReturnDefault_IfItemDoesNotExist()
         {
             var items = new[] { "1", "2", "3" };
 
-            Assert.Throws<InvalidOperationException>(() => items.One(x => x == "0"));
+            items.One(x => x == "0").ShouldBeNull();
         }
         
         [Fact]
