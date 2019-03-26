@@ -174,6 +174,9 @@ namespace Pocket.Common
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
             self.Distinct(new FuncAsEqualityComparer<T>(comparer));
 
+        public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate) =>
+            self.FirstOrDefault(predicate);
+
         /// <summary>
         ///     Returns the first element of the sequence that satisfies a condition or throws exception with specified message.
         /// </summary>
@@ -183,11 +186,11 @@ namespace Pocket.Common
         /// <typeparam name="T">Type of elements in sequence.</typeparam>
         /// <returns>First element of the sequence that satisfies a condition.</returns>
         /// <exception cref="InvalidOperationException">No element satisfies the condition in <paramref name="predicate"/>.</exception>
-        public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate, string orThrow = null)
+        public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate, string orThrow)
         {
-            var item = self.FirstOrDefault(predicate);
-            if (item == null)
-                throw new InvalidOperationException(orThrow ?? "Couldn't find item that matches specified predicate.");
+            var item = self.One(predicate);
+            if (item == null && orThrow != null)
+                throw new InvalidOperationException(orThrow);
             
             return item;
         }
