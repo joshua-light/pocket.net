@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace Pocket.Common
 {
@@ -22,11 +23,23 @@ namespace Pocket.Common
         ///     Determines whether gate is opened.
         /// </summary>
         public bool IsOpened => _event.WaitOne(0);
+
+        /// <summary>
+        ///     Opens gate after specified delay.
+        /// </summary>
+        /// <param name="after">Delay before gate is opened.</param>
+        public void Open(TimeSpan after)
+        {
+            Thread.Sleep(after);
+            
+            Open();
+        }
         
         /// <summary>
         ///     Opens gate.
         /// </summary>
         public void Open() => _event.Set();
+        
         
         /// <summary>
         ///     Closes gate.
