@@ -138,7 +138,7 @@ namespace Pocket.Common
         Separate(mappings, with: ",", andNewLine: true);
       }
 
-      IReadOnlyList<(object Value, string Name)> Mappings() =>
+      IReadOnlyList<(string Name, object Value)> Mappings() =>
         type.Enum().Values;
       
       return this;

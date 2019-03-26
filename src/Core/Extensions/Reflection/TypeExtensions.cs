@@ -133,32 +133,6 @@ namespace Pocket.Common
             public void Set(object value) =>
                 _property.SetValue(_this, value);
         }
-
-        public struct EnumType
-        {
-            private readonly Type _type;
-            private readonly List<(object Value, string Name)> _values;
-
-            public EnumType(Type type)
-            {
-                Ensure(type.IsEnum);
-                
-                Underlying = type.GetEnumUnderlyingType();
-
-                var underlying = Underlying;
-                
-                _type = type;
-                _values = type
-                    .GetEnumValues()
-                    .Cast<object>()
-                    .Select(x => (Convert.ChangeType(x, underlying), x.ToString()))
-                    .ToList();
-            }
-
-            public Type Underlying { get; }
-
-            public IReadOnlyList<(object Value, string Name)> Values => _values;
-        }
         
         /// <summary>
         ///     Checks whether specified type is <see cref="Nullable{T}"/>.
@@ -475,7 +449,31 @@ namespace Pocket.Common
             
             return self.MakeGenericType(@as.GetGenericArguments()).New();
         }
+        
+        public struct EnumType
+        {
+            private readonly List<(string Name, object Value)> _values;
 
+            public EnumType(Type type)
+            {
+                Ensure(type.IsEnum);
+                
+                var underlying = type.GetEnumUnderlyingType();
+                
+                Underlying = underlying;
+
+                _values = type
+                    .GetEnumValues()
+                    .Cast<object>()
+                    .Select(x => (x.ToString(), Convert.ChangeType(x, underlying)))
+                    .ToList();
+            }
+
+            public Type Underlying { get; }
+
+            public IReadOnlyList<(string Name, object Value)> Values => _values;
+        }
+        
         public static EnumType Enum(this Type self) =>
             new EnumType(self);
     }
