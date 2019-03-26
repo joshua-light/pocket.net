@@ -29,5 +29,10 @@ namespace Pocket.Common
       Interlocked.CompareExchange(ref self, to, from);
     public static T Change<T>(ref T self, T from, T to) where T : class =>
       Interlocked.CompareExchange(ref self, to, from);
+
+    public static int Increment(ref int self) =>
+      Interlocked.Increment(ref self);
+    public static long Increment(ref long self) =>
+      Interlocked.Increment(ref self);
   }
 }
