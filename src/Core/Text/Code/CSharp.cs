@@ -75,9 +75,9 @@ namespace Pocket.Common
                   $"{{ {Body(property.GetMethod, "get")}{Body(property.SetMethod, "set")}}}");
 
       string Modifier() =>
-            ModifierOf(property.GetMethod).Order > ModifierOf(property.SetMethod).Order
-          ? ModifierOf(property.GetMethod).Text
-          : ModifierOf(property.SetMethod).Text;
+             ModifierOf(property.GetMethod).Order > ModifierOf(property.SetMethod).Order
+           ? ModifierOf(property.GetMethod).Text
+           : ModifierOf(property.SetMethod).Text;
 
       string Body(MethodInfo method, string text) =>
         method != null
