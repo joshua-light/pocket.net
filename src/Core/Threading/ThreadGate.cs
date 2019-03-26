@@ -40,7 +40,6 @@ namespace Pocket.Common
         /// </summary>
         public void Open() => _event.Set();
         
-        
         /// <summary>
         ///     Closes gate.
         /// </summary>
