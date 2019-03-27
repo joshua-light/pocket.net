@@ -9,7 +9,7 @@ namespace Pocket.Common
     
         public static Result<T> AsResult<T>(this T self) where T : class => self.Maybe().AsResult();
         public static Result<T> AsResult<T>(this Maybe<T> self) =>
-            self.IsNothing ? Result.Failed<T>("Value is nothing.") : Result.Succeded(self.Value);
+            self.IsNothing ? Result.Failed<T>("Value is nothing.") : Result.Succeeded(self.Value);
 
         public static Result OnSuccess(this Result self, Action action) => self.On(x => x.Success, action);
         public static Result OnFail(this Result self, Action action) => self.On(x => x.Fail, action);
@@ -21,7 +21,7 @@ namespace Pocket.Common
         
         public static Result<T> With<T>(this Result self, T other) => self.With(() => other);
         public static Result<T> With<T>(this Result self, Func<T> other) =>
-            self.Success ? Result.Succeded(other()) : Result.Failed<T>(self.Error);
+            self.Success ? Result.Succeeded(other()) : Result.Failed<T>(self.Error);
    
         public static Result<T> With<T>(this Result self, Maybe<T> other) => self.With(() => other);
         public static Result<T> With<T>(this Result self, Func<Maybe<T>> other) =>

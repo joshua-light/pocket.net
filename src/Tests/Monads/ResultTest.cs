@@ -10,7 +10,7 @@ namespace Pocket.Common.Tests.Monads
         {
             public class Success
             {
-                private readonly Result _result = Result.Succeded();
+                private readonly Result _result = Result.Succeeded();
 
                 [Fact]
                 public void Success_ShouldReturnTrue() =>
@@ -61,7 +61,7 @@ namespace Pocket.Common.Tests.Monads
         {
             public class Success
             {
-                private readonly Result<int> _result = Result.Succeded(10);
+                private readonly Result<int> _result = Result.Succeeded(10);
                 
                 [Fact]
                 public void Success_ShouldReturnTrue() =>

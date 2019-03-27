@@ -42,7 +42,7 @@ namespace Pocket.Common.Tests.Extensions
             private static async Task<Result> TaskDelay(int n)
             {
                 await Task.Delay(n);
-                return Result.Succeded();
+                return Result.Succeeded();
             }
         }
 
@@ -65,7 +65,7 @@ namespace Pocket.Common.Tests.Extensions
             private static async Task<Result<int>> TaskDelayWithCourier(int n)
             {
                 await Task.Delay(n);
-                return Result.Succeded(0);
+                return Result.Succeeded(0);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Pocket.Common
         /// <param name="error">Error description for case, when <paramref name="condition"/> is false.</param>
         /// <returns>Instance of <see cref="Result"/>.</returns>
         public static Result When(bool condition, string error = "") =>
-            !condition ? Failed(error) : Succeded();
+            !condition ? Failed(error) : Succeeded();
         
         /// <summary>
         ///     Uses function to produce a value that will be converted to succeeded result (if not <code>null</code>) or failed (otherwise).
@@ -28,7 +28,7 @@ namespace Pocket.Common
         ///     Creates succeded result.
         /// </summary>
         /// <returns>Instance of <see cref="Result"/>.</returns>
-        public static Result Succeded() => new Result(true);
+        public static Result Succeeded() => new Result(true);
         
         /// <summary>
         ///     Creates failed result using provided error description.
@@ -43,7 +43,7 @@ namespace Pocket.Common
         /// <param name="value">Value that succeded result will contain.</param>
         /// <typeparam name="T">Type of value.</typeparam>
         /// <returns>Instance of <see cref="Result"/>.</returns>
-        public static Result<T> Succeded<T>(T value) => new Result<T>(value);
+        public static Result<T> Succeeded<T>(T value) => new Result<T>(value);
         
         /// <summary>
         ///     Creates failed result of specified type using provided error description.
@@ -139,7 +139,7 @@ namespace Pocket.Common
         /// <returns>Instance of new <see cref="Result{T}"/>.</returns>
         public Result<TOut> As<TOut>() =>
             Success
-                ? Result.Succeded((TOut) (object) Value)
+                ? Result.Succeeded((TOut) (object) Value)
                 : Result.Failed<TOut>(Error);
         
         #region Overloading
@@ -159,7 +159,7 @@ namespace Pocket.Common
         /// <returns>Instance of <code>Result{object}</code>.</returns>
         public static implicit operator Result<object>(Result<T> result) =>
             result.Success
-                ? Result.Succeded((object) result.Value)
+                ? Result.Succeeded((object) result.Value)
                 : Result.Failed<object>(result.Error);
         
         #endregion

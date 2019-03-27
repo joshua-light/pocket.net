@@ -23,7 +23,7 @@ namespace Pocket.Common
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, TOut other) => self.With(_ => other);
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, Func<TOut> other) => self.With(_ => other());
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, Func<TIn, TOut> other) =>
-            self.Success ? Result.Succeded(other(self.Value)) : Result.Failed<TOut>(self.Error);
+            self.Success ? Result.Succeeded(other(self.Value)) : Result.Failed<TOut>(self.Error);
         
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, Maybe<TOut> other) => self.With(_ => other);
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, Func<Maybe<TOut>> other) => self.With(_ => other());

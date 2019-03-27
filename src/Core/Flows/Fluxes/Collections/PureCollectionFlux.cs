@@ -26,7 +26,7 @@ namespace Pocket.Common.Flows
             _items.Add(item);
             _added.Pulse(item);
             
-            return Result.Succeded();
+            return Result.Succeeded();
         }
 
         public Result Remove(T item)
@@ -36,7 +36,7 @@ namespace Pocket.Common.Flows
                 return Result.Failed($"Cannot remove: item {item} does not exist.");
             
             _removed.Pulse(item);
-            return Result.Succeded();
+            return Result.Succeeded();
         }
     }
 }
