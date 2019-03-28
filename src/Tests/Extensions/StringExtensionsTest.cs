@@ -78,8 +78,8 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData("Test", "es", "Tt")]
         [InlineData("TestTest", "es", "TtTt")]
         [InlineData("TestTest", "Test", "")]
-        public void WithoutEverywhere_ShouldReplacePartWithEmptyString(string source, string part, string expected) =>
-            source.Without(part).Everywhere.ShouldBe(expected);
+        public void WithoutAnywhere_ShouldReplacePartWithEmptyString(string source, string part, string expected) =>
+            source.Without(part).Anywhere.ShouldBe(expected);
 
         [Theory]
         [InlineData("Test", 0, "est")]

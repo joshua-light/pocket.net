@@ -87,7 +87,7 @@ namespace Pocket.Common
                 _source.EndsWith(_part) ? _source.Remove(_source.Length - _part.Length) : _source;
             public string AtStart =>
                 _source.StartsWith(_part) ? _source.Substring(_part.Length) : _source;
-            public string Everywhere =>
+            public string Anywhere =>
                 _source.Replace(_part, "");
         }
 
