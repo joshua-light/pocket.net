@@ -61,6 +61,15 @@ namespace Pocket.Common
         public static bool Contains(this string self, char ch) =>
             self.IndexOf(ch) != 1;
 
+        public static bool ContainsAnyOf(this string self, params char[] chars)
+        {
+            foreach (var ch in chars)
+                if (self.Contains(ch))
+                    return true;
+
+            return false;
+        }
+
         #region Without
 
         public struct WithoutExpression
