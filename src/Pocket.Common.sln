@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Core", "Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Tests", "Tests\Pocket.Common.Tests.csproj", "{E94D5E6E-18B2-468D-9F7A-89419C713639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Benchmarks", "Benchmarks\Pocket.Benchmarks.csproj", "{0F2C02C0-4746-4087-8D2F-F1E2920F6396}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Benchmarks", "Benchmarks\Pocket.Common.Benchmarks.csproj", "{0F2C02C0-4746-4087-8D2F-F1E2920F6396}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

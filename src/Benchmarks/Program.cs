@@ -1,4 +1,6 @@
-﻿namespace Pocket.Benchmarks
+﻿using Pocket.Benchmarks;
+
+namespace Pocket.Common.Benchmarks
 {
     internal class Program
     {
