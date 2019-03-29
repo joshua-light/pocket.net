@@ -9,7 +9,7 @@ namespace Pocket.Common
     /// <summary>
     ///     Represents extension-methods for <see cref="IEnumerable{T}"/>.
     /// </summary>
-    public static class EnumerableExtensions 
+    public static class EnumerableExtensions
     {
         /// <summary>
         ///     Returns <see cref="Enumerable.Empty{TResult}"/>, if <code>this</code> is <code>null</code>.
