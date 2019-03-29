@@ -33,20 +33,24 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325">
-          <HintPath>..\packages\Pocket.Benchmarks.1.0.1\lib\net471\JetBrains.Annotations.dll</HintPath>
+          <HintPath>..\packages\Pocket.Common.1.0.30\lib\net471\JetBrains.Annotations.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Pocket.Benchmarks, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\packages\Pocket.Benchmarks.1.0.1\lib\net471\Pocket.Benchmarks.dll</HintPath>
+        <Reference Include="Pocket.Benchmarks, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Pocket.Benchmarks.1.0.2\lib\net471\Pocket.Benchmarks.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Pocket.Common, Version=1.0.20.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\packages\Pocket.Benchmarks.1.0.1\lib\net471\Pocket.Common.dll</HintPath>
+        <Reference Include="Pocket.Common, Version=1.0.30.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Pocket.Common.1.0.30\lib\net471\Pocket.Common.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\Pocket.Common.1.0.30\lib\net471\System.ValueTuple.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
