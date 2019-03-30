@@ -70,6 +70,15 @@ namespace Pocket.Common
             return false;
         }
 
+        public static bool IsNumber(this string self)
+        {
+            foreach (var ch in self)
+                if (!ch.IsDigit())
+                    return false;
+
+            return true;
+        }
+
         #region Without
 
         public struct WithoutExpression
