@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Core", "Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Tests", "Tests\Pocket.Common.Tests.csproj", "{E94D5E6E-18B2-468D-9F7A-89419C713639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Benchmarks", "Benchmarks\Pocket.Common.Benchmarks.csproj", "{0F2C02C0-4746-4087-8D2F-F1E2920F6396}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{E94D5E6E-18B2-468D-9F7A-89419C713639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E94D5E6E-18B2-468D-9F7A-89419C713639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E94D5E6E-18B2-468D-9F7A-89419C713639}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F2C02C0-4746-4087-8D2F-F1E2920F6396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F2C02C0-4746-4087-8D2F-F1E2920F6396}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F2C02C0-4746-4087-8D2F-F1E2920F6396}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F2C02C0-4746-4087-8D2F-F1E2920F6396}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
