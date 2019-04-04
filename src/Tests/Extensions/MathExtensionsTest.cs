@@ -67,7 +67,7 @@ namespace Pocket.Common.Tests.Extensions
       [InlineData(0, 100)]
       [InlineData(-10, -9)]
       public void IfLess_ShouldReturnSecondValue_IfFirstIsLessThanSecond(int first, int second) =>
-        Assert.Equal(second, new MathExtensions.OrCouple<int>(first, second).IfLess());
+        Assert.Equal(second, new MathExtensions.OrPair<int>(first, second).IfLess());
       
       [Theory]
       [InlineData(0, 0)]
@@ -76,7 +76,7 @@ namespace Pocket.Common.Tests.Extensions
       [InlineData(10, 0)]
       [InlineData(15, 0)]
       public void IfLess_ShouldReturnFirstValue_IfFirstIsGreaterThanSecond(int first, int second) =>
-        Assert.Equal(first, new MathExtensions.OrCouple<int>(first, second).IfLess());
+        Assert.Equal(first, new MathExtensions.OrPair<int>(first, second).IfLess());
       
       [Fact]
       public void IfLessThan_ShouldReturnFirstValue_IfItIsLessThanSpecified() =>
@@ -97,7 +97,7 @@ namespace Pocket.Common.Tests.Extensions
       [InlineData(10, 0)]
       [InlineData(15, 0)]
       public void IfGreater_ShouldReturnSecondValue_IfFirstIsGreaterThanSecond(int first, int second) =>
-        Assert.Equal(second, new MathExtensions.OrCouple<int>(first, second).IfGreater());
+        Assert.Equal(second, new MathExtensions.OrPair<int>(first, second).IfGreater());
       
       [Theory]
       [InlineData(0, 10)]
@@ -105,7 +105,7 @@ namespace Pocket.Common.Tests.Extensions
       [InlineData(0, 100)]
       [InlineData(-10, -9)]
       public void IfGreater_ShouldReturnFirstValue_IfFirstIsLessThanSecond(int first, int second) =>
-        Assert.Equal(first, new MathExtensions.OrCouple<int>(first, second).IfGreater());
+        Assert.Equal(first, new MathExtensions.OrPair<int>(first, second).IfGreater());
 
       [Fact]
       public void IfGreaterThan_ShouldReturnFirstValue_IfItIsLessThanSpecified() =>

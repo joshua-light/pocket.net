@@ -66,17 +66,17 @@ namespace Pocket.Common
         ///     which will choose one of two items depending on method semantics.
         /// </summary>
         /// <typeparam name="T">Type of items.</typeparam>
-        public struct OrCouple<T> where T : IComparable<T>
+        public struct OrPair<T> where T : IComparable<T>
         {
             private readonly T _a;
             private readonly T _b;
 
             /// <summary>
-            ///     Initializes instance of <see cref="OrCouple{T}"/>.
+            ///     Initializes instance of <see cref="OrPair{T}"/>.
             /// </summary>
             /// <param name="a">First item.</param>
             /// <param name="b">Second item.</param>
-            public OrCouple(T a, T b)
+            public OrPair(T a, T b)
             {
                 _a = a;
                 _b = b;
@@ -102,39 +102,39 @@ namespace Pocket.Common
 
         /// <summary>
         ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
-        ///     depending on method call on <see cref="OrCouple{T}"/>.
+        ///     depending on method call on <see cref="OrPair{T}"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Item to compare.</param>
-        /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
-        public static OrCouple<int> Or(this int self, int other) => new OrCouple<int>(self, other);
+        /// <returns>Instance of <see cref="OrPair{T}"/>.</returns>
+        public static OrPair<int> Or(this int self, int other) => new OrPair<int>(self, other);
         
         /// <summary>
         ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
-        ///     depending on method call on <see cref="OrCouple{T}"/>.
+        ///     depending on method call on <see cref="OrPair{T}"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Item to compare.</param>
-        /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
-        public static OrCouple<long> Or(this long self, long other) => new OrCouple<long>(self, other);
+        /// <returns>Instance of <see cref="OrPair{T}"/>.</returns>
+        public static OrPair<long> Or(this long self, long other) => new OrPair<long>(self, other);
         
         /// <summary>
         ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
-        ///     depending on method call on <see cref="OrCouple{T}"/>.
+        ///     depending on method call on <see cref="OrPair{T}"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Item to compare.</param>
-        /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
-        public static OrCouple<float> Or(this float self, float other) => new OrCouple<float>(self, other);
+        /// <returns>Instance of <see cref="OrPair{T}"/>.</returns>
+        public static OrPair<float> Or(this float self, float other) => new OrPair<float>(self, other);
         
         /// <summary>
         ///     Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
-        ///     depending on method call on <see cref="OrCouple{T}"/>.
+        ///     depending on method call on <see cref="OrPair{T}"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Item to compare.</param>
-        /// <returns>Instance of <see cref="OrCouple{T}"/>.</returns>
-        public static OrCouple<double> Or(this double self, double other) => new OrCouple<double>(self, other);
+        /// <returns>Instance of <see cref="OrPair{T}"/>.</returns>
+        public static OrPair<double> Or(this double self, double other) => new OrPair<double>(self, other);
 
         #endregion
     }
