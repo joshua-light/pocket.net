@@ -14,6 +14,7 @@ namespace Pocket.Common
         _predicate = predicate;
 
       public List<T> InCurrentAssembly() => In(Assembly.GetCallingAssembly());
+      public List<T> InOwnerAssembly() => In(Assembly.GetAssembly(typeof(T)));
       public List<T> In(Assembly assembly)
       {
         var all = new List<T>();
