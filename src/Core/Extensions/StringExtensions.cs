@@ -121,5 +121,14 @@ namespace Pocket.Common
         }
 
         #endregion
+        
+        public static string AllAfter(this string self, string part)
+        {
+            var index = self.IndexOf(part);
+            if (index == -1)
+                return self;
+            
+            return self.Substring(index + part.Length);
+        }
     }
 }

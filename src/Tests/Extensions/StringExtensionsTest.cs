@@ -102,5 +102,18 @@ namespace Pocket.Common.Tests.Extensions
         }
 
         #endregion
+
+        [Fact]
+        public void AllAfter_ShouldNotChangeString_IfThereIsNoPart() =>
+            "Hello".AllAfter("s").ShouldBe("Hello");
+        
+        [Theory]
+        [InlineData("Hello", "H", "ello")]
+        [InlineData("Hello", "He", "llo")]
+        [InlineData("Hello", "Hel", "lo")]
+        [InlineData("Hello", "Hell", "o")]
+        [InlineData("Hello", "Hello", "")]
+        public void AllAfter_ShouldReturnTextAfterSpecifiedPart(string source, string part, string expected) =>
+             source.AllAfter(part).ShouldBe(expected);
     }
 }
