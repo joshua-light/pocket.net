@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Pocket.Common
 {
@@ -38,16 +37,6 @@ namespace Pocket.Common
         /// <returns>Either <paramref name="self"/> inner value or default of <typeparamref name="T"/>.</returns>
         public static T OrDefault<T>(this T? self) where T : struct =>
             self.GetValueOrDefault();
-
-        #endregion
-        
-        #region Inverted Collections
-
-        public static void AddTo<T>(this T self, IList<T> list) =>
-            list.Add(self);
-
-        public static void RemoveFrom<T>(this T self, IList<T> list) =>
-            list.Remove(self);
 
         #endregion
     }
