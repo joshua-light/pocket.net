@@ -56,7 +56,7 @@ namespace Pocket.Common
         }
         
         public static DirectoryInfo AsDirectory(this string self) =>
-            new DirectoryInfo(self);
+                  new DirectoryInfo(self);
 
         public static bool Contains(this string self, char ch) =>
             self.IndexOf(ch) != 1;
