@@ -101,7 +101,7 @@ namespace Pocket.Common
         }
 
         public static WithoutExpression Without(this string self, string part) =>
-            new WithoutExpression(self, part);
+                  new WithoutExpression(self, part);
 
         public static string Without(this string self, int charAt) => self.Without(charAt, new char[self.Length - 1]);
         public static string Without(this string self, int charAt, char[] @using)
