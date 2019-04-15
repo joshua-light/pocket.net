@@ -6,18 +6,18 @@ namespace Pocket.Common
     /// <summary>
     ///     Represents gate that can be used for threads synchronization in same way as <see cref="ManualResetEvent"/>.
     /// </summary>
-    public class ThreadGate
+    public class Gate
     {
-        public static ThreadGate Opened => new ThreadGate(opened: true);
-        public static ThreadGate Closed => new ThreadGate(opened: false);
+        public static Gate Opened => new Gate(opened: true);
+        public static Gate Closed => new Gate(opened: false);
         
         private readonly ManualResetEvent _event;
         
         /// <summary>
-        ///     Initializes new instance of <see cref="ThreadGate"/>.
+        ///     Initializes new instance of <see cref="Gate"/>.
         /// </summary>
         /// <param name="opened">Initial gate state.</param>
-        public ThreadGate(bool opened = true)
+        public Gate(bool opened = true)
         {
             _event = new ManualResetEvent(opened);
         }

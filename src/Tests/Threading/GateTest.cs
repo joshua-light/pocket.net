@@ -4,20 +4,20 @@ using Xunit;
 
 namespace Pocket.Common.Tests.Threading
 {
-    public class ThreadGateTest
+    public class GateTest
     {
         [Fact]
         public void IsOpened_ShouldBeTrue_IfConstructedAsOpened() =>
-            new ThreadGate(opened: true).IsOpened.ShouldBeTrue();
+            new Gate(opened: true).IsOpened.ShouldBeTrue();
         
         [Fact]
         public void IsOpened_ShouldBeFalse_IfConstructedAsClosed() =>
-            new ThreadGate(opened: false).IsOpened.ShouldBeFalse();
+            new Gate(opened: false).IsOpened.ShouldBeFalse();
 
         [Fact]
         public void IsOpened_ShouldBeTrue_IfGateWasOpened()
         {
-            var gate = new ThreadGate(opened: false);
+            var gate = new Gate(opened: false);
             
             gate.Open();
             
@@ -27,7 +27,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void IsOpened_ShouldBeFalse_IfGateWasClosed()
         {
-            var gate = new ThreadGate(opened: true);
+            var gate = new Gate(opened: true);
             
             gate.Close();
             
@@ -39,8 +39,8 @@ namespace Pocket.Common.Tests.Threading
         {
             var waits = false;
             
-            var outerGate = new ThreadGate(opened: false);
-            var innerGate = new ThreadGate(opened: false);
+            var outerGate = new Gate(opened: false);
+            var innerGate = new Gate(opened: false);
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
@@ -59,7 +59,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void WaitForOpen_ShouldReturnFalse_IfGateWasNotOpenedWithinTimeout()
         {
-            var gate = new ThreadGate(opened: false);
+            var gate = new Gate(opened: false);
             
             gate.WaitForOpen(5).ShouldBeFalse();
         }
@@ -67,7 +67,7 @@ namespace Pocket.Common.Tests.Threading
         [Fact]
         public void WaitForOpen_ShouldReturnTrue_IfGateIsOpened()
         {
-            var gate = new ThreadGate(opened: true);
+            var gate = new Gate(opened: true);
             
             gate.WaitForOpen(5).ShouldBeTrue();
         }
