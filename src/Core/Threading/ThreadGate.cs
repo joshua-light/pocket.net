@@ -8,6 +8,9 @@ namespace Pocket.Common
     /// </summary>
     public class ThreadGate
     {
+        public static ThreadGate Opened => new ThreadGate(opened: true);
+        public static ThreadGate Closed => new ThreadGate(opened: false);
+        
         private readonly ManualResetEvent _event;
         
         /// <summary>
