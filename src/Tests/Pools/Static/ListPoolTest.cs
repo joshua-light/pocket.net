@@ -8,7 +8,7 @@ namespace Pocket.Common.Tests.Pools.Static
         [Fact]
         public void Of_ShouldReturnListInstance()
         {
-            var list = ListPool.Of<int>();
+            var list = PooledList.Of<int>();
             Assert.NotNull(list);
         }
 
@@ -19,7 +19,7 @@ namespace Pocket.Common.Tests.Pools.Static
         public void Of_ShouldReturnEmptyList(int times)
         {
             for (var i = 0; i < times; i++)
-                using (var list = ListPool.Of<int>())
+                using (var list = PooledList.Of<int>())
                     Assert.Empty(list);
         }
 
@@ -28,7 +28,7 @@ namespace Pocket.Common.Tests.Pools.Static
         {
             List<int> numbers;
 
-            using (var list = ListPool.Of<int>())
+            using (var list = PooledList.Of<int>())
             {
                 list.Add(1);
                 list.Add(2);
