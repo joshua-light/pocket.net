@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Pocket.Common
 {
     /// <summary>
-    ///     Represents intance of <see cref="IPool{T}"/> that behaves as simple object pool.
+    ///     Represents instance of <see cref="IPool{T}"/> that behaves as simple object pool.
     /// </summary>
     /// <typeparam name="T">Type of pooled items.</typeparam>
     public class DefaultPool<T> : IPool<T> where T : class
