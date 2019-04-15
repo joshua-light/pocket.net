@@ -6,7 +6,6 @@
     /// <typeparam name="T">Type of pooled items.</typeparam>
     public class SyncPool<T> : IPool<T> where T : class
     {
-        private readonly object _dog = new object();
         private readonly IPool<T> _pool;
 
         /// <summary>
@@ -16,9 +15,9 @@
         public SyncPool(IPool<T> pool) => _pool = pool;
 
         /// <inheritdoc cref="IPool{T}"/>.
-        public T Item() { lock (_dog) return _pool.Item(); }
+        public T Item() { lock (_pool) return _pool.Item(); }
         
         /// <inheritdoc cref="IPool{T}"/>.
-        public void Release(T item) { lock (_dog) _pool.Release(item); }
+        public void Release(T item) { lock (_pool) _pool.Release(item); }
     }
 }
