@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Pocket.Common
 {
@@ -59,5 +60,14 @@ namespace Pocket.Common
                 ? Result.Failed<T>($"Failed by timeout: {ms}.")
                 : self.Result;
         }
+        
+        public static Task<V> With<T, V>(this Task<T> self, Func<T, V> map) =>
+            self.ContinueWith(x => map(x.Result));
+
+        public static Task<V> With<T, V>(this Task<T> self, Func<T, Task<V>> map) =>
+            self.ContinueWith(x => map(x.Result)).Unwrap();
+
+        public static Task<T> Or<T>(this Task<T> self, T @default) =>
+            self.ContinueWith(x => x.IsFaulted ? @default : x.Result);
     }
 }
