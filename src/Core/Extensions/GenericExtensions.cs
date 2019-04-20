@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Pocket.Common
+﻿namespace Pocket.Common
 {
     /// <summary>
     ///     Represents generic extension-methods for objects of all types.
