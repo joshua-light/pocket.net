@@ -130,5 +130,17 @@ namespace Pocket.Common
             
             return self.Substring(index + part.Length);
         }
+        
+        public static string WithoutExtension(this string self) =>
+            Path.GetFileNameWithoutExtension(self);
+
+        public static string FileName(this string self) =>
+            Path.GetFileName(self);
+
+        public static DirectoryInfo[] Directories(this string self) =>
+            self.AsDirectory().GetDirectories();
+    
+        public static FileInfo[] Files(this string self) =>
+            self.AsDirectory().GetFiles();
     }
 }
