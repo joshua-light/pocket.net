@@ -61,9 +61,13 @@ namespace Pocket.Common
                 : self.Result;
         }
         
+        public static Task<V> Then<T, V>(this Task<T> self, Func<T, V> map) =>
+            self.ContinueWith(x => map(x.Result));
+        public static Task<V> Then<T, V>(this Task<T> self, Func<T, Task<V>> map) =>
+            self.ContinueWith(x => map(x.Result)).Unwrap();
+        
         public static Task<V> With<T, V>(this Task<T> self, Func<T, V> map) =>
             self.ContinueWith(x => map(x.Result));
-
         public static Task<V> With<T, V>(this Task<T> self, Func<T, Task<V>> map) =>
             self.ContinueWith(x => map(x.Result)).Unwrap();
 
