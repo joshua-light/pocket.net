@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Pocket.Common.Tests.Extensions
 {
-    public class GenericExtensionsTest
+    public class NullableExtensionsTest
     {
         [Theory]
         [InlineData("1")]
