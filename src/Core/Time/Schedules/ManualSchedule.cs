@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Pocket.Common.Time
 {
@@ -50,7 +49,7 @@ namespace Pocket.Common.Time
             
                 _promises.RemoveAll(x => x.Ms <= 0);
 
-                ms -= maxElapsed.Or(ms).IfGreater();
+                ms = (ms - maxElapsed).ButNotLess(than: 0);
             }
         }
     }

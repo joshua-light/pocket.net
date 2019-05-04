@@ -46,5 +46,11 @@ namespace Pocket.Common
         /// <returns><code>true</code>, if <code>this</code> is greater than or equal to <paramref name="other"/>, otherwise <code>false</code>.</returns>
         public static bool IsGreaterOrEqual<T>(this T self, T other) where T : IComparable<T> =>
             self.CompareTo(other) >= 0;
+
+        public static T ButNotGreater<T>(this T self, T than) where T : IComparable<T> =>
+            self.IsGreater(than) ? than : self;
+        
+        public static T ButNotLess<T>(this T self, T than) where T : IComparable<T> =>
+            self.IsLess(than) ? than : self;
     }
 }
