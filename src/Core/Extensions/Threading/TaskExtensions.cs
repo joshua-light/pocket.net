@@ -39,7 +39,7 @@ namespace Pocket.Common
             await Task.WhenAny(self, timeout);
 
             return timeout.IsCompleted && !self.IsCompleted
-                ? Result.Failed($"Failed by timeout: {ms}.")
+                ? Result.Fail($"Failed by timeout: {ms}.")
                 : self.Result;
         }
         
@@ -57,7 +57,7 @@ namespace Pocket.Common
             await Task.WhenAny(self, timeout);
 
             return timeout.IsCompleted && !self.IsCompleted
-                ? Result.Failed<T>($"Failed by timeout: {ms}.")
+                ? Result.Fail<T>($"Failed by timeout: {ms}.")
                 : self.Result;
         }
         

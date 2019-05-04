@@ -24,70 +24,70 @@ namespace Pocket.Common.Tests.Monads.Extensions
         void AsResultMaybe_ShouldSucceed_IfValueIsNotNull() => "".Maybe().AsResult().ShouldSucceed();
 
         [Fact]
-        void OnSuccess_ShouldCallAction_IfResultIsSucceeded() => Call(Result.Succeeded(), (x, y) => x.OnSuccess(y));
+        void OnSuccess_ShouldCallAction_IfResultIsSucceeded() => Call(Result.Ok(), (x, y) => x.OnSuccess(y));
         [Fact]
-        void OnSuccess_ShouldNotCallAction_IfResultIsFailed() => NotCall(Result.Failed(), (x, y) => x.OnSuccess(y));
+        void OnSuccess_ShouldNotCallAction_IfResultIsFailed() => NotCall(Result.Fail(), (x, y) => x.OnSuccess(y));
         
         [Fact]
-        void OnFail_ShouldCallAction_IfResultIsFailed() => Call(Result.Failed(), (x, y) => x.OnFail(y));
+        void OnFail_ShouldCallAction_IfResultIsFailed() => Call(Result.Fail(), (x, y) => x.OnFail(y));
         [Fact]
-        void OnFail_ShouldNotCallAction_IfResultIsSucceeded() => NotCall(Result.Succeeded(), (x, y) => x.OnFail(y));
+        void OnFail_ShouldNotCallAction_IfResultIsSucceeded() => NotCall(Result.Ok(), (x, y) => x.OnFail(y));
         
         [Fact]
-        void With_ShouldSucceed_IfResultIsSucceeded() => Result.Succeeded().With(5).ShouldSucceed();
+        void With_ShouldSucceed_IfResultIsSucceeded() => Result.Ok().With(5).ShouldSucceed();
         [Fact]
-        void With_ShouldFail_IfResultIsFailed() => Result.Failed().With(5).ShouldFail();
+        void With_ShouldFail_IfResultIsFailed() => Result.Fail().With(5).ShouldFail();
         [Fact]
-        void With_ShouldReturnPassedValue() => Assert.Equal(5, Result.Succeeded().With(5));
+        void With_ShouldReturnPassedValue() => Assert.Equal(5, Result.Ok().With(5));
         
         [Fact]
-        void WithFunc_ShouldSucceed_IfResultIsSucceeded() => Result.Succeeded().With(() => 5).ShouldSucceed();
+        void WithFunc_ShouldSucceed_IfResultIsSucceeded() => Result.Ok().With(() => 5).ShouldSucceed();
         [Fact]
-        void WithFunc_ShouldFail_IfResultIsFailed() => Result.Failed().With(() => 5).ShouldFail();
+        void WithFunc_ShouldFail_IfResultIsFailed() => Result.Fail().With(() => 5).ShouldFail();
         [Fact]
-        void WithFunc_ShouldReturnPassedValue() => Assert.Equal(5, Result.Succeeded().With(() => 5));
+        void WithFunc_ShouldReturnPassedValue() => Assert.Equal(5, Result.Ok().With(() => 5));
         
         [Fact]
-        void WithMaybe_ShouldSucceed_IfResultIsSucceeded() => Result.Succeeded().With(5.Just()).ShouldSucceed();
+        void WithMaybe_ShouldSucceed_IfResultIsSucceeded() => Result.Ok().With(5.Just()).ShouldSucceed();
         [Fact]
-        void WithMaybe_ShouldFail_IfResultIsFailed() => Result.Failed().With(5.Just()).ShouldFail();
+        void WithMaybe_ShouldFail_IfResultIsFailed() => Result.Fail().With(5.Just()).ShouldFail();
         [Fact]
-        void WithMaybe_ShouldReturnPassedValue() => Assert.Equal(5, Result.Succeeded().With(5.Just()));
+        void WithMaybe_ShouldReturnPassedValue() => Assert.Equal(5, Result.Ok().With(5.Just()));
         
         [Fact]
-        void WithMaybeFunc_ShouldSucceed_IfResultIsSucceeded() => Result.Succeeded().With(() => 5.Just()).ShouldSucceed();
+        void WithMaybeFunc_ShouldSucceed_IfResultIsSucceeded() => Result.Ok().With(() => 5.Just()).ShouldSucceed();
         [Fact]
-        void WithMaybeFunc_ShouldFail_IfResultIsFailed() => Result.Failed().With(() => 5.Just()).ShouldFail();
+        void WithMaybeFunc_ShouldFail_IfResultIsFailed() => Result.Fail().With(() => 5.Just()).ShouldFail();
         [Fact]
-        void WithMaybeFunc_ShouldReturnPassedValue() => Assert.Equal(5, Result.Succeeded().With(() => 5.Just()));
+        void WithMaybeFunc_ShouldReturnPassedValue() => Assert.Equal(5, Result.Ok().With(() => 5.Just()));
         
         [Fact]
-        void WithGenericResult_ShouldSucceed_IfBothSucceeded() => Result.Succeeded().With(Result.Succeeded(5)).ShouldSucceed();
+        void WithGenericResult_ShouldSucceed_IfBothSucceeded() => Result.Ok().With(Result.Ok(5)).ShouldSucceed();
         [Fact]
-        void WithGenericResult_ShouldFail_IfFirstIsFailed() => Result.Failed().With(Result.Failed<int>()).ShouldFail();
+        void WithGenericResult_ShouldFail_IfFirstIsFailed() => Result.Fail().With(Result.Fail<int>()).ShouldFail();
         [Fact]
-        void WithGenericResult_ShouldFail_IfSecondIsFailed() => Result.Succeeded().With(Result.Failed<int>()).ShouldFail();
+        void WithGenericResult_ShouldFail_IfSecondIsFailed() => Result.Ok().With(Result.Fail<int>()).ShouldFail();
         
         [Fact]
-        void WithGenericResultFunc_ShouldSucceed_IfBothSucceeded() => Result.Succeeded().With(() => Result.Succeeded(5)).ShouldSucceed();
+        void WithGenericResultFunc_ShouldSucceed_IfBothSucceeded() => Result.Ok().With(() => Result.Ok(5)).ShouldSucceed();
         [Fact]
-        void WithGenericResultFunc_ShouldFail_IfFirstIsFailed() => Result.Failed().With(() => Result.Failed<int>()).ShouldFail();
+        void WithGenericResultFunc_ShouldFail_IfFirstIsFailed() => Result.Fail().With(() => Result.Fail<int>()).ShouldFail();
         [Fact]
-        void WithGenericResultFunc_ShouldFail_IfSecondIsFailed() => Result.Succeeded().With(() => Result.Failed<int>()).ShouldFail();
+        void WithGenericResultFunc_ShouldFail_IfSecondIsFailed() => Result.Ok().With(() => Result.Fail<int>()).ShouldFail();
         
         [Fact]
-        void WithResult_ShouldSucceed_IfBothSucceeded() => Result.Succeeded().With(Result.Succeeded()).ShouldSucceed();
+        void WithResult_ShouldSucceed_IfBothSucceeded() => Result.Ok().With(Result.Ok()).ShouldSucceed();
         [Fact]
-        void WithResult_ShouldFail_IfFirstIsFailed() => Result.Failed().With(Result.Failed()).ShouldFail();
+        void WithResult_ShouldFail_IfFirstIsFailed() => Result.Fail().With(Result.Fail()).ShouldFail();
         [Fact]
-        void WithResult_ShouldFail_IfSecondIsFailed() => Result.Succeeded().With(Result.Failed()).ShouldFail();
+        void WithResult_ShouldFail_IfSecondIsFailed() => Result.Ok().With(Result.Fail()).ShouldFail();
         
         [Fact]
-        void WithResultFunc_ShouldSucceed_IfBothSucceeded() => Result.Succeeded().With(() => Result.Succeeded()).ShouldSucceed();
+        void WithResultFunc_ShouldSucceed_IfBothSucceeded() => Result.Ok().With(() => Result.Ok()).ShouldSucceed();
         [Fact]
-        void WithResultFunc_ShouldFail_IfFirstIsFailed() => Result.Failed().With(() => Result.Failed()).ShouldFail();
+        void WithResultFunc_ShouldFail_IfFirstIsFailed() => Result.Fail().With(() => Result.Fail()).ShouldFail();
         [Fact]
-        void WithResultFunc_ShouldFail_IfSecondIsFailed() => Result.Succeeded().With(() => Result.Failed()).ShouldFail();
+        void WithResultFunc_ShouldFail_IfSecondIsFailed() => Result.Ok().With(() => Result.Fail()).ShouldFail();
 
         #region Helpers
 

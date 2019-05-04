@@ -10,15 +10,15 @@ namespace Pocket.Common.Tests.Monads
         {
             public class Success
             {
-                private readonly Result _result = Result.Succeeded();
+                private readonly Result _result = Result.Ok();
 
                 [Fact]
                 public void Success_ShouldReturnTrue() =>
-                    Assert.True(_result.Success);
+                    Assert.True(_result.IsOk);
                 
                 [Fact]
                 public void Fail_ShouldReturnFalse() =>
-                    Assert.False(_result.Fail);
+                    Assert.False(_result.IsFail);
                 
                 [Fact]
                 public void Error_ShouldReturnEmptyString() =>
@@ -27,15 +27,15 @@ namespace Pocket.Common.Tests.Monads
 
             public class Fail
             {
-                private readonly Result _result = Result.Failed("Test");
+                private readonly Result _result = Result.Fail("Test");
                 
                 [Fact]
                 public void Success_ShouldReturnFalse() =>
-                    Assert.False(_result.Success);
+                    Assert.False(_result.IsOk);
                 
                 [Fact]
                 public void Fail_ShouldReturnTrue() =>
-                    Assert.True(_result.Fail);
+                    Assert.True(_result.IsFail);
                 
                 [Fact]
                 public void Error_ShouldReturnErrorMessage() =>
@@ -44,32 +44,32 @@ namespace Pocket.Common.Tests.Monads
 
             [Fact]
             public void When_ShouldFail_IfConditionIsFalse() =>
-                Assert.True(Result.When(false).Fail);
+                Assert.True(Result.Ok(when: false).IsFail);
             [Fact]
             public void When_ShouldSucceed_IfConditionIsTrue() =>
-                Assert.True(Result.When(true).Success);
+                Assert.True(Result.Ok(when: true).IsOk);
 
             [Fact]
             public void Of_ShouldFail_IfFuncReturnsNull() =>
-                Assert.True(Result.Of<string>(() => null).Fail);
+                Assert.True(Result.Of<string>(() => null).IsFail);
             [Fact]
             public void Of_ShouldSucceed_IfFuncReturnsValue() =>
-                Assert.True(Result.Of(() => "").Success);
+                Assert.True(Result.Of(() => "").IsOk);
         }
 
         public class IntResult
         {
             public class Success
             {
-                private readonly Result<int> _result = Result.Succeeded(10);
+                private readonly Result<int> _result = Result.Ok(10);
                 
                 [Fact]
                 public void Success_ShouldReturnTrue() =>
-                    Assert.True(_result.Success);
+                    Assert.True(_result.IsOk);
                 
                 [Fact]
                 public void Fail_ShouldReturnFalse() =>
-                    Assert.False(_result.Fail);
+                    Assert.False(_result.IsFail);
                 
                 [Fact]
                 public void Value_ShouldReturnCorrectValue() =>
@@ -85,22 +85,22 @@ namespace Pocket.Common.Tests.Monads
                     var newResult = _result.As<object>();
 
                     newResult.GetType().ShouldBe(typeof(Result<object>));
-                    newResult.Success.ShouldBeTrue();
+                    newResult.IsOk.ShouldBeTrue();
                     newResult.Value.ShouldBe(_result.Value);
                 }
             }
             
             public class Fail
             {
-                private readonly Result<int> _result = Result.Failed<int>("Test");
+                private readonly Result<int> _result = Result.Fail<int>("Test");
                 
                 [Fact]
                 public void Success_ShouldReturnFalse() =>
-                    Assert.False(_result.Success);
+                    Assert.False(_result.IsOk);
                 
                 [Fact]
                 public void Fail_ShouldReturnTrue() =>
-                    Assert.True(_result.Fail);
+                    Assert.True(_result.IsFail);
                 
                 [Fact]
                 public void Error_ShouldReturnErrorMessage() =>
@@ -116,7 +116,7 @@ namespace Pocket.Common.Tests.Monads
                     var newResult = _result.As<object>();
 
                     newResult.GetType().ShouldBe(typeof(Result<object>));
-                    newResult.Fail.ShouldBeTrue();
+                    newResult.IsFail.ShouldBeTrue();
                     newResult.Error.ShouldBe(_result.Error);
                 }
             }

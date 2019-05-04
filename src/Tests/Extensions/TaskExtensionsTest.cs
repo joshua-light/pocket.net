@@ -29,20 +29,20 @@ namespace Pocket.Common.Tests.Extensions
             public async void WithTimeout_ShouldReturnSuccess_IfTaskWasCompleted()
             {
                 var result = await TaskDelay(300).WithTimeout(500);
-                Assert.True(result.Success);
+                Assert.True(result.IsOk);
             }
 
             [Fact]
             public async void WithTimeout_ShouldReturnFail_IfTaskWasEndedByTimeout()
             {
                 var result = await TaskDelay(1000).WithTimeout(500);
-                Assert.True(result.Fail);
+                Assert.True(result.IsFail);
             }
 
             private static async Task<Result> TaskDelay(int n)
             {
                 await Task.Delay(n);
-                return Result.Succeeded();
+                return Result.Ok();
             }
         }
 
@@ -52,20 +52,20 @@ namespace Pocket.Common.Tests.Extensions
             public async void WithTimeout_ShouldReturnSuccess_IfTaskWasCompleted()
             {
                 var result = await TaskDelayWithCourier(300).WithTimeout(500);
-                Assert.True(result.Success);
+                Assert.True(result.IsOk);
             }
         
             [Fact]
             public async void WithTimeout_ShouldReturnFail_IfTaskWasEndedByTimeout()
             {
                 var result = await TaskDelayWithCourier(1000).WithTimeout(500);
-                Assert.True(result.Fail);
+                Assert.True(result.IsFail);
             }
         
             private static async Task<Result<int>> TaskDelayWithCourier(int n)
             {
                 await Task.Delay(n);
-                return Result.Succeeded(0);
+                return Result.Ok(0);
             }
         }
     }

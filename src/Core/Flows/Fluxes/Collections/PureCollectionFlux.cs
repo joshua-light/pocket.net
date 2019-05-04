@@ -26,17 +26,17 @@ namespace Pocket.Common.Flows
             _items.Add(item);
             _added.Pulse(item);
             
-            return Result.Succeeded();
+            return Result.Ok();
         }
 
         public Result Remove(T item)
         {
             var removed = _items.Remove(item);
             if (!removed)
-                return Result.Failed($"Cannot remove: item {item} does not exist.");
+                return Result.Fail($"Cannot remove: item {item} does not exist.");
             
             _removed.Pulse(item);
-            return Result.Succeeded();
+            return Result.Ok();
         }
     }
 }
