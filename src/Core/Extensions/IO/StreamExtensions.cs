@@ -6,8 +6,11 @@ namespace Pocket.Common
 {
     public static class StreamExtensions
     {
-        public static Task<string> Text(this Stream self) =>
-            self.Using(x => new StreamReader(x).Using(y => y.ReadToEndAsync()));
+        public static async Task<string> Text(this Stream self)
+        {
+          using (var reader = new StreamReader(self))
+            return await reader.ReadToEndAsync();
+        }
 
         public static Task<byte[]> Bytes(this Stream self) => self.Bytes(self.Length, Progress.Fake<int>());
         
