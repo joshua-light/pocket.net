@@ -33,6 +33,11 @@ namespace Pocket.Common
       public void IsNot(T value, string because) =>
         When(Equals(_this, value), @throw: because);
 
+      public void Has(Func<T, bool> predicate) =>
+        Has(predicate, "Specified predicate should match.");
+      public void Has(Func<T, bool> predicate, string because) =>
+        When(!predicate(_this), @throw: because);
+
       public void Less(T than) =>
         Less(than, $"[ {_this} ] should be less than [ {than} ].");
       public void Less(T than, string because) =>
@@ -104,6 +109,11 @@ namespace Pocket.Common
       public void Null(string because) =>
         Common(_this).Null(because);
 
+      public void Has(Func<Type, bool> predicate) =>
+        Common(_this).Has(predicate);
+      public void Has(Func<Type, bool> predicate, string because) =>
+        Common(_this).Has(predicate, because);
+      
       public void Is<T>() =>
         Is(typeof(T));
       public void Is<T>(string because) =>
@@ -148,6 +158,11 @@ namespace Pocket.Common
         Common(_this).Null();
       public void Null(string because) =>
         Common(_this).Null(because);
+      
+      public void Has(Func<IEnumerable<T>, bool> predicate) =>
+        Common(_this).Has(predicate);
+      public void Has(Func<IEnumerable<T>, bool> predicate, string because) =>
+        Common(_this).Has(predicate, because);
 
       public void Empty() =>
         When(_this, x => !x.IsNullOrEmpty(), @throw: x => $"{x.ToList().AsString()} should be empty.");
@@ -171,7 +186,6 @@ namespace Pocket.Common
 
     private static Expression<T> Common<T>(T value) =>
       new Expression<T>(value);
-    
     
     private static void When(bool fact, string @throw) =>
       When(fact, @throw: () => new ArgumentException(@throw));
