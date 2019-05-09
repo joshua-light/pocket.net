@@ -4,5 +4,7 @@ namespace Pocket.Common
   {
     IText With(string text);
     IText NewLine();
+    
+    string ToString();
   }
 }
