@@ -189,13 +189,11 @@ namespace Pocket.Common
     
     private static void When(bool fact, string @throw) =>
       When(fact, @throw: () => new ArgumentException(@throw));
-
     private static void When(bool fact, Func<Exception> @throw) =>
       When<bool>(default, _ => fact, _ => @throw());
 
     private static void When<T>(T value, Func<T, bool> fact, Func<T, string> @throw) =>
       When(value, fact, @throw: x => new ArgumentException(@throw(x)));
-    
     private static void When<T>(T value, Func<T, bool> fact, Func<T, Exception> @throw)
     {
       if (fact(value))
