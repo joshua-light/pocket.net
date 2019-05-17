@@ -30,6 +30,8 @@ namespace Pocket.Common
                 _dictionary.TryGetValue(_key, out var value) ? value : _dictionary[_key] = @default;
             public TValue OrNew(Func<TValue> @default) =>
                 _dictionary.TryGetValue(_key, out var value) ? value : _dictionary[_key] = @default();
+            public TValue OrNew(Func<TKey, TValue> @default) =>
+                _dictionary.TryGetValue(_key, out var value) ? value : _dictionary[_key] = @default(_key);
 
             public TValue OrThrow() => OrThrow($"Couldn't find value with [ {_key} ] key.");
             public TValue OrThrow(string withMessage) =>
