@@ -8,7 +8,8 @@ namespace Pocket.Common.ObjectTree
         internal static Node Of<T>(T value) => Of(typeof(T), value);
         internal static Node Of(Type type, object value) =>
             EmptyNode.Of(type, value) ??
-            PrimitiveNode.Of(type, value);
+            PrimitiveNode.Of(type, value) ??
+            CollectionNode.Of(type, value);
 
         protected Node(Type type, object value, IEnumerable<Node> children = null)
         {
