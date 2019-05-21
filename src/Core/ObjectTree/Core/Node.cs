@@ -2,12 +2,14 @@ using System;
 
 namespace Pocket.Common.ObjectTree
 {
-    public class Node
+    public abstract class Node
     {
         internal static Node Of<T>(T value) => Of(typeof(T), value);
-        internal static Node Of(Type type, object value) => new Node(type, value);
+        internal static Node Of(Type type, object value) =>
+            EmptyNode.Of(type, value) ??
+            PrimitiveNode.Of(type, value);
 
-        internal Node(Type type, object value)
+        protected Node(Type type, object value)
         {
             Type = type;
             Value = value;
