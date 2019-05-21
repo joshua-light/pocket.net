@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using System.Reflection;
 using Pocket.Common.ObjectTree;
 using Shouldly;
 using Xunit;
@@ -8,67 +8,42 @@ namespace Pocket.Common.Tests.ObjectTree
 {
     public class ObjectTreeTests
     {
-        public class DefaultObjectNode
-        {
-            private readonly object _object = new object();
+        [Fact] public void DefaultObject_ShouldBeEmptyNode() =>
+            Value(of: new object()).ShouldBeConvertedTo<EmptyNode>();
 
-            [Fact] public void TypeOfNode_ShouldBeEmptyNode() =>
-                _object.Tree().ShouldBeOfType<EmptyNode>();
-            [Fact] public void Type_ShouldBeObject() =>
-                _object.Tree().Type.ShouldBe(typeof(object));
-            [Fact] public void Value_ShouldBeSameAsDeclaredObject() =>
-                _object.Tree().Value.ShouldBe(_object);
-        }
+        [Theory]
+        [InlineData(10)]
+        [InlineData(10.0)]
+        [InlineData("Hello")]
+        [InlineData(BindingFlags.Default)]
+        public void PrimitiveValues_ShouldBePrimitiveNodes(object x) =>
+            Value(of: x).ShouldBeConvertedTo<PrimitiveNode>();
 
-        public class IntObjectNode
-        {
-            [Fact] public void TypeOfNode_ShouldBePrimitiveNode() =>
-                1.Tree().ShouldBeOfType<PrimitiveNode>();
-            [Fact] public void Type_ShouldBeInt() =>
-                1.Tree().Type.ShouldBe(typeof(int));
-            [Fact] public void Value_ShouldBe1() =>
-                1.Tree().Value.ShouldBe(1);
-        }
-
-        public class EnumObjectNode
-        {
-            private enum Enum { Value }
-
-            [Fact] public void TypeOfNode_ShouldBePrimitiveNode() =>
-                Enum.Value.Tree().ShouldBeOfType<PrimitiveNode>();
-            [Fact] public void Type_ShouldBeEnum() =>
-                Enum.Value.Tree().Type.ShouldBe(typeof(Enum));
-            [Fact] public void Value_ShouldBeEnumValue() =>
-                Enum.Value.Tree().Value.ShouldBe(Enum.Value);
-        }
+        [Theory]
+        [InlineData(new [] { 1, 2, 3 })]
+        public void CollectionValues_ShouldBeCollectionNodes(object x) =>
+            Value(of: x).ShouldBeConvertedTo<CollectionNode>();
         
-        public class StringObjectNode
+        private static ValueOf Value(object of) =>
+                   new ValueOf(of.GetType(), of);
+        
+        private class ValueOf
         {
-            private const string String = "";
+            private readonly Type _type;
+            private readonly object _value;
 
-            [Fact] public void TypeOfNode_ShouldBePrimitiveNode() =>
-                String.Tree().ShouldBeOfType<PrimitiveNode>();
-            [Fact] public void Type_ShouldBeEnum() =>
-                String.Tree().Type.ShouldBe(typeof(string));
-            [Fact] public void Value_ShouldBeEmptyString() =>
-                String.Tree().Value.ShouldBe(String);
-        }
+            public ValueOf(Type type, object value)
+            {
+                _type = type;
+                _value = value;
+            }
 
-        public class EnumerableObjectNode
-        {
-            private readonly IEnumerable<int> _value = Enumerable.Range(0, 10);
-            
-            [Fact] public void TypeOfNode_ShouldBePrimitiveNode() =>
-                _value.Tree().ShouldBeOfType<CollectionNode>();
-            [Fact] public void Type_ShouldBeEnum() =>
-                _value.Tree().Type.ShouldBe(typeof(IEnumerable<int>));
-            [Fact] public void Value_ShouldBeSequenceOfNumbers() =>
-                _value.Tree().Value.ShouldBe(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-
-            [Fact] public void ChildrenCount_ShouldBe10() =>
-                _value.Tree().Children.Count().ShouldBe(10);
-            [Fact] public void Children_ShouldRepresentSequenceOfNumbers() =>
-                _value.Tree().Children.Select(x => x.Value).ShouldBe(new object[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            public void ShouldBeConvertedTo<TNode>() where TNode : Node
+            {
+                _value.Tree().ShouldBeOfType<TNode>();
+                _value.Tree().Type.ShouldBe(_type);
+                _value.Tree().Value.ShouldBe(_value);
+            }
         }
     }
 }
