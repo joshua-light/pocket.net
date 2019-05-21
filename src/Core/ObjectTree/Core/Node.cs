@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Pocket.Common.ObjectTree
 {
@@ -9,13 +10,15 @@ namespace Pocket.Common.ObjectTree
             EmptyNode.Of(type, value) ??
             PrimitiveNode.Of(type, value);
 
-        protected Node(Type type, object value)
+        protected Node(Type type, object value, IEnumerable<Node> children = null)
         {
             Type = type;
             Value = value;
+            Children = children.OrEmpty();
         }
         
         public Type Type { get; }
         public object Value { get; }
+        public IEnumerable<Node> Children { get; }
     }
 }
