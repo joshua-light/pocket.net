@@ -5,11 +5,8 @@ namespace Pocket.Common.ObjectTree
 {
     public static class ObjectTreeExtensions
     {
-        public static Node Tree<T>(this T self) =>
-                      Node.Of(self);
-
         public static Node Tree(this object self, Type type) => 
-                      Node.Of(self);
+                      Node.Of(type, self);
 
         public static Node Tree(this object self)
         {

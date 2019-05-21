@@ -5,7 +5,6 @@ namespace Pocket.Common.ObjectTree
 {
     public abstract class Node
     {
-        internal static Node Of<T>(T value) => Of(typeof(T), value);
         internal static Node Of(Type type, object value) =>
             EmptyNode.Of(type, value) ??
             PrimitiveNode.Of(type, value) ??

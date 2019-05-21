@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Pocket.Common.ObjectTree;
 using Shouldly;
@@ -23,9 +25,17 @@ namespace Pocket.Common.Tests.ObjectTree
         [InlineData(new [] { 1, 2, 3 })]
         public void CollectionValues_ShouldBeCollectionNodes(object x) =>
             Value(of: x).ShouldBeConvertedTo<CollectionNode>();
+
+        [Theory]
+        [InlineData(new [] { 1, 2, 3 })]
+        public void CollectionValuesChildren_ShouldMatchCollections(object x) =>
+            Children(of: x).Select(y => y.Value).ShouldBe(x);
         
         private static ValueOf Value(object of) =>
                    new ValueOf(of.GetType(), of);
+
+        private static IEnumerable<Node> Children(object of) =>
+            of.Tree().Children;
         
         private class ValueOf
         {

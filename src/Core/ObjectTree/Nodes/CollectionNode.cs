@@ -14,7 +14,7 @@ namespace Pocket.Common.ObjectTree
                 : null;
 
         private static IEnumerable<Node> Nodes(IEnumerable of) =>
-            from object x in of select Node.Of(x);
+            from object x in of select x.Tree();
         
         private CollectionNode(Type type, object value, IEnumerable<Node> children = null) : base(type, value, children) { }
     }
