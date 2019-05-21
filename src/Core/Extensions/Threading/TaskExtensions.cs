@@ -73,5 +73,7 @@ namespace Pocket.Common
 
         public static Task<T> Or<T>(this Task<T> self, T @default) =>
             self.ContinueWith(x => x.IsFaulted ? @default : x.Result);
+        public static Task<T[]> OrEmpty<T>(this Task<T[]> self) =>
+            self.Or(Array.Empty<T>());
     }
 }
