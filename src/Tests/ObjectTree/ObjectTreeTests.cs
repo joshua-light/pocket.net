@@ -38,7 +38,18 @@ namespace Pocket.Common.Tests.ObjectTree
                 Enum.Value.Tree().Type.ShouldBe(typeof(Enum));
             [Fact] public void Value_ShouldBeInt() =>
                 Enum.Value.Tree().Value.ShouldBe(Enum.Value);
-            
+        }
+        
+        public class StringObjectNode
+        {
+            private const string String = "";
+
+            [Fact] public void TypeOfNode_ShouldBePrimitiveNode() =>
+                String.Tree().ShouldBeOfType<PrimitiveNode>();
+            [Fact] public void Type_ShouldBeEnum() =>
+                String.Tree().Type.ShouldBe(typeof(string));
+            [Fact] public void Value_ShouldBeInt() =>
+                String.Tree().Value.ShouldBe(String);
         }
     }
 }
