@@ -89,8 +89,6 @@ namespace Pocket.Common
             return true;
         }
 
-        #region Without
-
         public struct WithoutExpression
         {
             private readonly string _source;
@@ -110,9 +108,15 @@ namespace Pocket.Common
                 _source.Replace(_part, "");
         }
 
-        public static WithoutExpression Without(this string self, string part) =>
-                  new WithoutExpression(self, part);
+        public static string WithoutPrefix(this string self, string prefix) =>
+            self.StartsWith(prefix) ? self.Substring(self.Length) : self;
+        
+        public static string WithoutSuffix(this string self, string suffix) =>
+            self.EndsWith(suffix) ? self.Remove(self.Length - suffix.Length) : self;
 
+        public static string Without(this string self, string part) =>
+            self.Replace(part, "");
+        
         public static string Without(this string self, int charAt) => self.Without(charAt, new char[self.Length - 1]);
         public static string Without(this string self, int charAt, char[] @using)
         {
@@ -129,8 +133,6 @@ namespace Pocket.Common
 
             return new string(@using, 0, self.Length - 1);
         }
-
-        #endregion
         
         public static string AllAfter(this string self, string part)
         {

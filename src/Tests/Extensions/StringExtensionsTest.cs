@@ -51,35 +51,33 @@ namespace Pocket.Common.Tests.Extensions
         #region Without
 
         [Theory]
-        [InlineData("Test", "t", "Tes")]
-        [InlineData("Test", "st", "Te")]
-        [InlineData("Test", "est", "T")]
-        [InlineData("Test", "Test", "")]
-        
-        [InlineData("Test", "te", "Test")]
-        [InlineData("Test", "123", "Test")]
-        [InlineData("Test", "fasd", "Test")]
-        public void WithoutPartAtEnd_ShouldWorkCorrectly(string source, string part, string expected) =>
-            source.Without(part).AtEnd.ShouldBe(expected);
-        
-        [Theory]
         [InlineData("Test", "T", "est")]
         [InlineData("Test", "Te", "st")]
         [InlineData("Test", "Tes", "t")]
         [InlineData("Test", "Test", "")]
-        
         [InlineData("Test", "te", "Test")]
         [InlineData("Test", "123", "Test")]
         [InlineData("Test", "fasd", "Test")]
-        public void WithoutPartAtStart_ShouldWorkCorrectly(string source, string part, string expected) =>
-            source.Without(part).AtStart.ShouldBe(expected);
+        public void WithoutPrefix_ShouldRemoveStartOfString(string source, string part, string expected) =>
+             source.WithoutPrefix(part).ShouldBe(expected);
 
+        [Theory]
+        [InlineData("Test", "t", "Tes")]
+        [InlineData("Test", "st", "Te")]
+        [InlineData("Test", "est", "T")]
+        [InlineData("Test", "Test", "")]
+        [InlineData("Test", "te", "Test")]
+        [InlineData("Test", "123", "Test")]
+        [InlineData("Test", "fasd", "Test")]
+        public void WithoutSuffix_ShouldRemoveStartOfString(string source, string part, string expected) =>
+             source.WithoutSuffix(part).ShouldBe(expected);
+        
         [Theory]
         [InlineData("Test", "es", "Tt")]
         [InlineData("TestTest", "es", "TtTt")]
         [InlineData("TestTest", "Test", "")]
-        public void WithoutAnywhere_ShouldReplacePartWithEmptyString(string source, string part, string expected) =>
-            source.Without(part).Anywhere.ShouldBe(expected);
+        public void Without_ShouldReplacePartWithEmptyString(string source, string part, string expected) =>
+             source.Without(part).ShouldBe(expected);
 
         [Theory]
         [InlineData("Test", 0, "est")]
@@ -87,7 +85,7 @@ namespace Pocket.Common.Tests.Extensions
         [InlineData("Test", 2, "Tet")]
         [InlineData("Test", 3, "Tes")]
         public void WithoutCharAt_ShouldRemoveCharacterAtSpecifiedPosition(string source, int index, string expected) =>
-            source.Without(charAt: index).ShouldBe(expected);
+             source.Without(charAt: index).ShouldBe(expected);
 
         [Theory]
         [InlineData("Test", 0, "est")]

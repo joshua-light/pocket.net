@@ -221,7 +221,7 @@ namespace Pocket.Common
 
         private static string Attribute(CustomAttributeData attribute)
         {
-            var name = attribute.AttributeType.PrettyName().Without("Attribute").AtEnd;
+            var name = attribute.AttributeType.PrettyName().WithoutSuffix("Attribute");
             var namedArguments = attribute.NamedArguments;
             var ctorArguments = attribute.ConstructorArguments;
             if (ctorArguments.IsEmpty() && namedArguments.IsEmpty())
