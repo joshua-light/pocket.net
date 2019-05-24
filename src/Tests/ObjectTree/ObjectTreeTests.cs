@@ -10,9 +10,6 @@ namespace Pocket.Common.Tests.ObjectTree
 {
     public class ObjectTreeTests
     {
-        [Fact] public void Null_ShouldBeNullNode() =>
-            Value<string>(of: null).ShouldBeConvertedTo<NullNode>();
-        
         [Fact] public void DefaultObject_ShouldBeEmptyNode() =>
             Value(of: new object()).ShouldBeConvertedTo<EmptyNode>();
 
