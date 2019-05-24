@@ -31,11 +31,11 @@ namespace Pocket.Common.Tests.ObjectTree
         public void CollectionValuesChildren_ShouldMatchCollections(object x) =>
             Children(of: x).Select(y => y.Value).ShouldBe(x);
         
-        private static ValueOf Value(object of) =>
-                   new ValueOf(of.GetType(), of);
-
         private static IEnumerable<Node> Children(object of) =>
             of.Tree().Children;
+        
+        private static ValueOf Value(object of) =>
+                   new ValueOf(of.GetType(), of);
         
         private class ValueOf
         {
