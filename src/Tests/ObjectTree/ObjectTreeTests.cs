@@ -10,6 +10,9 @@ namespace Pocket.Common.Tests.ObjectTree
 {
     public class ObjectTreeTests
     {
+        [Fact] public void Null_ShouldBeNullNode() =>
+            Value<string>(of: null).ShouldBeConvertedTo<NullNode>();
+        
         [Fact] public void DefaultObject_ShouldBeEmptyNode() =>
             Value(of: new object()).ShouldBeConvertedTo<EmptyNode>();
 
@@ -28,12 +31,15 @@ namespace Pocket.Common.Tests.ObjectTree
 
         [Theory]
         [InlineData(new [] { 1, 2, 3 })]
+        [InlineData(new int[0])]
         public void CollectionValuesChildren_ShouldMatchCollections(object x) =>
             Children(of: x).Select(y => y.Value).ShouldBe(x);
         
         private static IEnumerable<Node> Children(object of) =>
             of.Tree().Children;
         
+        private static ValueOf Value<T>(object of) =>
+                   new ValueOf(typeof(T), of);
         private static ValueOf Value(object of) =>
                    new ValueOf(of.GetType(), of);
         
@@ -50,9 +56,9 @@ namespace Pocket.Common.Tests.ObjectTree
 
             public void ShouldBeConvertedTo<TNode>() where TNode : Node
             {
-                _value.Tree().ShouldBeOfType<TNode>();
-                _value.Tree().Type.ShouldBe(_type);
-                _value.Tree().Value.ShouldBe(_value);
+                _value.Tree(of :_type).ShouldBeOfType<TNode>();
+                _value.Tree(of :_type).Type.ShouldBe(_type);
+                _value.Tree(of: _type).Value.ShouldBe(_value);
             }
         }
     }
