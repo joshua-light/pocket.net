@@ -18,12 +18,12 @@ namespace Pocket.Common.Tests.ObjectTree
         [InlineData(10.0)]
         [InlineData("Hello")]
         [InlineData(BindingFlags.Default)]
-        public void PrimitiveValues_ShouldBePrimitiveNode(object x) =>
+        public void PrimitiveValues_ShouldBePrimitiveNodes(object x) =>
             Value(of: x).ShouldBeConvertedTo<PrimitiveNode>();
 
         [Theory]
         [InlineData(new [] { 1, 2, 3 })]
-        public void CollectionValues_ShouldBeCollectionNode(object x) =>
+        public void CollectionValues_ShouldBeCollectionNodes(object x) =>
             Value(of: x).ShouldBeConvertedTo<CollectionNode>();
 
         [Theory]
