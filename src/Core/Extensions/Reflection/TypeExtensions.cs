@@ -315,10 +315,10 @@ namespace Pocket.Common
         ///     Gets all (static and instance) public properties of specified type bounded to specified object.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <param name="of">Object of type <paramref name="self"/> that holds fields values.</param>
         /// <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
-        public static BoundedPropertyInfo[] Properties(this Type self, object obj) =>
-            self.Properties().Select(x => new BoundedPropertyInfo(obj, x)).ToArray();
+        public static BoundedPropertyInfo[] Properties(this Type self, object of) =>
+            self.Properties().Select(x => new BoundedPropertyInfo(of, x)).ToArray();
         
         /// <summary>
         ///     Gets properties configured by <see cref="BindingSpecification"/> of specified type bounded to specified object.
