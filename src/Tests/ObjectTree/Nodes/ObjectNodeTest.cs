@@ -30,6 +30,15 @@ namespace Pocket.Common.Tests.ObjectTree.Nodes
                 .Do(x => x.Children.ToArray()[4].Value.ShouldBe(5))
                 .Do(x => x.Children.ToArray()[5].Value.ShouldBe(6));
         
+        [Fact] public void Children_ShouldBeFieldAndPropertyNodes() =>
+            Node<Type>(of: new Type())
+                .Do(x => x.Children.ToArray()[0].ShouldBeOfType<FieldNode>())
+                .Do(x => x.Children.ToArray()[1].ShouldBeOfType<FieldNode>())
+                .Do(x => x.Children.ToArray()[2].ShouldBeOfType<FieldNode>())
+                .Do(x => x.Children.ToArray()[3].ShouldBeOfType<PropertyNode>())
+                .Do(x => x.Children.ToArray()[4].ShouldBeOfType<PropertyNode>())
+                .Do(x => x.Children.ToArray()[5].ShouldBeOfType<PropertyNode>());
+        
         private static Node Node<T>(object of) =>
             ObjectNode.Of(typeof(T), of);
     }

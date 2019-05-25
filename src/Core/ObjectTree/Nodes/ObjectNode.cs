@@ -12,10 +12,10 @@ namespace Pocket.Common.ObjectTree
             var fields = type
                 .Fields(of: value, that: _ => _.AllInstance())
                 .Where(x => !x.Info.Has<CompilerGeneratedAttribute>())
-                .Select(x => Node.Of(x.Info.FieldType, x.Value));
+                .Select(x => (Node) new FieldNode(x.Info, x.Value));
             var properties = type
                 .Properties(of: value, that: _ => _.AllInstance())
-                .Select(x => Node.Of(x.Info.PropertyType, x.Value));
+                .Select(x => (Node) new PropertyNode(x.Info, x.Value));
             
             return new ObjectNode(type, value, fields.Concat(properties).ToList());
         }
