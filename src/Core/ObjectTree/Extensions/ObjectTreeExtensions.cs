@@ -14,5 +14,29 @@ namespace Pocket.Common.ObjectTree
 
             return Node.Of(self.GetType(), self);
         }
+
+        public static string AsText(this Node self)
+        {
+            var code = new Code();
+
+            Node(self);
+            
+            return code.ToString();
+            
+            void Node(Node node)
+            {
+                switch (node)
+                {
+                    case PrimitiveNode x: Primitive(x); break;
+                }
+            }
+
+            void Primitive(PrimitiveNode x) => Text(x.Value);
+
+            Code.Scope Indent() =>
+                code.Indent(size: 4);
+            void Text(object value) =>
+                code.Text(value?.ToString() ?? "null");
+        }
     }
 }
