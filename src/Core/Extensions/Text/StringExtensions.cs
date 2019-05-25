@@ -90,7 +90,7 @@ namespace Pocket.Common
         }
 
         public static string WithoutPrefix(this string self, string prefix) =>
-            self.StartsWith(prefix) ? self.Substring(self.Length) : self;
+            self.StartsWith(prefix) ? self.Substring(prefix.Length) : self;
         
         public static string WithoutSuffix(this string self, string suffix) =>
             self.EndsWith(suffix) ? self.Remove(self.Length - suffix.Length) : self;
