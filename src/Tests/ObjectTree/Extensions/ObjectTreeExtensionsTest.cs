@@ -12,6 +12,11 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
             public int X = 1;
             public int Y = 2;
         }
+
+        private class WithNested
+        {
+            public Simple Simple = new Simple();
+        }
         
         [Fact] public void NodeOf_Null_ShouldBePrintedAs_Null() =>
             Node<string>(of: null).AsText().ShouldBe("null");
@@ -31,6 +36,12 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
             Node(of: new Simple()).AsText().ShouldBe(
                 "X: 1\r\n" +
                 "Y: 2");
+
+        [Fact] public void NodeOf_WithNestedObject_ShouldBePrintedWithIndent() =>
+            Node(of: new WithNested()).AsText().ShouldBe(
+                "Simple:\r\n" +
+                "    X: 1\r\n" +
+                "    Y: 2");
         
         private static Node Node<T>(T of) => of.Tree(typeof(T));
     }

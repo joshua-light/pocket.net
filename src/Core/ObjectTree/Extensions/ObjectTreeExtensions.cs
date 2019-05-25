@@ -59,22 +59,24 @@ namespace Pocket.Common.ObjectTree
 
             void Field(FieldNode x, bool isLast = false)
             {
-                Text($"{x.Info.Name}: ");
+                Text($"{x.Info.Name}:");
+                Text(" ", when: x.Inner.GetType() != typeof(ObjectNode));
                 Node(x.Inner);
                 Line(when: !isLast);
             }
 
             void Property(PropertyNode x, bool isLast = false)
             {
-                Text($"{x.Info.Name}: ");
+                Text($"{x.Info.Name}:");
+                Text(" ", when: x.Inner.GetType() != typeof(ObjectNode));
                 Node(x.Inner);
                 Line(when: !isLast);
             }
             
             Code.Scope Indent(int size) =>
                 code.Indent(size);
-            void Text(object value) =>
-                code.Text(value?.ToString() ?? "null");
+            void Text(object value, bool when = true) =>
+                code.Text(value?.ToString() ?? "null", when);
             void Line(bool when = true) =>
                 code.NewLine(when);
         }
