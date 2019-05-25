@@ -94,8 +94,8 @@ namespace Pocket.Common
         
         public struct BoundedFieldInfo
         {
-            public readonly object _this;
-            public readonly FieldInfo _field;
+            private readonly object _this;
+            private readonly FieldInfo _field;
 
             public BoundedFieldInfo(object @this, FieldInfo field)
             {
@@ -105,6 +105,9 @@ namespace Pocket.Common
 
             public FieldInfo Info =>
                 _field;
+
+            public object Value =>
+                _field.GetValue(_this);
 
             public T As<T>() => (T)
                 _field.GetValue(_this);
@@ -127,6 +130,9 @@ namespace Pocket.Common
             public PropertyInfo Info =>
                 _property;
 
+            public object Value =>
+                _property.GetValue(_this);
+            
             public T As<T>() => (T)
                 _property.GetValue(_this);
 
@@ -264,10 +270,19 @@ namespace Pocket.Common
         ///     Gets all (static and instance) public fields of specified type bounded to specified object.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <param name="of">Object of type <paramref name="self"/> that holds fields values.</param>
         /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
-        public static BoundedFieldInfo[] Fields(this Type self, object obj) =>
-            self.Fields().Select(x => new BoundedFieldInfo(obj, x)).ToArray();
+        public static BoundedFieldInfo[] Fields(this Type self, object of) =>
+            self.Fields().Select(x => new BoundedFieldInfo(of, x)).ToArray();
+        
+        /// <summary>
+        ///     Gets fields configured by <see cref="BindingSpecification"/> of specified type bounded to specified object.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="of">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
+        public static BoundedFieldInfo[] Fields(this Type self, object of, Func<BindingSpecification, BindingSpecification> that) =>
+            self.Fields(that).Select(x => new BoundedFieldInfo(of, x)).ToArray();
     
         /// <summary>
         ///     Gets all (public and nonpublic) instance fields of specified type that are marked with <typeparamref name="T"/> attribute.
@@ -291,10 +306,10 @@ namespace Pocket.Common
         ///     Gets properties configured by <see cref="BindingSpecification"/> of specified type.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="specify">Function that configures <see cref="BindingSpecification"/> object.</param>
+        /// <param name="that">Function that configures <see cref="BindingSpecification"/> object.</param>
         /// <returns>Properties of <paramref name="self"/> type.</returns>
-        public static PropertyInfo[] Properties(this Type self, Func<BindingSpecification, BindingSpecification> specify) =>
-            self.GetProperties(specify(new BindingSpecification()));
+        public static PropertyInfo[] Properties(this Type self, Func<BindingSpecification, BindingSpecification> that) =>
+            self.GetProperties(that(new BindingSpecification()));
         
         /// <summary>
         ///     Gets all (static and instance) public properties of specified type bounded to specified object.
@@ -304,6 +319,15 @@ namespace Pocket.Common
         /// <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
         public static BoundedPropertyInfo[] Properties(this Type self, object obj) =>
             self.Properties().Select(x => new BoundedPropertyInfo(obj, x)).ToArray();
+        
+        /// <summary>
+        ///     Gets properties configured by <see cref="BindingSpecification"/> of specified type bounded to specified object.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+        /// <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
+        public static BoundedPropertyInfo[] Properties(this Type self, object of, Func<BindingSpecification, BindingSpecification> that) =>
+            self.Properties(that).Select(x => new BoundedPropertyInfo(of, x)).ToArray();
         
         /// <summary>
         ///     Gets all (public and nonpublic) instance properties of specified type that are marked with <typeparamref name="T"/> attribute.
