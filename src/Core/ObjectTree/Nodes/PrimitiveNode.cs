@@ -7,7 +7,8 @@ namespace Pocket.Common.ObjectTree
         internal static Node Of(Type type, object value) =>
             type.IsPrimitive ||
             type.IsEnum ||
-            type.Is<string>()
+            type.Is<string>() ||
+            type.IsTuple()
                 ? new PrimitiveNode(type, value)
                 : null;
         

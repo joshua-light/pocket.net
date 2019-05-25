@@ -151,6 +151,16 @@ namespace Pocket.Common
             return typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
+        public static bool IsTuple(this Type self) =>
+            self.Is(typeof(ValueTuple<>)) ||
+            self.Is(typeof(ValueTuple<,>)) ||
+            self.Is(typeof(ValueTuple<,,>)) ||
+            self.Is(typeof(ValueTuple<,,,>)) ||
+            self.Is(typeof(ValueTuple<,,,,>)) ||
+            self.Is(typeof(ValueTuple<,,,,,>)) ||
+            self.Is(typeof(ValueTuple<,,,,,,>)) ||
+            self.Is(typeof(ValueTuple<,,,,,,,>));
+        
         public static bool Is<T>(this Type self) => self.Is(typeof(T));
 
         /// <summary>
