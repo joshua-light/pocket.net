@@ -21,6 +21,8 @@ namespace Pocket.Common
       _newLine = true;
     }
 
+    public bool IsEmpty => _text.IsEmpty;
+
     public IText With(string text) => _text
       .With(Blank(ofSize: _indent), when: Is(ref _newLine))
       .With(text);

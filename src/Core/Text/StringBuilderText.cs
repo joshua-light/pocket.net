@@ -13,6 +13,8 @@ namespace Pocket.Common
     public override string ToString() =>
       _sb.ToString();
 
+    public bool IsEmpty => _sb.Length == 0;
+
     public IText With(string text) =>
       With(_sb.Append(text));
             

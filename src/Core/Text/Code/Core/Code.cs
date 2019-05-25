@@ -34,6 +34,9 @@ namespace Pocket.Common
         
         private IText _text = new StringBuilderText();
 
+        public bool IsEmpty =>
+            _text.IsEmpty;
+
         public override string ToString() =>
             _text.ToString();
 
