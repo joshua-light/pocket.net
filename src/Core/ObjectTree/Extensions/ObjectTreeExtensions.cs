@@ -28,20 +28,21 @@ namespace Pocket.Common.ObjectTree
             {
                 switch (node)
                 {
-                    case PrimitiveNode x: Primitive(x); break;
-                    case CollectionNode x: Collection(x); break;
                     case ObjectNode x: Object(x); break;
+                    case CollectionNode x: Collection(x); break;
+                    case PrimitiveNode x: Primitive(x); break;
+                    case NullNode x: Null(x); break;
                 }
             }
 
-            void Primitive(PrimitiveNode x) =>
-                Text(x.Value);
-
-            void Collection(CollectionNode x) =>
-                Text($"[ {x.Children.Select(AsText).Separated(with: ", ")} ]");
-
             void Object(ObjectNode x)
             {
+                if (x.Value == null)
+                {
+                    Text("null");
+                    return;
+                }
+                
                 var children = x.Children.ToList();
                 
                 Line(when: !code.IsEmpty);
@@ -56,7 +57,7 @@ namespace Pocket.Common.ObjectTree
                         .ForEach(y => Property(y, y == children.Last()));
                 }
             }
-
+            
             void Field(FieldNode x, bool isLast = false)
             {
                 Text($"{x.Info.Name}:");
@@ -72,6 +73,15 @@ namespace Pocket.Common.ObjectTree
                 Node(x.Inner);
                 Line(when: !isLast);
             }
+            
+            void Collection(CollectionNode x) =>
+                Text($"[ {x.Children.Select(AsText).Separated(with: ", ")} ]");
+            
+            void Primitive(PrimitiveNode x) =>
+                Text(x.Value);
+            
+            void Null(NullNode x) =>
+                Text("null");
             
             Code.Scope Indent(int size) =>
                 code.Indent(size);

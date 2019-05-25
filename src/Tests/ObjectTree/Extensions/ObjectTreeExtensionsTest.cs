@@ -18,6 +18,11 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
             public Simple Simple = new Simple();
         }
         
+        private class WithNull
+        {
+            public Simple Null;
+        }
+        
         [Fact] public void NodeOf_Null_ShouldBePrintedAs_Null() =>
             Node<string>(of: null).AsText().ShouldBe("null");
         [Fact] public void NodeOf_1_ShouldBePrintedAs_1() =>
@@ -42,6 +47,10 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
                 "Simple:\r\n" +
                 "    X: 1\r\n" +
                 "    Y: 2");
+
+        [Fact] public void NodeOf_ObjectWithNull_ShouldPrintFieldWithNameAndNullValue() =>
+            Node(of: new WithNull()).AsText().ShouldBe(
+                "Null: null");
         
         private static Node Node<T>(T of) => of.Tree(typeof(T));
     }
