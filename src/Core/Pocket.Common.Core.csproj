@@ -14,4 +14,7 @@
     <Folder Include="Flows" />
     <Folder Include="Time" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0-preview5.19224.8" />
+  </ItemGroup>
 </Project>

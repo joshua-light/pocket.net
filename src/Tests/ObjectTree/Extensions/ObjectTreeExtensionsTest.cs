@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Pocket.Common.ObjectTree;
 using Shouldly;
 using Xunit;
+using static System.Environment;
 
 namespace Pocket.Common.Tests.ObjectTree.Extensions
 {
@@ -39,13 +40,13 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
 
         [Fact] public void NodeOf_SimpleObject_ShouldBePrintedWithFieldNames() =>
             Node(of: new Simple()).AsText().ShouldBe(
-                "X: 1\r\n" +
+                "X: 1" + NewLine +
                 "Y: 2");
 
         [Fact] public void NodeOf_WithNestedObject_ShouldBePrintedWithIndent() =>
             Node(of: new WithNested()).AsText().ShouldBe(
-                "Simple:\r\n" +
-                "    X: 1\r\n" +
+                "Simple:" + NewLine +
+                "    X: 1" + NewLine +
                 "    Y: 2");
 
         [Fact] public void NodeOf_ObjectWithNull_ShouldPrintFieldWithNameAndNullValue() =>
