@@ -4,15 +4,11 @@
     <RootNamespace>Pocket.Common</RootNamespace>
     <LangVersion>7.3</LangVersion>
     <DebugType>pdbonly</DebugType>
-    <TargetFrameworks>netcoreapp2.0;net461;net471</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Flows" />
