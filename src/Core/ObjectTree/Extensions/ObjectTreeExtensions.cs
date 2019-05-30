@@ -80,6 +80,7 @@ namespace Pocket.Common.ObjectTree
                     Text($"[]");
                 else if (x.Children.First() is ObjectNode)
                 {
+                    Line(when: !code.IsEmpty);
                     Text("---");
                     foreach (var child in x.Children.OfType<ObjectNode>())
                     {
