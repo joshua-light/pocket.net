@@ -73,9 +73,24 @@ namespace Pocket.Common.ObjectTree
                 Node(x.Inner);
                 Line(when: !isLast);
             }
-            
-            void Collection(CollectionNode x) =>
-                Text($"[ {x.Children.Select(AsText).Separated(with: ", ")} ]");
+
+            void Collection(CollectionNode x)
+            {
+                if (x.Children.IsEmpty())
+                    Text($"[]");
+                else if (x.Children.First() is ObjectNode)
+                {
+                    Text("---");
+                    foreach (var child in x.Children.OfType<ObjectNode>())
+                    {
+                        Object(child);
+                        Line(when: child != x.Children.Last());
+                        Text("---");
+                    }
+                }
+                else
+                    Text($"[ {x.Children.Select(AsText).Separated(with: ", ")} ]");
+            }
             
             void Primitive(PrimitiveNode x) =>
                 Text(x.Value);

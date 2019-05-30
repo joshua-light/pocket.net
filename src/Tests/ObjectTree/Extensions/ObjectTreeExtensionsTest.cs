@@ -37,6 +37,17 @@ namespace Pocket.Common.Tests.ObjectTree.Extensions
         [Fact] public void NodeOf_List_ShouldBePrintedAsValuesWithSquareBrackets() =>
             Node(of: new List<int> { 1, 2, 3, 4, 5 })
                .AsText().ShouldBe("[ 1, 2, 3, 4, 5 ]");
+        
+        [Fact] public void NodeOf_List_ShouldBePrintedAsObjectsWithSquareBrackets_IfElementsAreObjects() =>
+            Node(of: new List<Simple> { new Simple(), new Simple() })
+               .AsText().ShouldBe(
+                   "---" + NewLine + 
+                   "    X: 1" + NewLine +
+                   "    Y: 2" + NewLine +
+                   "---" + NewLine + 
+                   "    X: 1" + NewLine +
+                   "    Y: 2" + NewLine +
+                   "---");
 
         [Fact] public void NodeOf_SimpleObject_ShouldBePrintedWithFieldNames() =>
             Node(of: new Simple()).AsText().ShouldBe(
