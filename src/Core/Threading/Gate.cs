@@ -17,10 +17,8 @@ namespace Pocket.Common
         ///     Initializes new instance of <see cref="Gate"/>.
         /// </summary>
         /// <param name="opened">Initial gate state.</param>
-        public Gate(bool opened = true)
-        {
+        public Gate(bool opened = true) =>
             _event = new ManualResetEvent(opened);
-        }
 
         /// <summary>
         ///     Determines whether gate is opened.
