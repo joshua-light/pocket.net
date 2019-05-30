@@ -8,7 +8,14 @@ namespace Pocket.Common
     /// </summary>
     public class Gate
     {
+        /// <summary>
+        ///     Creates new instance of <see cref="Gate"/> that is opened.
+        /// </summary>
         public static Gate Opened => new Gate(opened: true);
+        
+        /// <summary>
+        ///     Creates new instance of <see cref="Gate"/> that is closed.
+        /// </summary>
         public static Gate Closed => new Gate(opened: false);
         
         private readonly ManualResetEvent _event;
