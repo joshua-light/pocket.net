@@ -23,21 +23,16 @@ namespace Pocket.Common
         /// </summary>
         /// <typeparam name="T">Type of element in <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="onEach">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="do">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
         /// <returns>Source <see cref="IEnumerable{T}"/>.</returns>
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        public static IEnumerable<T> Each<T>(this IEnumerable<T> self, Action<T> onEach)
+        public static IEnumerable<T> Each<T>(this IEnumerable<T> self, Action<T> @do)
         {
             Ensure(self).NotNull();
 
-            return EachIterator(self, onEach);
-        }
-
-        private static IEnumerable<T> EachIterator<T>(IEnumerable<T> source, Action<T> onEach)
-        {
-            foreach (var item in source)
+            foreach (var item in self)
             {
-                onEach(item);
+                @do(item);
                 yield return item;
             }
         }
@@ -47,14 +42,14 @@ namespace Pocket.Common
         /// </summary>
         /// <typeparam name="T">Type of element in <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="self"><code>this</code> object.</param>
-        /// <param name="onEach">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="do">Action, that will be performed on each element of <see cref="IEnumerable{T}"/>.</param>
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        public static void ForEach<T>(this IEnumerable<T> self, Action<T> onEach)
+        public static void ForEach<T>(this IEnumerable<T> self, Action<T> @do)
         {
             Ensure(self).NotNull();
 
             foreach (var item in self)
-                onEach(item);
+                @do(item);
         }
 
         /// <summary>
