@@ -173,6 +173,13 @@ namespace Pocket.Common
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
             self.Distinct(new FuncAsEqualityComparer<T>(comparer));
 
+        /// <summary>
+        ///     Returns the first element of the sequence that satisfies a condition of <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="self"><code>this</code> object.</param>
+        /// <param name="predicate">A function that represents a condition, which will be applied to elements of sequence.</param>
+        /// <typeparam name="T">Type of elements in sequence.</typeparam>
+        /// <returns>First element of the sequence that satisfies a condition.</returns>
         public static T One<T>(this IEnumerable<T> self, Func<T, bool> predicate) =>
             self.FirstOrDefault(predicate);
 
