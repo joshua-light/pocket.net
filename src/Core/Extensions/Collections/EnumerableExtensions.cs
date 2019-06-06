@@ -30,10 +30,15 @@ namespace Pocket.Common
         {
             Ensure(self).NotNull();
 
-            foreach (var item in self)
+            return Iterator();
+            
+            IEnumerable<T> Iterator()
             {
-                @do(item);
-                yield return item;
+                foreach (var item in self)
+                {
+                    @do(item);
+                    yield return item;
+                }
             }
         }
 
