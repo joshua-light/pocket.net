@@ -10,7 +10,7 @@ namespace Pocket.Common.Flows
 
         public FilteredCollectionFlow(ICollectionFlow<T> source, Func<T, bool> predicate)
         {
-            _source = new List<T>(source.Current.Where(predicate));
+            _source = source.Current.Where(predicate).ToList();
 
             Added = source.Added.Where(predicate);
             Removed = source.Removed.Where(predicate);
