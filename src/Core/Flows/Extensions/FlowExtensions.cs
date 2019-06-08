@@ -33,8 +33,8 @@ namespace Pocket.Common.Flows
         public static IFlow<T> Where<T>(this IFlow<T> self, Func<T, bool> predicate) =>
             new FilteredFlow<T>(self, predicate);
 
-        public static IFlow<T> DispatchedWith<T>(this IFlow<T> self, Action<Action> dispatcher) =>
-            new DispatchedFlow<T>(self, dispatcher);
+        public static IFlow<T> Dispatched<T>(this IFlow<T> self, Action<Action> by) =>
+            new DispatchedFlow<T>(self, by);
 
         public static IFlow<IEnumerable<T>> Buffered<T>(this IFlow<T> self, IVoidFlow buffer) =>
             new BufferedFlow<T>(self, buffer);

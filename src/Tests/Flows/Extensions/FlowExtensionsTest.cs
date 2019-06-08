@@ -32,7 +32,7 @@ namespace Pocket.Common.Tests.Flows.Extensions
         public void DispatchedWith_ShouldReturnDispatchedFlow()
         {    
             var source = Substitute.For<IFlow<int>>();
-            var flow = source.DispatchedWith(Substitute.For<Action<Action>>());
+            var flow = source.Dispatched(Substitute.For<Action<Action>>());
 
             Assert.IsType<DispatchedFlow<int>>(flow);
         }

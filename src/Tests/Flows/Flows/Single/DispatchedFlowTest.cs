@@ -39,7 +39,7 @@ namespace Pocket.Common.Tests.Flows.Flows.Single
         {
             var action = Substitute.For<Action<int>>();
             var flux = new PureFlux<int>();
-            var flow = flux.DispatchedWith(x => x());
+            var flow = flux.Dispatched(x => x());
 
             flow.OnNext(action);
             for (var i = 0; i < 10; i++)

@@ -11,8 +11,8 @@ namespace Pocket.Common.Flows
         {
             _inner = inner;
 
-            Added = inner.Added.DispatchedWith(dispatcher);
-            Removed = inner.Removed.DispatchedWith(dispatcher);
+            Added = inner.Added.Dispatched(by: dispatcher);
+            Removed = inner.Removed.Dispatched(by: dispatcher);
         }
 
         public IEnumerable<T> Current => _inner.Current;
