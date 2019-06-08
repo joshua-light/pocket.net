@@ -31,9 +31,9 @@ namespace Pocket.Common
         public static Result Ok() => new Result(true);
         
         /// <summary>
-        ///     Creates succeded result using specified value.
+        ///     Creates succeeded result using specified value.
         /// </summary>
-        /// <param name="value">Value that succeded result will contain.</param>
+        /// <param name="value">Value that succeeded result will contain.</param>
         /// <typeparam name="T">Type of value.</typeparam>
         /// <returns>Instance of <see cref="Result"/>.</returns>
         public static Result<T> Ok<T>(T value) => new Result<T>(value);
@@ -60,7 +60,7 @@ namespace Pocket.Common
         }
 
         /// <summary>
-        ///     Determines whether <see cref="Result"/> is succeded.
+        ///     Determines whether <see cref="Result"/> is succeeded.
         /// </summary>
         public bool IsOk { get; }
         
