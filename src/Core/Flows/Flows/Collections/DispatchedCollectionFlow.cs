@@ -5,22 +5,19 @@ namespace Pocket.Common.Flows
 {
     internal sealed class DispatchedCollectionFlow<T> : ICollectionFlow<T>
     {
-        private readonly ICollectionFlow<T> _collection;
+        private readonly ICollectionFlow<T> _inner;
 
-        private readonly IFlow<T> _added;
-        private readonly IFlow<T> _removed;
-
-        public DispatchedCollectionFlow(ICollectionFlow<T> collection, Action<Action> dispatcher)
+        public DispatchedCollectionFlow(ICollectionFlow<T> inner, Action<Action> dispatcher)
         {
-            _collection = collection;
+            _inner = inner;
 
-            _added = collection.Added.DispatchedWith(dispatcher);
-            _removed = collection.Removed.DispatchedWith(dispatcher);
+            Added = inner.Added.DispatchedWith(dispatcher);
+            Removed = inner.Removed.DispatchedWith(dispatcher);
         }
 
-        public IEnumerable<T> Current => _collection.Current;
+        public IEnumerable<T> Current => _inner.Current;
 
-        public IFlow<T> Added => _added;
-        public IFlow<T> Removed => _removed;
+        public IFlow<T> Added { get; }
+        public IFlow<T> Removed { get; }
     }
 }
