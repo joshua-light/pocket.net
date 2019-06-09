@@ -62,7 +62,7 @@ namespace Pocket.Common
         {
             Ensure(from).LessOrEqual(from);
 
-            When(Compared(_this, from) != 0, @throw: because);
+            When(Compared(_this, from) < 0 || Compared(_this, to) > 0, @throw: because);
         }
 
         private static bool Equals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
