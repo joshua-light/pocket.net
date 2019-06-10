@@ -6,13 +6,11 @@ namespace Pocket.Common
     {
         public static int DaysTo(this DayOfWeek self, DayOfWeek other)
         {
-            const int daysInWeek = 7;
-      
             var diff = other - self;
             if (diff >= 0)
                 return diff;
 
-            return daysInWeek + diff;
+            return 7 + diff;
         }
     }
 }

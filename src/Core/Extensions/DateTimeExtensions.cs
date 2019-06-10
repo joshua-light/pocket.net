@@ -7,10 +7,8 @@ namespace Pocket.Common
         public static DateTime StartOfWeek(this DateTime time) => time.StartOfWeek(whenFirstDayIs: DayOfWeek.Monday);
         public static DateTime StartOfWeek(this DateTime time, DayOfWeek whenFirstDayIs)
         {
-            const int daysInWeek = 7;
-            
-            var days =  daysInWeek - time.DayOfWeek.DaysTo(whenFirstDayIs);
-            if (days == daysInWeek)
+            var days =  7 - time.DayOfWeek.DaysTo(whenFirstDayIs);
+            if (days == 7)
                 return time.Date;
       
             return time.AddDays(-days).Date;
