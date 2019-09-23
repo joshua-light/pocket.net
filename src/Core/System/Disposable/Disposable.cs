@@ -16,5 +16,8 @@ namespace Pocket.Common
 
         public static IDisposable Of<T>(T x, Action<T> begin, Action<T> end) =>
             new CompactDisposable(() => begin(x), () => end(x));
+        
+        public static IDisposable With(this IDisposable self, IDisposable other) =>
+            new ComposedDisposable(self, other);
     }
 }
