@@ -63,5 +63,27 @@ namespace Pocket.Common.Tests.Flows.Fluxes.Collections
                 action.Received(1).Invoke(data);
             }
         }
+
+        public class VarianceTest
+        {
+            class Parent { }
+            class Child : Parent { }
+            
+            private readonly ICollectionFlux<Child> _collection = new PureCollectionFlux<Child>();
+
+            [Fact]
+            public void SubscribeOnAdded_OnCastedCollection_ShouldSubscribeCorrectly()
+            {
+                var action = Substitute.For<Action<Parent>>();
+
+                if (_collection is ICollectionFlow<Parent> flow)
+                {
+                    flow.Added.OnNext(action);
+                    _collection.Add(new Child());
+                }
+                
+                action.Received(1).Invoke(Arg.Any<Parent>());
+            }
+        }
     }
 }
