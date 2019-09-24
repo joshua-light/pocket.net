@@ -39,9 +39,9 @@ namespace Pocket.Common.Flows
             self.Change(by: +1.0f);
         public static void Decrement(this IFlux<float> self) =>
             self.Change(by: -1.0f);
-        public static void Increase(this IFlux<float> self, long by) =>
+        public static void Increase(this IFlux<float> self, float by) =>
             self.Change(by);
-        public static void Decrease(this IFlux<float> self, long by) =>
+        public static void Decrease(this IFlux<float> self, float by) =>
             self.Change(-by);
         public static void Change(this IFlux<float> self, float by) =>
             self.Pulse(self.Current + by);
@@ -50,9 +50,9 @@ namespace Pocket.Common.Flows
             self.Change(by: +1.0);
         public static void Decrement(this IFlux<double> self) =>
             self.Change(by: -1.0);
-        public static void Increase(this IFlux<double> self, long by) =>
+        public static void Increase(this IFlux<double> self, double by) =>
             self.Change(by);
-        public static void Decrease(this IFlux<double> self, long by) =>
+        public static void Decrease(this IFlux<double> self, double by) =>
             self.Change(-by);
         public static void Change(this IFlux<double> self, double by) =>
             self.Pulse(self.Current + by);
