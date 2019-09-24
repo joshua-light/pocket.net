@@ -4,10 +4,14 @@ namespace Pocket.Common.Flows
 {
     public static class FluxExtensions
     {
-        public static IFlux<T> Flux<T>(this T self) => new PureFlux<T>(self);
+        public static IFlux<T> Flux<T>(this T self) =>
+            new PureFlux<T>(self);
         
         public static IFlux<T> Distinct<T>(this IFlux<T> self) where T : IEquatable<T> =>
             new DistinctFlux<T>(self);
+        
+        public static void Pulse<T>(this IFlux<T> self, IFlow<T> from) =>
+            from.PulsedOnNext(self.Pulse);
 
         public static void Increment(this IFlux<int> self) =>
             self.Change(by: +1);
