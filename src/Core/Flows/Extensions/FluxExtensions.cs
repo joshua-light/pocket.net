@@ -12,7 +12,7 @@ namespace Pocket.Common.Flows
         
         public static void Pulse<T>(this IFlux<T> self, IFlow<T> from) =>
             from.PulsedOnNext(self.Pulse);
-
+        
         public static void Increment(this IFlux<int> self) =>
             self.Change(by: +1);
         public static void Decrement(this IFlux<int> self) =>
@@ -56,5 +56,8 @@ namespace Pocket.Common.Flows
             self.Change(-by);
         public static void Change(this IFlux<double> self, double by) =>
             self.Pulse(self.Current + by);
+        
+        public static void Clear(this IFlux<string> self) =>
+            self.Pulse("");
     }
 }
