@@ -17,7 +17,7 @@ var x = new Dictionary<string, string>
     { "Hermann": "Hesse" },
     { "Oscar": "Wilde" },
     { "Vladimir": "Nabokov" }
-}
+};
 
 var a = x.One(withKey: "Thomas").OrThrow(withMessage: "Couldn't find `Thomas`.");
 // `KeyNotFoundException` is thrown.
