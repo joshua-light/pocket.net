@@ -26,13 +26,14 @@ var b = x.One(withKey: "Thomas").OrDefault();
 Console.WriteLine(b ?? "null"); // Prints `null`.
 
 var c = x.One(withKey: "Thomas").Or("");
-var c = x.One(withKey: "Thomas").Or(() => "");
+var d = x.One(withKey: "Thomas").Or(() => "");
 Console.WriteLine(c); // Prints `""`.
+Console.WriteLine(d); // Prints `""`.
 
-var d = x.One(withKey: "Thomas").OrNew("Mann");
-var e = x["Thomas"];
-Console.WriteLine(d); // Prints `"Mann"`.
+var e = x.One(withKey: "Thomas").OrNew("Mann");
+var f = x["Thomas"];
 Console.WriteLine(e); // Prints `"Mann"`.
+Console.WriteLine(f); // Prints `"Mann"`.
 ```
 
 
