@@ -13,6 +13,15 @@ namespace Pocket.Common.Flows
         public static void Pulse<T>(this IFlux<T> self, IFlow<T> from) =>
             from.PulsedOnNext(self.Pulse);
         
+        public static void Pulse<T>(this ICollectionFlux<T> self, ICollectionFlow<T> from)
+        {
+            foreach (var x in from.Current)
+                self.Add(x);
+            
+            from.Added.OnNext(x => self.Add(x));
+            from.Removed.OnNext(x => self.Remove(x));
+        }
+        
         public static void Increment(this IFlux<int> self) =>
             self.Change(by: +1);
         public static void Decrement(this IFlux<int> self) =>
