@@ -12,31 +12,53 @@ This repository contains a lot of common utilities and extensions, which can be 
 
 `Dictionary.One`
 
-_Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing. These reactions are: throw, return default, return value, return and write value._
+_Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing. These reactions are:__
+throw, return default, return value, return and write value._
+
+a) throw a `KeyNotFoundException` with specified message:
 ```cs
-var x = new Dictionary<string, string>
+var writers = new Dictionary<string, string>
 {
     { "Hermann": "Hesse" },
-    { "Oscar": "Wilde" },
-    { "Vladimir": "Nabokov" }
 };
 
-var a = x.One(withKey: "Thomas").OrThrow(withMessage: "Couldn't find `Thomas`.");
+var a = writers.One(withKey: "Thomas").OrThrow(withMessage: "Couldn't find `Thomas`.");
 // `KeyNotFoundException` is thrown.
+```
 
-var b = x.One(withKey: "Thomas").OrDefault();
+b) return `default(TValue)`:
+```cs
+var writers = new Dictionary<string, string>
+{
+    { "Hermann": "Hesse" },
+};
+
+var b = writers.One(withKey: "Thomas").OrDefault();
 Console.WriteLine(b ?? "null"); // Prints `null`.
+```
+
+c) return specified value:
+```cs
+var writers = new Dictionary<string, string>
+{
+    { "Hermann": "Hesse" },
+};
 
 var c = x.One(withKey: "Thomas").Or("");
 var d = x.One(withKey: "Thomas").Or(() => "");
 Console.WriteLine(c); // Prints `""`.
 Console.WriteLine(d); // Prints `""`.
+```
+
+d) return specified value and also write it to dictionary:
+```cs
+var writers = new Dictionary<string, string>
+{
+    { "Hermann": "Hesse" },
+};
 
 var e = x.One(withKey: "Thomas").OrNew("Mann");
 var f = x["Thomas"];
 Console.WriteLine(e); // Prints `"Mann"`.
 Console.WriteLine(f); // Prints `"Mann"`.
 ```
-
-
-
