@@ -6,11 +6,11 @@
 
 This repository contains a lot of common utilities and extensions, which can be useful in everyday development. They're all implemented using fluent and declarative style.
 
-## Modules
+## Extensions
 
-### Extensions
+### Collections
 
-`Dictionary.One`
+#### `Dictionary.One`
 
 Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing.
 
@@ -62,4 +62,6 @@ var e = x.One(withKey: "Thomas").OrNew("Mann");
 var f = x["Thomas"];
 Console.WriteLine(e); // Prints `"Mann"`.
 Console.WriteLine(f); // Prints `"Mann"`.
+```
+
 ```
