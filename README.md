@@ -12,8 +12,9 @@ This repository contains a lot of common utilities and extensions, which can be 
 
 `Dictionary.One`
 
-_Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing. These reactions are:__
-throw, return default, return value, return and write value._
+Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing.
+
+These reactions are:
 
 a) throw a `KeyNotFoundException` with specified message:
 ```cs
