@@ -8,9 +8,24 @@ This repository contains a lot of common utilities and extensions, which can be 
 
 ## Extensions
 
+### Collections
+
+#### `AddRange`
+
+Adds a range of items to the `ICollection<T>` instance (pretty common extension that is missing in standard library).
+
+```cs
+ICollection<int> numbersA = { 1, 2, 3 };
+IEnumerable<int> numbersB = { 4, 5, 6 };
+
+numbersA.AddRange(numbersB);
+
+Console.WriteLine(numbersA.AsString()); // Prints "[1, 2, 3, 4, 5, 6]".
+```
+
 ### Dictionary
 
-#### `Dictionary.One`
+#### `One`
 
 Represents a consistent access to dictionary elements in four different ways using fluent sentences, starting with `One`. Each way represents a reaction to situation, when key is missing.
 
