@@ -8,7 +8,7 @@ This repository contains a lot of common utilities and extensions, which can be 
 
 ## Extensions
 
-### Collections
+### Dictionary
 
 #### `Dictionary.One`
 
