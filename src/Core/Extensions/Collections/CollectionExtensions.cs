@@ -20,7 +20,7 @@ namespace Pocket.Common
         {
             Ensure(that: self).NotNull();
             Ensure(that: other).NotNull();
-            
+
             if (other is List<T> list)
                 foreach (var x in list)
                     self.Add(x);
