@@ -78,5 +78,3 @@ var f = x["Thomas"];
 Console.WriteLine(e); // Prints `"Mann"`.
 Console.WriteLine(f); // Prints `"Mann"`.
 ```
-
-```
