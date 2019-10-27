@@ -104,6 +104,5 @@ Enumerable
     .Each(Console.Write)
     .Select(x => x * x)
     .ToList(); // Prints `246810`.
-
 ```
 
