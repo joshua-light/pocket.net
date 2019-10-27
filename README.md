@@ -38,7 +38,7 @@ var writers = new Dictionary<string, string>
     { "Hermann": "Hesse" },
 };
 
-var a = writers.One(withKey: "Thomas").OrThrow(withMessage: "Couldn't find `Thomas`.");
+var x = writers.One(withKey: "Thomas").OrThrow(withMessage: "Couldn't find `Thomas`.");
 // `KeyNotFoundException` is thrown.
 ```
 
@@ -49,8 +49,8 @@ var writers = new Dictionary<string, string>
     { "Hermann": "Hesse" },
 };
 
-var b = writers.One(withKey: "Thomas").OrDefault();
-Console.WriteLine(b ?? "null"); // Prints `null`.
+var x = writers.One(withKey: "Thomas").OrDefault();
+Console.WriteLine(x ?? "null"); // Prints `null`.
 ```
 
 c) return specified value:
@@ -60,10 +60,10 @@ var writers = new Dictionary<string, string>
     { "Hermann": "Hesse" },
 };
 
-var c = x.One(withKey: "Thomas").Or("");
-var d = x.One(withKey: "Thomas").Or(() => "");
-Console.WriteLine(c); // Prints `""`.
-Console.WriteLine(d); // Prints `""`.
+var x = writers.One(withKey: "Thomas").Or("");
+var y = writers.One(withKey: "Thomas").Or(() => "");
+Console.WriteLine(x); // Prints `""`.
+Console.WriteLine(y); // Prints `""`.
 ```
 
 d) return specified value and also write it to dictionary:
@@ -73,8 +73,8 @@ var writers = new Dictionary<string, string>
     { "Hermann": "Hesse" },
 };
 
-var e = x.One(withKey: "Thomas").OrNew("Mann");
-var f = x["Thomas"];
-Console.WriteLine(e); // Prints `"Mann"`.
-Console.WriteLine(f); // Prints `"Mann"`.
+var x = writers.One(withKey: "Thomas").OrNew("Mann");
+var y = writers["Thomas"];
+Console.WriteLine(x); // Prints `"Mann"`.
+Console.WriteLine(y); // Prints `"Mann"`.
 ```
