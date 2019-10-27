@@ -78,3 +78,17 @@ var y = writers["Thomas"];
 Console.WriteLine(x); // Prints `"Mann"`.
 Console.WriteLine(y); // Prints `"Mann"`.
 ```
+
+### Enumerable
+
+#### `OrEmpty`
+
+Returns `Enumerable.Empty<T>` sequence if current is `null`. This method can be used
+as a more fluent alternative to `x ?? Enumerable.Empty<T>`.
+
+```cs
+IEnumerable<int> x = null;
+
+Console.WriteLine(x.OrEmpty()); // Prints [].
+```
+
