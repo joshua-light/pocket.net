@@ -54,6 +54,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# Project specific.
-*/Eternity.Unity/*.csproj
-*/Eternity.Unity/*.sln
+# Mac.
+*.DS_Store
