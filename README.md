@@ -92,3 +92,13 @@ IEnumerable<int> x = null;
 Console.WriteLine(x.OrEmpty()); // Prints [].
 ```
 
+#### `Each`
+
+Executes specified action on each item of the sequence.
+
+``` cs
+IEnumerable<int> numbers = { 1, 2, 3 }
+
+numbers.Each(Console.Write); // Prints 123.
+```
+
