@@ -94,11 +94,16 @@ Console.WriteLine(x.OrEmpty()); // Prints [].
 
 #### `Each`
 
-Executes specified action on each item of the sequence.
+Executes specified action on each item of the sequence. This can be useful when you want,
+for example, to print items in the middle of LINQ.
 
 ``` cs
-IEnumerable<int> numbers = { 1, 2, 3 }
+Enumerable
+    .Range(1, 10)
+    .Where(x => x % 2 == 0)
+    .Each(Console.Write)
+    .Select(x => x * x)
+    .ToList(); // Prints `246810`.
 
-numbers.Each(Console.Write); // Prints 123.
 ```
 
