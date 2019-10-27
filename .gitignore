@@ -56,3 +56,8 @@ sysinfo.txt
 
 # Mac.
 *.DS_Store
+
+# Emacs
+*~
+\#*\#
+.\#*
