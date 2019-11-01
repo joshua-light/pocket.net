@@ -103,7 +103,19 @@ Enumerable
     .Where(x => x % 2 == 0)
     .Each(Console.Write)
     .Select(x => x * x)
-    .ToList(); // Prints `246810`.
+    .ToList(); // Prints '246810'.
+```
+
+#### `ForEach`
+
+Executes specified action on each item of the sequence, but doesn't return anything.
+This method is similar to `ForEach` from `List`.
+
+``` cs
+Enumerable
+    .Range(0, 10)
+    .Where(x => x % 2 == 0)
+    .ForEach(Console.Write); // Prints '246810'.
 ```
 
 TODO
