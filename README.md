@@ -103,19 +103,46 @@ Enumerable
     .Where(x => x % 2 == 0)
     .Each(Console.Write)
     .Select(x => x * x)
-    .ToList(); // Prints '246810'.
+    .ToList(); // Prints "246810".
 ```
 
 #### `ForEach`
 
 Executes specified action on each item of the sequence, but doesn't return anything.
+
 This method is similar to `ForEach` from `List`.
 
 ``` cs
 Enumerable
     .Range(0, 10)
     .Where(x => x % 2 == 0)
-    .ForEach(Console.Write); // Prints '246810'.
+    .ForEach(Console.Write); // Prints "246810".
+```
+
+#### `TakeMin`
+
+Takes first object from the sequence that has minimum value, provided by specified selector function.
+
+This method works in same way as LINQ `Min` but instead of value returns the owner object.
+
+``` cs
+struct Point
+{
+    public readonly int X;
+    public readonly int Y;
+
+    public Point(int x, int y) =>
+        (X, Y) = (x, y)
+}
+
+// `point` holds not an `int`, but `Point`.
+var point = Enumerable
+    .Range(0, 10)
+    .Select(x => new Point(x, x))
+    .TakeMin(point => point.X)
+
+Console.WriteLine($"{point.X}, {point.Y}") // Prints "0, 0".
 ```
 
 TODO
+
