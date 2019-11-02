@@ -148,5 +148,22 @@ Console.WriteLine($"{point.X}, {point.Y}") // Prints "0, 0".
 
 Works in similar way as `TakeMin`, but returns an object with maximum value.
 
+#### `IsNullOrEmpty`
+
+Checks whether sequence is either `null` or contains no elements.
+
+``` cs
+IEnumerable<int> a;
+
+a = Enumerable.Range(0, 10);
+Console.WriteLine(numbers.IsNullOrEmpty()); // Prints "false".
+
+a = null;
+Console.WriteLine(numbers.IsNullOrEmpty()); // Prints "true".
+
+a = Enumerable.Empty<int>();
+Console.WriteLine(numbers.IsNullOrEmpty()); // Prints "true".
+```
+
 TODO
 
