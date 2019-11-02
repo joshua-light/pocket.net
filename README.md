@@ -123,7 +123,7 @@ Enumerable
 
 Takes first object from the sequence that has minimum value, provided by specified selector function.
 
-This method works in same way as LINQ `Min` but instead of value returns the owner object.
+This method works in same way as LINQ `Min` but instead of value returns the object, not the minimum value it holds.
 
 ``` cs
 struct Point
@@ -143,6 +143,10 @@ var point = Enumerable
 
 Console.WriteLine($"{point.X}, {point.Y}") // Prints "0, 0".
 ```
+
+#### `TakeMax`
+
+Works in similar way as `TakeMin`, but returns an object with maximum value.
 
 TODO
 
