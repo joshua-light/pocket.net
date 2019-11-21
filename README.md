@@ -165,7 +165,7 @@ a = Enumerable.Empty<int>();
 Console.WriteLine(numbers.IsNullOrEmpty()); // Prints "true".
 ```
 
-#### `IsOrEmpty`
+#### `IsEmpty`
 
 Checks whether sequence contains no elements.
 
