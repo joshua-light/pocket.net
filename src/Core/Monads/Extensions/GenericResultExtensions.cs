@@ -19,6 +19,14 @@ namespace Pocket.Common
             
             return self;
         }
+        
+        public static Result<T> OnFail<T>(this Result<T> self, Action<string> action)
+        {
+            if (self.IsFail)
+                action(self.Error);
+            
+            return self;
+        }
 
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, TOut other) => self.With(_ => other);
         public static Result<TOut> With<TIn, TOut>(this Result<TIn> self, Func<TOut> other) => self.With(_ => other());
