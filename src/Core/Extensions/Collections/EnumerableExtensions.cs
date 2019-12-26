@@ -66,7 +66,7 @@ namespace Pocket.Common
         /// <param name="selector">Selector of <see cref="IComparable{T}"/> elements, that will be used for search.</param>
         /// <returns>First object, that has minimum value, provided by <paramref name="selector"/>.</returns>
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        public static T TakeMin<T, TMin>(this IEnumerable<T> self, Func<T, TMin> selector) where TMin : IComparable<TMin>
+        public static T MinBy<T, TMin>(this IEnumerable<T> self, Func<T, TMin> selector) where TMin : IComparable<TMin>
         {
             Ensure(self).NotNull();
             Ensure(selector).NotNull();
@@ -99,7 +99,7 @@ namespace Pocket.Common
         /// <param name="selector">Selector of <see cref="IComparable{T}"/> elements, that will be used for search.</param>
         /// <returns>First object, that has maximum value, provided by <paramref name="selector"/>.</returns>
         /// <exception cref="System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
-        public static T TakeMax<T, TMax>(this IEnumerable<T> self, Func<T, TMax> selector) where TMax : IComparable<TMax>
+        public static T MaxBy<T, TMax>(this IEnumerable<T> self, Func<T, TMax> selector) where TMax : IComparable<TMax>
         {
             Ensure(self).NotNull();
             Ensure(selector).NotNull();

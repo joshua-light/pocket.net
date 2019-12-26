@@ -125,40 +125,40 @@ namespace Pocket.Common.Tests.Extensions
 
         #endregion
 
-        #region TakeMin
+        #region MinBy
 
         [Fact]
-        public void TakeMin_ShouldThrowException() =>
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMin(x => x.Number));
+        public void MinBy_ShouldThrowException() =>
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).MinBy(x => x.Number));
             
         [Fact]
-        public void TakeMin_ShouldThrowException_IfFuncIsNull() =>
-            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMin<int, Item>(null));
+        public void MinBy_ShouldThrowException_IfFuncIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().MinBy<int, Item>(null));
 
         [Fact]
-        public void TakeMin_ShouldReturnMinObject()
+        public void MinBy_ShouldReturnMinObject()
         {
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var minValue = items.Min(x => x.Number);
-            var min = items.TakeMin(x => x.Number);
+            var min = items.MinBy(x => x.Number);
 
             Assert.Equal(minValue, min.Number);
         }
 
         [Fact]
-        public void TakeMin_ShouldReturnMinObject_IfIComparable()
+        public void MinBy_ShouldReturnMinObject_IfIComparable()
         {
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var a = items.Min(x => x);
-            var b = items.TakeMin(x => x);
+            var b = items.MinBy(x => x);
 
             Assert.Same(a, b);
         }
 
         [Fact]
-        public void TakeMin_ShouldReturnCorrectReference()
+        public void MinBy_ShouldReturnCorrectReference()
         {
             var secondItem = new Item(2);
             var items = new List<Item>
@@ -168,45 +168,45 @@ namespace Pocket.Common.Tests.Extensions
                 secondItem
             };
 
-            Assert.NotSame(secondItem, items.TakeMin(x => x.Number));
+            Assert.NotSame(secondItem, items.MinBy(x => x.Number));
         }
 
         #endregion
 
-        #region TakeMax
+        #region MaxBy
 
         [Fact]
-        public void TakeMax_ShouldThrowException() =>
-            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).TakeMax(x => x.Number));
+        public void MaxBy_ShouldThrowException() =>
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<Item>) null).MinBy(x => x.Number));
             
         [Fact]
-        public void TakeMax_ShouldThrowException_IfFuncIsNull() =>
-            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().TakeMax<int, Item>(null));
+        public void MaxBy_ShouldThrowException_IfFuncIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => Enumerable.Empty<int>().MinBy<int, Item>(null));
 
         [Fact]
-        public void TakeMax_ShouldReturnMaxObject()
+        public void MaxBy_ShouldReturnMaxObject()
         {
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var minValue = items.Max(x => x.Number);
-            var min = items.TakeMax(x => x.Number);
+            var min = items.MinBy(x => x.Number);
 
             Assert.Equal(minValue, min.Number);
         }
 
         [Fact]
-        public void TakeMax_ShouldReturnMaxObject_IfIComparable()
+        public void MaxBy_ShouldReturnMaxObject_IfIComparable()
         {
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var a = items.Max(x => x);
-            var b = items.TakeMax(x => x);
+            var b = items.MinBy(x => x);
 
             Assert.Same(a, b);
         }
 
         [Fact]
-        public void TakeMax_ShouldReturnCorrectReference()
+        public void MaxBy_ShouldReturnCorrectReference()
         {
             var secondItem = new Item(3);
             var items = new List<Item>
@@ -216,7 +216,7 @@ namespace Pocket.Common.Tests.Extensions
                 secondItem
             };
 
-            Assert.NotSame(secondItem, items.TakeMax(x => x.Number));
+            Assert.NotSame(secondItem, items.MinBy(x => x.Number));
         }
 
         #endregion
