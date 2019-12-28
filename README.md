@@ -119,7 +119,7 @@ Enumerable
     .ForEach(Console.Write); // Prints "246810".
 ```
 
-#### `TakeMin`
+#### `MinBy`
 
 Takes first object from the sequence that has minimum value, provided by specified selector function.
 
@@ -139,14 +139,14 @@ struct Point
 var point = Enumerable
     .Range(0, 10)
     .Select(x => new Point(x, x))
-    .TakeMin(point => point.X)
+    .MinBy(p => p.X)
 
 Console.WriteLine($"{point.X}, {point.Y}") // Prints "0, 0".
 ```
 
-#### `TakeMax`
+#### `MaxBy`
 
-Works in similar way as `TakeMin`, but returns an object with maximum value.
+Works in similar way as `MinBy`, but returns an object with maximum value.
 
 #### `IsNullOrEmpty`
 
