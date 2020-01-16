@@ -189,7 +189,7 @@ namespace Pocket.Common.Tests.Extensions
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var minValue = items.Max(x => x.Number);
-            var min = items.MinBy(x => x.Number);
+            var min = items.MaxBy(x => x.Number);
 
             Assert.Equal(minValue, min.Number);
         }
@@ -200,7 +200,7 @@ namespace Pocket.Common.Tests.Extensions
             var items = new List<Item>(Enumerable.Range(0, 10).Select(x => new Item(x)));
 
             var a = items.Max(x => x);
-            var b = items.MinBy(x => x);
+            var b = items.MaxBy(x => x);
 
             Assert.Same(a, b);
         }
@@ -216,7 +216,7 @@ namespace Pocket.Common.Tests.Extensions
                 secondItem
             };
 
-            Assert.NotSame(secondItem, items.MinBy(x => x.Number));
+            Assert.NotSame(secondItem, items.MaxBy(x => x.Number));
         }
 
         #endregion
