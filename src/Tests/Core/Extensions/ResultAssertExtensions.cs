@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Tests.Core.Extensions
+namespace Pocket.Tests.Core.Extensions
 {
     public static class ResultAssertExtensions
     {

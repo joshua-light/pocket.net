@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Pocket.Common.Tests.Pools
+namespace Pocket.Tests.Pools
 {
     public class ArrayPoolTest
     {

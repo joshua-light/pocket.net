@@ -1,7 +1,7 @@
-﻿using Pocket.Common.Time;
+﻿using Pocket.Time;
 using Xunit;
 
-namespace Pocket.Common.Tests.Time.Clocks
+namespace Pocket.Tests.Time.Clocks
 {
     public class FrozenClockTest
     {
@@ -9,6 +9,6 @@ namespace Pocket.Common.Tests.Time.Clocks
         public void Timestamp_ReturnsZeroTimestamp() =>
             Assert.Equal(0, Clock.Watch().Elapsed().TotalMilliseconds);
 
-        private static IClock Clock => Common.Time.Clock.Frozen.Now;
+        private static IClock Clock => Pocket.Time.Clock.Frozen.Now;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal class DispatchedFlow<T> : IFlow<T>
     {

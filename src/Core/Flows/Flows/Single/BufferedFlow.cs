@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public class BufferedFlow<T> : IFlow<IEnumerable<T>>
     {

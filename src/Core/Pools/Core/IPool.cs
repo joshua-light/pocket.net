@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common
+﻿namespace Pocket
 {
     /// <summary>
     ///     Represents pool of reusable objects, which can be obtained and released.

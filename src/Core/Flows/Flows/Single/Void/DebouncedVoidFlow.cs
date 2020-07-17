@@ -1,8 +1,8 @@
 ﻿using System;
-using Pocket.Common.Time;
-using static Pocket.Common.Guard;
+using Pocket.Time;
+using static Pocket.Guard;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public class DebouncedVoidFlow : IVoidFlow, IDisposable
     {

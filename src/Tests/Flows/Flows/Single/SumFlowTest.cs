@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using NSubstitute;
-using Pocket.Common.Flows;
+using Pocket.Flows;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Flows.Single
+namespace Pocket.Tests.Flows.Flows.Single
 {
     public class SumFlowTest
     {

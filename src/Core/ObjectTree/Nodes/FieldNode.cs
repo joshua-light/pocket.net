@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Pocket.Common.ObjectTree
+namespace Pocket.ObjectTree
 {
     public class FieldNode : Node
     {

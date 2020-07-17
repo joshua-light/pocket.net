@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents instance of <see cref="IPool{T}"/> that behaves as simple object pool.

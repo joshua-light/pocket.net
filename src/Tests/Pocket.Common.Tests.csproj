@@ -5,6 +5,8 @@
     <OutputType>Library</OutputType>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
+    <AssemblyName>Pocket.Tests</AssemblyName>
+    <RootNamespace>Pocket.Tests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />

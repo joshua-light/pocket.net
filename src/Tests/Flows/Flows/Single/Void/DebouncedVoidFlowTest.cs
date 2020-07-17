@@ -1,10 +1,10 @@
 ﻿using System;
 using NSubstitute;
-using Pocket.Common.Flows;
-using Pocket.Common.Time;
+using Pocket.Flows;
+using Pocket.Time;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Flows.Single.Void
+namespace Pocket.Tests.Flows.Flows.Single.Void
 {
     public class DebouncedVoidFlowTest
     {

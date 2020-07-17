@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class StreamExtensions
     {

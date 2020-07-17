@@ -2,7 +2,7 @@
 using NSubstitute;
 using Xunit;
 
-namespace Pocket.Common.Tests.Pools
+namespace Pocket.Tests.Pools
 {
     public class DefaultPoolTest
     {

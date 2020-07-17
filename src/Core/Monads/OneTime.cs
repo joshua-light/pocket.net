@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents static methods for creating various predefined instances of <see cref="OneTime{T}"/>.

@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using static Pocket.Common.Guard;
+using static Pocket.Guard;
 
-namespace Pocket.Common.ObjectTree
+namespace Pocket.ObjectTree
 {
     public static class ObjectTreeExtensions
     {

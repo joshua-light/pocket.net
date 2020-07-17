@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket.Common.Tests.Core
+namespace Pocket.Tests.Core
 {
     public static class Static
     {

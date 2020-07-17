@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions
+namespace Pocket.Tests.Extensions
 {
     public class DictionaryExtensionsTest
     {        

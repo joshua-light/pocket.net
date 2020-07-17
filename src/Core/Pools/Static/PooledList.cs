@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class PooledList
     {
@@ -21,7 +21,7 @@ namespace Pocket.Common
             private static readonly IPool<One<T>> Pool;
 
             static PoolOf() =>
-                Pool = Common.Pool
+                Pool = Pocket.Pool
                     .Of(create: () => new One<T>(Pool),
                         release: x => x.Clear())
                     .Sync();

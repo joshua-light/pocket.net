@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents value that was either succeeded or failed (then it will have error explanation) to retrieve.

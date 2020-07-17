@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class DirectoryInfoExtensions
     {

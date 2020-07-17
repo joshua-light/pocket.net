@@ -1,29 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>Pocket.Common</AssemblyName>
-    <RootNamespace>Pocket.Common</RootNamespace>
+    <AssemblyName>Pocket</AssemblyName>
+    <RootNamespace>Pocket</RootNamespace>
     <LangVersion>8</LangVersion>
     <DebugType>pdbonly</DebugType>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
-    <FileVersion>2.0.1</FileVersion>
-    <PackageVersion>2.0.1</PackageVersion>
-    <Title>Pocket.Common</Title>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+    <PackageVersion>0.0.1</PackageVersion>
+    <Title>Pocket</Title>
     <Description>Provides a set of common classes and approaches, which can be used in any project as helpful pocket library.</Description>
     <Copyright>Copyright © 2020 JoshuaLight</Copyright>
-    <PackageLicenseUrl>https://github.com/JoshuaLight/Pocket.Common/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/JoshuaLight/Pocket.Common/</RepositoryUrl>
-    <PackageTags>common util extensions</PackageTags>
+    <PackageLicenseUrl>https://github.com/JoshuaLight/pocket.net/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/JoshuaLight/pocket.net/</RepositoryUrl>
+    <PackageTags>common util extensions fluent</PackageTags>
   </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Pocket.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Flows" />
-    <Folder Include="Time" />
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0-preview5.19224.8" />
   </ItemGroup>

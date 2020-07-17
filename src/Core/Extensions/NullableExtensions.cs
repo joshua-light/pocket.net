@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents generic extension-methods for instances of <see cref="Nullable"/>.

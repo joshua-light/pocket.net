@@ -1,7 +1,7 @@
 ﻿using System;
-using Pocket.Common.Time;
+using Pocket.Time;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public static class VoidFlowExtensions
     {

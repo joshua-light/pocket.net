@@ -3,7 +3,7 @@ using System.Linq;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions.Reflection
+namespace Pocket.Tests.Extensions.Reflection
 {
     public class MemberInfoExtensionsTest
     {
@@ -12,9 +12,9 @@ namespace Pocket.Common.Tests.Extensions.Reflection
         public class EmptyType { }
         public class SomeType
         {
-            [SomeAttribute] public int Field;
-            [SomeAttribute] public int Property => 0;
-            [SomeAttribute] public void Method() { }
+            [Some] public int Field;
+            [Some] public int Property => 0;
+            [Some] public void Method() { }
         }
         
         [Fact]

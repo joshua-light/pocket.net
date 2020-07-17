@@ -1,8 +1,8 @@
 ﻿using NSubstitute;
-using Pocket.Common.Tests.Core;
+using Pocket.Tests.Core;
 using Xunit;
 
-namespace Pocket.Common.Tests.Pools
+namespace Pocket.Tests.Pools
 {
     public class SyncPoolTest
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using NSubstitute;
-using Pocket.Common.Flows;
+using Pocket.Flows;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Fluxes.Collections
+namespace Pocket.Tests.Flows.Fluxes.Collections
 {
     public class PureCollectionFluxTest
     {

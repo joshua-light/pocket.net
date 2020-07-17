@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Pocket.Common
+namespace Pocket
 {
   public class FluentInitialization<T>
   {
@@ -212,9 +212,9 @@ namespace Pocket.Common
         var i = type.GetMethod("op_Implicit", BindingFlags.Public | BindingFlags.Static);
         var e = type.GetMethod("op_Explicit", BindingFlags.Public | BindingFlags.Static);
 
-        if (i != null && Casts(i, from: value.GetType(), to: type))
+        if (i != null && Casts(i, @from: value.GetType(), to: type))
           return i.Invoke(null, new[] { value });
-        if (e != null && Casts(e, from: value.GetType(), to: type))
+        if (e != null && Casts(e, @from: value.GetType(), to: type))
           return e.Invoke(null, new[] { value });
 
         throw new InvalidCastException($"'{value}' cannot be converted to type '{type}'");

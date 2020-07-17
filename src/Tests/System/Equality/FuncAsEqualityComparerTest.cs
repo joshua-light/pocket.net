@@ -2,7 +2,7 @@ using System;
 using NSubstitute;
 using Xunit;
 
-namespace Pocket.Common.Tests.System.Equality
+namespace Pocket.Tests.System.Equality
 {
     public class FuncAsEqualityComparerTest
     {

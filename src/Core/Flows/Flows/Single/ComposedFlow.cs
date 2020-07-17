@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal class ComposedFlow<T1, T2> : IFlow<(T1, T2)>
     {

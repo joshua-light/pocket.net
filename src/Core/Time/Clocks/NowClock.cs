@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket.Common.Time
+namespace Pocket.Time
 {
   public class NowClock : IClock
   {

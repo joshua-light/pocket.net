@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public static class FluxExtensions
     {
@@ -23,9 +23,9 @@ namespace Pocket.Common.Flows
         }
         
         public static void Increment(this IFlux<int> self) =>
-            self.Change(by: +1);
+            self.Change(@by: +1);
         public static void Decrement(this IFlux<int> self) =>
-            self.Change(by: -1);
+            self.Change(@by: -1);
         public static void Increase(this IFlux<int> self, int by) =>
             self.Change(by);
         public static void Decrease(this IFlux<int> self, int by) =>
@@ -34,9 +34,9 @@ namespace Pocket.Common.Flows
             self.Pulse(self.Current + by);
         
         public static void Increment(this IFlux<long> self) =>
-            self.Change(by: +1L);
+            self.Change(@by: +1L);
         public static void Decrement(this IFlux<long> self) =>
-            self.Change(by: -1L);
+            self.Change(@by: -1L);
         public static void Increase(this IFlux<long> self, long by) =>
             self.Change(by);
         public static void Decrease(this IFlux<long> self, long by) =>
@@ -45,9 +45,9 @@ namespace Pocket.Common.Flows
             self.Pulse(self.Current + by);
         
         public static void Increment(this IFlux<float> self) =>
-            self.Change(by: +1.0f);
+            self.Change(@by: +1.0f);
         public static void Decrement(this IFlux<float> self) =>
-            self.Change(by: -1.0f);
+            self.Change(@by: -1.0f);
         public static void Increase(this IFlux<float> self, float by) =>
             self.Change(by);
         public static void Decrease(this IFlux<float> self, float by) =>
@@ -56,9 +56,9 @@ namespace Pocket.Common.Flows
             self.Pulse(self.Current + by);
         
         public static void Increment(this IFlux<double> self) =>
-            self.Change(by: +1.0);
+            self.Change(@by: +1.0);
         public static void Decrement(this IFlux<double> self) =>
-            self.Change(by: -1.0);
+            self.Change(@by: -1.0);
         public static void Increase(this IFlux<double> self, double by) =>
             self.Change(by);
         public static void Decrease(this IFlux<double> self, double by) =>

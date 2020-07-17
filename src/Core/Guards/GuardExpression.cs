@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using static Pocket.Common.Guard;
+using static Pocket.Guard;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public struct GuardExpression<T>
     {

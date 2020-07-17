@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Pocket.Common.Tests
+namespace Pocket.Tests
 {
     public class DigitsTest
     {

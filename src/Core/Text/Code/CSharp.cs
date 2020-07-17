@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public struct CSharp
     {

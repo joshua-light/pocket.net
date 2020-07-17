@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Time
+namespace Pocket.Time
 {
     /// <summary>
     ///     Represents <see cref="IPromise"/> that will never be satisfied.

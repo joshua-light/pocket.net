@@ -2,7 +2,7 @@
 using NSubstitute;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions
+namespace Pocket.Tests.Extensions
 {
     public class DisposableExtensionsTest
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using NSubstitute;
-using Pocket.Common.Time;
+using Pocket.Time;
 using Xunit;
 
-namespace Pocket.Common.Tests.Time.Clocks
+namespace Pocket.Tests.Time.Clocks
 {
     public class TimeMarkTest
     {

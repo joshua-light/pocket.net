@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     /// <summary>
     ///     Represents some value of type <typeparamref name="T"/> that changes over time.

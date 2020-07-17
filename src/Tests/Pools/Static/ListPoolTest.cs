@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xunit;
 
-namespace Pocket.Common.Tests.Pools.Static
+namespace Pocket.Tests.Pools.Static
 {
     public class ListPoolTest
     {

@@ -2,7 +2,7 @@ using System;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Text.Code.Core
+namespace Pocket.Tests.Text.Code.Core
 {
     public class CodeTest
     {
@@ -61,6 +61,6 @@ namespace Pocket.Common.Tests.Text.Code.Core
                 "    3");
         }
 
-        private static Common.Code Code() => new Common.Code();
+        private static Pocket.Code Code() => new Pocket.Code();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public static class CollectionFlowExtensions
     {

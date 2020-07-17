@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class Emit
     {

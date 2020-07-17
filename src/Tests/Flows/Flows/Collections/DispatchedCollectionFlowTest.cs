@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using NSubstitute;
-using Pocket.Common.Flows;
+using Pocket.Flows;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Flows.Collections
+namespace Pocket.Tests.Flows.Flows.Collections
 {
     public class DispatchedCollectionFlowTest
     {

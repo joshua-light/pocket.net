@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public struct Hash
     {

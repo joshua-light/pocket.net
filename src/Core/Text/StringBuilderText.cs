@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Pocket.Common
+namespace Pocket
 {
   public class StringBuilderText : IText
   {

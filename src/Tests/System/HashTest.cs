@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.System
+namespace Pocket.Tests.System
 {
     public class HashTest
     {

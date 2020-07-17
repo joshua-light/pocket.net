@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket.Common.ObjectTree
+namespace Pocket.ObjectTree
 {
     public class PrimitiveNode : Node
     {

@@ -4,7 +4,7 @@ using Shouldly;
 using Xunit;
 using static Xunit.Assert;
 
-namespace Pocket.Common.Tests.Extensions.Collections
+namespace Pocket.Tests.Extensions.Collections
 {
     public class CollectionExtensionsTest
     {

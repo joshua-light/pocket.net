@@ -1,8 +1,8 @@
-using Pocket.Common.ObjectTree;
+using Pocket.ObjectTree;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.ObjectTree.Core
+namespace Pocket.Tests.ObjectTree.Core
 {
     public class NodeTest
     {
@@ -14,6 +14,6 @@ namespace Pocket.Common.Tests.ObjectTree.Core
             Node<Some>(of: new Some()).ShouldBeOfType<ObjectNode>();
 
         private static Node Node<T>(object of) =>
-            Common.ObjectTree.Node.Of(typeof(T), of);
+            Pocket.ObjectTree.Node.Of(typeof(T), of);
     }
 }

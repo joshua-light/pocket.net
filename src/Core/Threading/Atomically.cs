@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class Atomically
     {

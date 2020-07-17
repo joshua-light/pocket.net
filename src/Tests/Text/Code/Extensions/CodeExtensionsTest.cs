@@ -1,7 +1,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Text.Code.Extensions
+namespace Pocket.Tests.Text.Code.Extensions
 {
   public class CodeExtensionsTest
   {
@@ -13,6 +13,6 @@ namespace Pocket.Common.Tests.Text.Code.Extensions
     public void Text_ShouldNotChangeText_IfWhenIsFalse() =>
         Code().Text("1", when: false).ToString().ShouldBe("");
     
-    private static Common.Code Code() => new Common.Code();
+    private static Pocket.Code Code() => new Pocket.Code();
   }
 }

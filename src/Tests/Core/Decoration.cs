@@ -1,7 +1,7 @@
 ﻿using System;
 using NSubstitute;
 
-namespace Pocket.Common.Tests.Core
+namespace Pocket.Tests.Core
 {
     public class Decoration<T> where T : class 
     {     

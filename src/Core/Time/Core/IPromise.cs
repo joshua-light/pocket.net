@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Time
+namespace Pocket.Time
 {
     /// <summary>
     ///     Represents promise that will be satisfied at some undefined moment of time in future.

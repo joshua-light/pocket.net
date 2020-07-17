@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal sealed class DistinctFlux<T> : IFlux<T> where T : IEquatable<T>
     {

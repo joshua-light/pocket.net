@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Pocket.Common
+namespace Pocket
 {
   public static class Instances
   {

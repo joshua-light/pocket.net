@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public class MergedCollectionFlow<T> : ICollectionFlow<T>
     {

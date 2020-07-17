@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Pocket.Common.ObjectTree;
+using Pocket.ObjectTree;
 using Shouldly;
 using Xunit;
 using static System.Environment;
 
-namespace Pocket.Common.Tests.ObjectTree.Extensions
+namespace Pocket.Tests.ObjectTree.Extensions
 {
     public class ObjectTreeExtensionsTest
     {

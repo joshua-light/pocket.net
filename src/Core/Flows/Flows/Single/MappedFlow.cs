@@ -1,7 +1,7 @@
 ﻿using System;
-using static Pocket.Common.Guard;
+using static Pocket.Guard;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal class MappedFlow<TIn, TOut> : IFlow<TOut>
     {

@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common.Time
+﻿namespace Pocket.Time
 {
     /// <summary>
     ///     Represents static type object with helper methods for creation of different types of <see cref="IPromise"/>.

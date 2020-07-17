@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
-namespace Pocket.Common.Time
+namespace Pocket.Time
 {
     public struct TimeMark
     {

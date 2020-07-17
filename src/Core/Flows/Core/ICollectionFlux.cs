@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common.Flows
+﻿namespace Pocket.Flows
 {
     public interface ICollectionFlux<T> : ICollectionFlow<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common
+﻿namespace Pocket
 {
     /// <summary>
     ///     Represents static class that contains methods related to notion of digits.

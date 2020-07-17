@@ -5,7 +5,7 @@ using System.Reflection;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions.Reflection
+namespace Pocket.Tests.Extensions.Reflection
 {
     public class TypeExtensionsTest
     {

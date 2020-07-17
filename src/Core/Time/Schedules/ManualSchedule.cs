@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pocket.Common.Time
+namespace Pocket.Time
 {
     public class ManualSchedule : ISchedule
     {

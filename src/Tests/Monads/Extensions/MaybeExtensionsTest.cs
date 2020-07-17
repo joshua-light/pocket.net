@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Pocket.Common.Tests.Monads.Extensions
+namespace Pocket.Tests.Monads.Extensions
 {
     public class MaybeExtensionsTest
     {

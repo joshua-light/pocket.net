@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public static class TcpListenerExtensions
     {

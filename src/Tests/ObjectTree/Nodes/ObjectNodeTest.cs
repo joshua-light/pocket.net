@@ -1,9 +1,9 @@
 using System.Linq;
-using Pocket.Common.ObjectTree;
+using Pocket.ObjectTree;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.ObjectTree.Nodes
+namespace Pocket.Tests.ObjectTree.Nodes
 {
     public class ObjectNodeTest
     {

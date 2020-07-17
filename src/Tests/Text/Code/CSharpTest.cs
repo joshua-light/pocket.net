@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Text.Code
+namespace Pocket.Tests.Text.Code
 {
   public class CSharpTest
   {
@@ -407,7 +407,7 @@ namespace Pocket.Common.Tests.Text.Code
 
     #endregion
 
-    private static CSharp CSharp() => new Common.Code().CSharp();
+    private static CSharp CSharp() => new Pocket.Code().CSharp();
 
     private static CSharp Field(Type type, string withName) =>
       CSharp().Field(type.Fields(_ => _.AllStatic().And.AllInstance()).First(x => x.Name == withName));

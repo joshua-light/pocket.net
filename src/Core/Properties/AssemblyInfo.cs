@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Pocket.Common.Tests")]
+[assembly: InternalsVisibleTo("Pocket.Tests")]

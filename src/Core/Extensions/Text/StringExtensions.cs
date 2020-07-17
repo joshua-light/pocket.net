@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="string"/>.
@@ -18,7 +18,7 @@ namespace Pocket.Common
             string.IsNullOrEmpty(self);
 
         /// <summary>
-        ///     Returns <paramref name="self"/> if it isn't <code>null</code>, otherwise — <paramref name="@default"/>.
+        ///     Returns <paramref name="self"/> if it isn't <code>null</code>, otherwise — <paramref name="default"/>.
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="default">Default value that will be used instead of <paramref name="self"/> if one is null.</param>

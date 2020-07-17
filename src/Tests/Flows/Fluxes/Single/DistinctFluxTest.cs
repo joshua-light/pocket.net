@@ -1,9 +1,9 @@
 ﻿using System;
 using NSubstitute;
-using Pocket.Common.Flows;
+using Pocket.Flows;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Fluxes.Single
+namespace Pocket.Tests.Flows.Fluxes.Single
 {
     public class DistinctFluxTest
     {

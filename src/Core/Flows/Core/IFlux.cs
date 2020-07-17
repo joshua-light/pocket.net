@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common.Flows
+﻿namespace Pocket.Flows
 {
     /// <summary>
     ///     Represents instance of <see cref="IFlow{T}"/> that can be changed through <see cref="IFlux{T}.Pulse"/>.

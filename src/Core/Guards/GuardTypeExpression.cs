@@ -1,7 +1,7 @@
 using System;
-using static Pocket.Common.Guard;
+using static Pocket.Guard;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public struct GuardTypeExpression
     {

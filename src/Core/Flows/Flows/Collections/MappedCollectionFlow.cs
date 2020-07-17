@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal sealed class MappedCollectionFlow<TIn, TOut> : ICollectionFlow<TOut>
     {

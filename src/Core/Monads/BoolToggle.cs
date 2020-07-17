@@ -1,4 +1,4 @@
-namespace Pocket.Common
+namespace Pocket
 {
   public class BoolToggle : Toggle<bool>
   {

@@ -1,9 +1,9 @@
 ﻿using System;
 using NSubstitute;
-using Pocket.Common.Tests.Core.Extensions;
+using Pocket.Tests.Core.Extensions;
 using Xunit;
 
-namespace Pocket.Common.Tests.Monads.Extensions
+namespace Pocket.Tests.Monads.Extensions
 {
     public class GenericResultExtensionsTest
     {

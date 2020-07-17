@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     internal class CountFlow<T> : IFlow<int>
     {

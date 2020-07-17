@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pocket.Common.Flows
+namespace Pocket.Flows
 {
     public interface ICollectionFlow<out T>
     {

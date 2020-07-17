@@ -1,7 +1,7 @@
-﻿using Pocket.Common.Flows;
+﻿using Pocket.Flows;
 using Xunit;
 
-namespace Pocket.Common.Tests.Flows.Extensions
+namespace Pocket.Tests.Flows.Extensions
 {
     public class FluxExtensionsTest
     {

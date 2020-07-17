@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using Xunit;
 
-namespace Pocket.Common.Tests.Extensions
+namespace Pocket.Tests.Extensions
 {
     public class SocketExtensionsTest
     {

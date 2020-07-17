@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket.Common
+namespace Pocket
 {
     /// <summary>
     ///     Represents value that is either something or nothing.

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Shouldly;
 using Xunit;
-using static Pocket.Common.Guard;
-using static Pocket.Common.Tests.Core.Static;
+using static Pocket.Guard;
+using static Pocket.Tests.Core.Static;
 
-namespace Pocket.Common.Tests.Guard
+namespace Pocket.Tests.Guard
 {
     public class GuardTest
     {

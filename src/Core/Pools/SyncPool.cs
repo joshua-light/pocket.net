@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common
+﻿namespace Pocket
 {
     /// <summary>
     ///     Represents instance of <see cref="IPool{T}"/> that supports multithreaded environments.

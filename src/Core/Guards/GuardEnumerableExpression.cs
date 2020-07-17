@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Pocket.Common.Guard;
+using static Pocket.Guard;
 
-namespace Pocket.Common
+namespace Pocket
 {
     public struct GuardEnumerableExpression<T>
     {

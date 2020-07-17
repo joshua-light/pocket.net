@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Pocket.Common.ObjectTree
+namespace Pocket.ObjectTree
 {
     public class ObjectNode : Node
     {

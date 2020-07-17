@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket.Common
+namespace Pocket
 {
   public class Toggle<T>  where T : IEquatable<T>
   {

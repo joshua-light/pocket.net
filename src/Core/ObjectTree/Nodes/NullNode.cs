@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Pocket.Common.ObjectTree
+namespace Pocket.ObjectTree
 {
     public class NullNode : Node	
     {	

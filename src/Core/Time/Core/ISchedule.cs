@@ -1,4 +1,4 @@
-﻿namespace Pocket.Common.Time
+﻿namespace Pocket.Time
 {
     public interface ISchedule
     {

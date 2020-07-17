@@ -2,7 +2,7 @@
 using NSubstitute;
 using Xunit;
 
-namespace Pocket.Common.Tests.System.Disposables
+namespace Pocket.Tests.System.Disposables
 {
     public class CompactDisposableTest
     {

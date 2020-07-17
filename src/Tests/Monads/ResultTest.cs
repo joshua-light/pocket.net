@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Monads
+namespace Pocket.Tests.Monads
 {
     public class ResultTest
     {

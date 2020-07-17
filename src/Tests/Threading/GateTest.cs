@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace Pocket.Common.Tests.Threading
+namespace Pocket.Tests.Threading
 {
     public class GateTest
     {
