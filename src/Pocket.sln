@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Core", "Core\Pocket.Common.Core.csproj", "{C2DD7CBF-07F1-40B0-92E8-1AB93304466D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{C2DD7CBF-07F1-40B0-92E8-1AB93304466D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Common.Tests", "Tests\Pocket.Common.Tests.csproj", "{E94D5E6E-18B2-468D-9F7A-89419C713639}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{E94D5E6E-18B2-468D-9F7A-89419C713639}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
