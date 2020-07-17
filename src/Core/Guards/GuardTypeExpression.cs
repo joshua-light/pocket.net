@@ -1,4 +1,5 @@
 using System;
+using Pocket.Extensions;
 using static Pocket.Guard;
 
 namespace Pocket

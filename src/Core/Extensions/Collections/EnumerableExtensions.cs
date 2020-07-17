@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pocket.System;
 using static Pocket.Guard;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="IEnumerable{T}"/>.
@@ -161,7 +162,7 @@ namespace Pocket
         /// <typeparam name="T">Type of elements in sequence.</typeparam>
         /// <returns>A sequence that contains the set difference of the elements of two sequences.</returns>
         public static IEnumerable<T> Except<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> comparer) =>
-            self.Except(other, new FuncAsEqualityComparer<T>(comparer));
+            self.Except(other, new FuncEqualityComparer<T>(comparer));
 
         /// <summary>
         ///     Returns distinct elements from a sequence by using specified comparer function to compare values.
@@ -171,7 +172,7 @@ namespace Pocket
         /// <typeparam name="T">Type of elements in sequence.</typeparam>
         /// <returns>An IEnumerable{T} that contains distinct elements from the source sequence.</returns>
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> self, Func<T, T, bool> comparer) =>
-            self.Distinct(new FuncAsEqualityComparer<T>(comparer));
+            self.Distinct(new FuncEqualityComparer<T>(comparer));
 
         /// <summary>
         ///     Returns the first element of the sequence that satisfies a condition of <paramref name="predicate"/>.

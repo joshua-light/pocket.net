@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pocket.Extensions;
 using Shouldly;
 using Xunit;
 using static Xunit.Assert;

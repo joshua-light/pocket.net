@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Pocket
+namespace Pocket.System
 {
     /// <summary>
     ///     Represents gate that can be used for threads synchronization in same way as <see cref="ManualResetEvent"/>.

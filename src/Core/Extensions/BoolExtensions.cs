@@ -1,4 +1,4 @@
-﻿namespace Pocket
+﻿namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="bool"/>.
@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="self"><code>this</code> object.</param>
         /// <param name="other">Second operand of logical operation.</param>
-        /// <returns>Result of <code>&&</code> operator aplied to <paramref name="self"/> and <paramref name="other"/>.</returns>
+        /// <returns>Result of <code>&&</code> operator applied to <paramref name="self"/> and <paramref name="other"/>.</returns>
         public static bool And(this bool self, bool other) => self && other;
         
         /// <summary>

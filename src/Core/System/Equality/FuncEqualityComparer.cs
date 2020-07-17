@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using static Pocket.Guard;
 
-namespace Pocket
+namespace Pocket.System
 {
-    public class FuncAsEqualityComparer<T> : IEqualityComparer<T>
+    public class FuncEqualityComparer<T> : IEqualityComparer<T>
     {
         private readonly Func<T, T, bool> _func;
 
-        public FuncAsEqualityComparer(Func<T, T, bool> func)
+        public FuncEqualityComparer(Func<T, T, bool> func)
         {
             Ensure(func).NotNull();
             

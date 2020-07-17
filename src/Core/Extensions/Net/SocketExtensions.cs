@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="Socket"/>.

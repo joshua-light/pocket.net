@@ -1,4 +1,4 @@
-﻿namespace Pocket
+﻿namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="char"/>.

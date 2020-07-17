@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="Task{TResult}"/>.

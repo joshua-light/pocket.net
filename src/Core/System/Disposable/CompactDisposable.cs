@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Pocket
+namespace Pocket.System
 {
-    public sealed class CompactDisposable : IDisposable
+    public readonly ref struct CompactDisposable
     {
         private readonly Action _dispose;
 

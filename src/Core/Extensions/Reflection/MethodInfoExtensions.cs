@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
   /// <summary>
   ///     Represents extension-methods for <see cref="MethodInfo"/>.

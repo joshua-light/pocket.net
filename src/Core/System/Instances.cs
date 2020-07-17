@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Pocket.Extensions;
 
-namespace Pocket
+namespace Pocket.System
 {
   public static class Instances
   {

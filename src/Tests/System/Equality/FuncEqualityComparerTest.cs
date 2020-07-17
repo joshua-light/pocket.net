@@ -1,10 +1,11 @@
 using System;
 using NSubstitute;
+using Pocket.System;
 using Xunit;
 
 namespace Pocket.Tests.System.Equality
 {
-    public class FuncAsEqualityComparerTest
+    public class FuncEqualityComparerTest
     {
         [Theory]
         [InlineData(1, 1)]
@@ -13,7 +14,7 @@ namespace Pocket.Tests.System.Equality
         public void Equals_ShouldCallFunc(int a, int b)
         {
             var func = Substitute.For<Func<int, int, bool>>();
-            var comparer = new FuncAsEqualityComparer<int>(func);
+            var comparer = new FuncEqualityComparer<int>(func);
 
             comparer.Equals(a, b);
 
@@ -22,12 +23,12 @@ namespace Pocket.Tests.System.Equality
 
         [Fact]
         public void Constructor_ShouldThrowArgumentNullException_IfFuncIsNull() =>
-            Assert.Throws<ArgumentNullException>(() => new FuncAsEqualityComparer<int>(null));
+            Assert.Throws<ArgumentNullException>(() => new FuncEqualityComparer<int>(null));
 
         [Fact]
         public void GetHashCode_ShouldCallInnerGetHashCode()
         {
-            var comparer = new FuncAsEqualityComparer<object>((x, y) => true);
+            var comparer = new FuncEqualityComparer<object>((x, y) => true);
             var str = Substitute.For<object>();
 
             comparer.GetHashCode(str);

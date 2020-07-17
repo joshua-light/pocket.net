@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pocket.Extensions;
 using static Pocket.Guard;
 
 namespace Pocket

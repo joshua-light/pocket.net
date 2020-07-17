@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using static Pocket.Guard;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="Type"/>.

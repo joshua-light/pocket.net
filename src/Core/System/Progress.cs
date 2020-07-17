@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket
+namespace Pocket.System
 {
     public static class Progress
     {

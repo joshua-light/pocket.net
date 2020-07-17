@@ -1,8 +1,8 @@
 using System;
 
-namespace Pocket
+namespace Pocket.System
 {
-    public class ComposedDisposable : IDisposable
+    public readonly ref struct ComposedDisposable
     {
         private readonly IDisposable _a;
         private readonly IDisposable _b;
@@ -12,8 +12,8 @@ namespace Pocket
 
         public void Dispose()
         {
-            _a.Dispose();
             _b.Dispose();
+            _a.Dispose();
         }
     }
 }

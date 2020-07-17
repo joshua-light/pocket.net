@@ -1,8 +1,9 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Pocket.System;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class StreamExtensions
     {

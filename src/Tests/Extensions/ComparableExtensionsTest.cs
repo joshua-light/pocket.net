@@ -1,3 +1,4 @@
+using Pocket.Extensions;
 using Shouldly;
 using Xunit;
 

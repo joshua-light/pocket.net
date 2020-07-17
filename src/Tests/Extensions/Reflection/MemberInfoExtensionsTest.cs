@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Pocket.Extensions;
 using Shouldly;
 using Xunit;
 

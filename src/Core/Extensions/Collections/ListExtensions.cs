@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class ListExtensions
     {

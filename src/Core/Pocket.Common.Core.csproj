@@ -23,9 +23,18 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>Pocket.Tests</_Parameter1>
     </AssemblyAttribute>
+    <None Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0-preview5.19224.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\**" />
   </ItemGroup>
 </Project>

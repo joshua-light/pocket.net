@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using Pocket.Extensions;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Tests.Extensions

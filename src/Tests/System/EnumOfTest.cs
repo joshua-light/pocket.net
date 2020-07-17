@@ -1,29 +1,34 @@
-﻿using Shouldly;
+﻿using Pocket.System;
+using Shouldly;
 using Xunit;
 
 namespace Pocket.Tests.System
 {
     public class EnumOfTest
     {
-        enum Order
+        private enum Order
         {
             First,
             Second,
             Third,
-            Fourth,
-            Fifth
         }
         
         [Fact]
-        public void Values_ShouldReturnAllEnumValues() =>
+        public void Values_ReturnsAllEnumValuesAsArray() =>
             EnumOf<Order>.Values
                 .ShouldBe(new[] 
                 { 
                     Order.First, 
                     Order.Second, 
                     Order.Third, 
-                    Order.Fourth, 
-                    Order.Fifth 
                 });
+        
+        [Fact]
+        public void From_ReturnsEnumValue_IfStringDoesMatch() =>
+            EnumOf<Order>.From("First").ShouldBe(Order.First);
+        
+        [Fact]
+        public void From_ReturnsNull_IfStringDoesNotMatch() =>
+            EnumOf<Order>.From("").ShouldBe(null);
     }
 }

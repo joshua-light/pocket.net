@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pocket
+namespace Pocket.System
 {
     public static class Concurrently
     {

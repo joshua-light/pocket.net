@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class SetExtensions
     {

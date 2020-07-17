@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="IDictionary{T, K}"/>.
@@ -95,7 +95,7 @@ namespace Pocket
         /// <typeparam name="TKey">Type of keys in dictionary.</typeparam>
         /// <typeparam name="TValue">Type of values in dictionary.</typeparam>
         /// <returns><see cref="Value{TKey,TValue}"/> object that can be used to retrieve value by specified key in various ways.</returns>
-        public static Value<TKey, TValue> One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey withKey) =>
+        public static Value<TKey, TValue> One<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey withKey) where TKey : notnull =>
             new Value<TKey, TValue>(self, withKey);
     }
 }

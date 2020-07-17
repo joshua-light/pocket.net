@@ -1,14 +1,12 @@
 using System;
 using System.IO;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class DirectoryInfoExtensions
     {
         public static DirectoryInfo Combined(this DirectoryInfo self, string with) =>
             Path.Combine(self.FullName, with).AsDirectory();
-
-        #region Copy
 
         public struct CopyExpression
         {
@@ -97,10 +95,6 @@ namespace Pocket
         public static CopyExpression Copy(this DirectoryInfo self) =>
             new CopyExpression(self);
 
-        #endregion
-
-        #region Clear
-
         public struct ClearExpression
         {
             private readonly DirectoryInfo _root;
@@ -152,7 +146,5 @@ namespace Pocket
 
         public static ClearExpression Clear(this DirectoryInfo self) =>
                   new ClearExpression(self);
-
-        #endregion
     }
 }

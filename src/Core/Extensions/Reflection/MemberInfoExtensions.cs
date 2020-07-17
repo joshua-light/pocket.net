@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class MemberInfoExtensions
     {

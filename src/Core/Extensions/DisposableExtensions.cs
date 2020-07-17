@@ -1,7 +1,7 @@
 ﻿using System;
 using static Pocket.Guard;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for <see cref="IDisposable"/>.

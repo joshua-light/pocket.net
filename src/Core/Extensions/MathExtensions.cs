@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods for number-types.

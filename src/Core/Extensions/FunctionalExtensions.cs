@@ -1,7 +1,7 @@
 ﻿using System;
 using static Pocket.Guard;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     /// <summary>
     ///     Represents extension-methods with functional style for generic types.

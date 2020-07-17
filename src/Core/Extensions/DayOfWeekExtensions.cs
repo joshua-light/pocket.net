@@ -1,6 +1,6 @@
 using System;
 
-namespace Pocket
+namespace Pocket.Extensions
 {
     public static class DayOfWeekExtensions
     {

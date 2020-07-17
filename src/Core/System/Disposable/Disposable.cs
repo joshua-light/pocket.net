@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocket
+namespace Pocket.System
 {
     public static class Disposable
     {
@@ -11,13 +11,13 @@ namespace Pocket
         
         public static readonly IDisposable Fake = new FakeDisposable();
 
-        public static IDisposable Of(Action begin, Action end) =>
+        public static CompactDisposable Of(Action begin, Action end) =>
             new CompactDisposable(begin, end);
 
-        public static IDisposable Of<T>(T x, Action<T> begin, Action<T> end) =>
-            new CompactDisposable(() => begin(x), () => end(x));
+        public static CompactDisposable<T> Of<T>(T x, Action<T> begin, Action<T> end) =>
+            new CompactDisposable<T>(x, begin, end);
         
-        public static IDisposable With(this IDisposable self, IDisposable other) =>
+        public static ComposedDisposable With(this IDisposable self, IDisposable other) =>
             new ComposedDisposable(self, other);
     }
 }
