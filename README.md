@@ -1,7 +1,7 @@
 # Pocket.Common
 
 ![Build](https://github.com/JoshuaLight/pocket.net/workflows/Build/badge.svg)
-[![NuGet](https://img.shields.io/nuget/v/Pocket.Common.svg)](https://www.nuget.org/packages/Pocket)
+[![NuGet](https://img.shields.io/nuget/v/Pocket.svg)](https://www.nuget.org/packages/Pocket)
 
 Common utilities and extensions that extend .NET Framework in declarative and fluent way.
 
