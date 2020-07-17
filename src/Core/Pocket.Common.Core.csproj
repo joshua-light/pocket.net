@@ -2,10 +2,11 @@
   <PropertyGroup>
     <AssemblyName>Pocket.Common</AssemblyName>
     <RootNamespace>Pocket.Common</RootNamespace>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8</LangVersion>
     <DebugType>pdbonly</DebugType>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />
