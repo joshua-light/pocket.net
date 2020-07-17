@@ -1,4 +1,4 @@
-# Pocket.Common
+# Pocket
 
 ![Build](https://github.com/JoshuaLight/pocket.net/workflows/Build/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/Pocket.svg)](https://www.nuget.org/packages/Pocket)
