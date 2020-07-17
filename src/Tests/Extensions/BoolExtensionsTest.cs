@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Pocket.Tests.Logic
+namespace Pocket.Tests.Extensions
 {
     public class LogicBoolExtensionsTest
     {

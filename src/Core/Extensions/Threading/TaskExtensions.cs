@@ -26,41 +26,6 @@ namespace Pocket
                 : self.Result;
         }
         
-        /// <summary>
-        ///     Waits until <paramref name="self"/> task with <see cref="Result"/> is completed or for specified amount of time.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="ms">Amount of time to wait.</param>
-        /// <returns><code>self.Result</code> if task is completed within <paramref name="ms"/>, otherwise <code>null</code>.</returns>
-        public static async Task<Result> WithTimeout(this Task<Result> self, int ms)
-        {
-            var timeout = Task.Delay(ms);
-            
-            await Task.WhenAny(self, timeout);
-
-            return timeout.IsCompleted && !self.IsCompleted
-                ? Result.Fail($"Failed by timeout: {ms}.")
-                : self.Result;
-        }
-        
-        /// <summary>
-        ///     Waits until <paramref name="self"/> task with <see cref="Result{T}"/> is completed or for specified amount of time.
-        /// </summary>
-        /// <param name="self"><code>this</code> object.</param>
-        /// <param name="ms">Amount of time to wait.</param>
-        /// <typeparam name="T">Type of task result.</typeparam>
-        /// <returns><code>self.Result</code> if task is completed within <paramref name="ms"/>, otherwise <code>null</code>.</returns>
-        public static async Task<Result<T>> WithTimeout<T>(this Task<Result<T>> self, int ms)
-        {
-            var timeout = Task.Delay(ms);
-            
-            await Task.WhenAny(self, timeout);
-
-            return timeout.IsCompleted && !self.IsCompleted
-                ? Result.Fail<T>($"Failed by timeout: {ms}.")
-                : self.Result;
-        }
-        
         public static Task<V> Then<T, V>(this Task<T> self, Func<T, V> map) =>
             self.ContinueWith(x => map(x.Result));
         public static Task<V> Then<T, V>(this Task<T> self, Func<T, Task<V>> map) =>

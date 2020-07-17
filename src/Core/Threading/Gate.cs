@@ -6,6 +6,7 @@ namespace Pocket
     /// <summary>
     ///     Represents gate that can be used for threads synchronization in same way as <see cref="ManualResetEvent"/>.
     /// </summary>
+    /// TODO: Add `ManualResetEvent` (and others) extensions instead.
     public class Gate
     {
         /// <summary>

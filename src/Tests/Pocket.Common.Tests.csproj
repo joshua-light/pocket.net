@@ -18,8 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Pocket.Common.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Flows" />
-    <Folder Include="Time" />
-  </ItemGroup>
 </Project>
