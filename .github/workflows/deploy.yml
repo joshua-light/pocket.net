@@ -40,4 +40,3 @@ jobs:
       run: |
         cd src
         dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
-        exit 0 # Previous command fails even on success.
