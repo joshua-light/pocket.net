@@ -9,6 +9,13 @@
     <Nullable>enable</Nullable>
     <AssemblyVersion>2.0.1</AssemblyVersion>
     <FileVersion>2.0.1</FileVersion>
+    <PackageVersion>2.0.1</PackageVersion>
+    <Title>Pocket.Common</Title>
+    <Description>Provides a set of common classes and approaches, which can be used in any project as helpful pocket library.</Description>
+    <Copyright>Copyright © 2020 JoshuaLight</Copyright>
+    <PackageLicenseUrl>https://github.com/JoshuaLight/Pocket.Common/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/JoshuaLight/Pocket.Common/</RepositoryUrl>
+    <PackageTags>common util extensions</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pocket.Common.Core.csproj.DotSettings" />
