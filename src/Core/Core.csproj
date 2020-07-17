@@ -5,7 +5,6 @@
     <LangVersion>8</LangVersion>
     <DebugType>pdbonly</DebugType>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
     <AssemblyVersion>0.0.2</AssemblyVersion>
     <FileVersion>0.0.2</FileVersion>
@@ -16,6 +15,7 @@
     <PackageLicenseUrl>https://github.com/JoshuaLight/pocket.net/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/JoshuaLight/pocket.net/</RepositoryUrl>
     <PackageTags>common util extensions fluent</PackageTags>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,5 +32,9 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>
 </Project>
