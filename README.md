@@ -3,7 +3,7 @@
 ![Build](https://github.com/JoshuaLight/pocket.net/workflows/Build/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/Pocket.svg)](https://www.nuget.org/packages/Pocket)
 
-Common utilities and extensions that extend .NET Framework in declarative and fluent way.
+_A nice tiny pocket of useful stuff for .NET._
 
 ## Extensions
 
