@@ -1,18 +1,19 @@
 ﻿namespace Pocket
 {
     /// <summary>
-    ///     Represents static class that contains methods related to notion of digits.
+    ///     A number of methods related to digits.
     /// </summary>
     public static class Digits
     {
         /// <summary>
-        ///     Counts number of digits of specified positive <see cref="long"/> <paramref name="value"/>.
+        ///     Returns the number of digits in the specified <see cref="long"/> <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        ///     Do not validates input, so for negative numbers result will be `1`.
+        ///     Works only for positive values.
+        ///     The method is meant to be a faster alternative to log10 approach.
         /// </remarks>
-        /// <param name="value">Positive number.</param>
-        /// <returns>Digits count of <paramref name="value"/>.</returns>
+        /// <param name="value">A positive number.</param>
+        /// <returns>The number of digits in the <paramref name="value"/>.</returns>
         public static int Count(long value)
         {
             // Digits count are hardcoded,
@@ -60,13 +61,14 @@
         }
 
         /// <summary>
-        ///     Counts number of digits of specified positive <see cref="float"/> <paramref name="value"/>.
+        ///     Returns the number of digits in the specified <see cref="float"/> <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        ///     Do not validates input, so for negative numbers result will be `1`.
+        ///     Works only for positive values.
+        ///     The method is meant to be a faster alternative to log10 approach.
         /// </remarks>
-        /// <param name="value">Positive number.</param>
-        /// <returns>Digits count of <paramref name="value"/>.</returns>
+        /// <param name="value">A positive number.</param>
+        /// <returns>The number of digits in the <paramref name="value"/>.</returns>
         public static int Count(float value)
         {
             var digits = 39;
