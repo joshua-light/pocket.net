@@ -3,7 +3,7 @@
 ![Build](https://github.com/JoshuaLight/pocket.net/workflows/Build/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/Pocket.svg)](https://www.nuget.org/packages/Pocket)
 
-_A nice tiny pocket of useful stuff for .NET._
+_A tiny pocket of useful stuff for .NET._
 
 ## Extensions
 
